@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Hero from './Hero';
 import ServicesSection from './ServicesSection';
+import FeaturedWorks from './FeaturedWorks';
 
 function LandingPage() {
   return (
@@ -9,6 +10,7 @@ function LandingPage() {
       <Header />
       <Hero />
       <ServicesSection />
+      <FeaturedWorks />
     </div>
   );
 }
