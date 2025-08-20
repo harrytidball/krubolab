@@ -483,107 +483,156 @@
   .icon-btn {
     padding: 0.375rem;
   }
-}
-
-@media (max-width: 768px) {
+  
+  /* Hero section responsive for smaller screens */
   .hero {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto auto;
-    gap: 1rem;
+    height: auto; /* Allow height to adjust on smaller screens */
+    min-height: 50vh; /* Much reduced height for mobile/tablet */
     padding: 2rem 1rem;
-    min-height: auto;
-  }
-  
-  .hero-left-panel,
-  .hero-right-panel {
-    order: 1;
-    padding: 1rem;
-  }
-  
-  .vertical-divider {
-    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
   
   .hero-center-panel {
-    order: 2;
     flex-direction: column;
     text-align: center;
     gap: 2rem;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0;
   }
   
   .hero-robot {
     margin-right: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
+    align-self: center;
+    order: 1; /* Robot first on smaller screens */
+  }
+  
+  .robot-image {
+    width: 320px; /* Appropriate size for tablet/small desktop */
+    height: 320px;
   }
   
   .hero-content {
     text-align: center;
+    order: 2; /* Content second on smaller screens */
+    max-width: 100%;
+    padding-left: 0;
+  }
+  
+  .hero-title {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
   
   .hero-greeting {
-    font-size: 2rem;
+    font-size: 3rem; /* Appropriate size for tablet/small desktop */
+    line-height: 1.2;
   }
   
   .hero-welcome {
-    font-size: 1.5rem;
+    font-size: 3rem; /* Appropriate size for tablet/small desktop */
+    line-height: 1.2;
   }
   
   .hero-subtitle {
-    font-size: 1rem;
+    font-size: 2rem; /* Appropriate size for tablet/small desktop */
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: auto; /* Allow height to adjust on mobile */
+    min-height: 50vh; /* Ensure it takes full viewport height */
+    padding: 2rem 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
   }
   
-  .top-right-button {
-    position: relative;
-    top: auto;
-    right: auto;
-    order: 3;
+  .hero-center-panel {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 0;
+  }
+  
+  .hero-robot {
+    margin-right: 0;
+    margin-bottom: 0;
     align-self: center;
-    margin-top: 1rem;
+    order: 1; /* Robot first on mobile */
+  }
+  
+  .robot-image {
+    width: 280px; /* Smaller robot on mobile */
+    height: 280px;
+  }
+  
+  .hero-content {
+    text-align: center;
+    order: 2; /* Content second on mobile */
+    max-width: 100%;
+    padding-left: 0;
+  }
+  
+  .hero-title {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-greeting {
+    font-size: 2.5rem; /* Smaller font on mobile */
+    line-height: 1.2;
+  }
+  
+  .hero-welcome {
+    font-size: 2.5rem; /* Smaller font on mobile */
+    line-height: 1.2;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem; /* Smaller font on mobile */
+    line-height: 1.4;
   }
 }
 
 @media (max-width: 480px) {
-  .logo-section {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .nav-section {
-    gap: 0.5rem;
-  }
-  
-  .nav-link {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.75rem;
-  }
-  
   .hero {
-    padding: 1rem;
+    padding: 1.5rem 1rem;
+    min-height: 50vh;
   }
   
-  .hero-greeting {
-    font-size: 1.75rem;
-  }
-  
-  .hero-welcome {
-    font-size: 1.25rem;
+  .hero-center-panel {
+    gap: 1.5rem;
   }
   
   .robot-image {
-    width: 140px;
-    height: 140px;
+    width: 240px; /* Even smaller robot on very small screens */
+    height: 240px;
   }
   
-  .header-container {
-    padding: 0.75rem;
+  .hero-greeting {
+    font-size: 2rem; /* Smaller font on very small screens */
   }
   
-  .search-input {
-    font-size: 0.875rem;
-    padding: 0.5rem 0.75rem 0.5rem 2rem;
+  .hero-welcome {
+    font-size: 2rem; /* Smaller font on very small screens */
   }
   
-  .logo-image {
-    height: 40px;
+  .hero-subtitle {
+    font-size: 1.25rem; /* Smaller font on very small screens */
+  }
+  
+  .hero-title {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
   }
 } 
