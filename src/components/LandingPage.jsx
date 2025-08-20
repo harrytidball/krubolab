@@ -3,6 +3,7 @@ import Header from './Header';
 import Hero from './Hero';
 import ServicesSection from './ServicesSection';
 import FeaturedWorks from './FeaturedWorks';
+import Materials from './Materials';
 
 function LandingPage() {
   return (
@@ -11,6 +12,7 @@ function LandingPage() {
       <Hero />
       <ServicesSection />
       <FeaturedWorks />
+      <Materials />
     </div>
   );
 }
