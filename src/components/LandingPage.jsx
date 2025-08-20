@@ -4,6 +4,7 @@ import Hero from './Hero';
 import ServicesSection from './ServicesSection';
 import FeaturedWorks from './FeaturedWorks';
 import Materials from './Materials';
+import WhyChooseUs from './WhyChooseUs';
 
 function LandingPage() {
   return (
@@ -13,6 +14,7 @@ function LandingPage() {
       <ServicesSection />
       <FeaturedWorks />
       <Materials />
+      <WhyChooseUs />
     </div>
   );
 }

@@ -1,6 +1,12 @@
 /* Landing Page - Dedicated Styling System */
 /* This file is completely separate from the admin dashboard styling */
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   --color-white: #FFFFFF;
   --color-red: #f4f3ef;
@@ -46,7 +52,7 @@
 }
 
 .logo-image {
-  height: 50px;
+  height: 70px;
   width: auto;
   object-fit: contain;
   transition: transform 0.2s ease;
@@ -258,14 +264,14 @@
 }
 
 .hero-greeting {
-  font-size: 48px; /* Reduced from 60px */
+  font-size: 3rem; /* Standardized to match other titles */
   font-weight: 600; /* Semibold */
   color: #dfdfde;
   line-height: 1.1;
 }
 
 .hero-welcome {
-  font-size: 48px; /* Reduced from 60px */
+  font-size: 3rem; /* Standardized to match other titles */
   font-weight: 600; /* Semibold */
   color: #dfdfde;
   line-height: 1.1;
@@ -390,6 +396,7 @@
 
 /* Mobile Search */
 .mobile-search {
+  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -529,12 +536,12 @@
   }
   
   .hero-greeting {
-    font-size: 3rem; /* Appropriate size for tablet/small desktop */
+    font-size: 2.5rem; /* Standardized to match other titles */
     line-height: 1.2;
   }
   
   .hero-welcome {
-    font-size: 3rem; /* Appropriate size for tablet/small desktop */
+    font-size: 2.5rem; /* Standardized to match other titles */
     line-height: 1.2;
   }
   
@@ -589,12 +596,12 @@
   }
   
   .hero-greeting {
-    font-size: 2.5rem; /* Smaller font on mobile */
+    font-size: 2.25rem; /* Standardized to match other titles */
     line-height: 1.2;
   }
   
   .hero-welcome {
-    font-size: 2.5rem; /* Smaller font on mobile */
+    font-size: 2.25rem; /* Standardized to match other titles */
     line-height: 1.2;
   }
   
@@ -620,11 +627,11 @@
   }
   
   .hero-greeting {
-    font-size: 2rem; /* Smaller font on very small screens */
+    font-size: 2rem; /* Standardized to match other titles */
   }
   
   .hero-welcome {
-    font-size: 2rem; /* Smaller font on very small screens */
+    font-size: 2rem; /* Standardized to match other titles */
   }
   
   .hero-subtitle {
@@ -825,7 +832,7 @@
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: var(--color-text-dark);
   text-align: left; /* Changed from center to left */
@@ -967,7 +974,7 @@
   }
   
   .section-title {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     margin-bottom: 2.5rem;
   }
   
@@ -990,7 +997,7 @@
   }
   
   .section-title {
-    font-size: 2rem;
+    font-size: 2.25rem;
     margin-bottom: 2rem;
   }
   
@@ -1028,7 +1035,7 @@
   }
   
   .section-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
     margin-bottom: 1.5rem;
   }
   
@@ -1070,13 +1077,13 @@
 
 /* ===== MATERIALS SECTION ===== */
 .materials-section {
-  padding: 5rem 2rem;
+  padding: 5rem 0;
   background: #e1e1e1;
 }
 
 .materials-container {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0 4rem;
 }
 
 .materials-content {
@@ -1149,18 +1156,12 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #555555;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  cursor: default;
   box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 3px 8px rgba(0, 0, 0, 0.4);
   white-space: nowrap;
 }
 
-.material-btn:hover {
-  background: #e8e7e1;
-  border-color: #e8e7e1;
-  transform: translateY(-2px);
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 5px 12px rgba(0, 0, 0, 0.5);
-}
+
 
 /* Responsive Design for Materials Section */
 @media (max-width: 1024px) {
@@ -1179,7 +1180,11 @@
 
 @media (max-width: 768px) {
   .materials-section {
-    padding: 3rem 1rem;
+    padding: 3rem 0;
+  }
+  
+  .materials-container {
+    margin: 0 1rem;
   }
   
   .materials-content {
@@ -1243,5 +1248,136 @@
   
   .materials-photo {
     max-width: 500px;
+  }
+}
+
+/* ===== WHY CHOOSE US SECTION ===== */
+.why-choose-us-section {
+  padding: 5rem 0;
+  background: #f5f5f5;
+}
+
+.why-choose-us-container {
+  max-width: 1400px;
+  margin: 0 6rem;
+}
+
+.why-choose-us-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin: 0 0 4rem 0;
+  line-height: 1.1;
+}
+
+.why-choose-us-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.why-choose-us-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.why-choose-us-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.why-choose-us-text {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Responsive Design for Why Choose Us Section */
+@media (max-width: 1024px) {
+  .why-choose-us-container {
+    margin: 0 4rem;
+  }
+  
+  .why-choose-us-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .why-choose-us-grid {
+    gap: 1.5rem;
+  }
+  
+  .why-choose-us-icon {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-choose-us-section {
+    padding: 3rem 0;
+  }
+  
+  .why-choose-us-container {
+    margin: 0 3rem;
+  }
+  
+  .why-choose-us-title {
+    font-size: 2.25rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  
+  .why-choose-us-grid {
+    grid-template-columns: repeat(2, 2fr);
+    gap: 2rem;
+  }
+  
+  .why-choose-us-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-choose-us-section {
+    padding: 2rem 0;
+  }
+  
+  .why-choose-us-container {
+    margin: 0 2rem;
+  }
+  
+  .why-choose-us-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .why-choose-us-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .why-choose-us-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .why-choose-us-text {
+    font-size: 0.9rem;
   }
 } 
