@@ -246,7 +246,7 @@ function WorkshopProducts() {
                         onClick={() => toggleCart(product.id)}
                       >
                         <img 
-                          src={isInCart(product.id) ? "/images/cart.svg" : "/images/cart.svg"} 
+                          src={isInCart(product.id) ? "/images/cart-filled.svg" : "/images/cart.svg"} 
                           alt={isInCart(product.id) ? "Carrito lleno" : "Carrito"} 
                         />
                       </button>

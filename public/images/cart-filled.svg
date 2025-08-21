@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2021 (64-Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="216.374mm" height="221.228mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 573.04 585.9"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#C72124;stroke-width:0.53;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .fil1 {fill:#C72124}
+    .fil0 {fill:#C72124;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Capa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_1553237146816">
+   <path id="Trazado_7" class="fil0" d="M555.38 100.82c-14.15,-16.28 -34.67,-25.69 -56.24,-25.78l-393.69 0 0 -9.37c-3.59,-37.23 -34.9,-65.66 -72.31,-65.66 -0.89,0 -1.8,0.03 -2.68,0.05l-4.69 -0c-14.23,0 -25.78,11.54 -25.78,25.78 -0,0.04 -0,0.08 -0,0.12 0,12.94 10.49,23.43 23.43,23.43 0.78,0 1.57,-0.04 2.34,-0.12l4.69 -0c0.14,-0 0.29,-0 0.43,-0 12.43,0 23.09,8.87 25.35,21.09l32.81 288.24c7.13,61.44 59.18,107.8 121.04,107.8 0.27,0 0.55,0 0.82,0l253.08 -0c0.78,0.08 1.56,0.12 2.34,0.12 12.94,0 23.43,-10.49 23.43,-23.43 0,-0.04 0,-0.08 0,-0.12 -0,-14.23 -11.54,-25.78 -25.78,-25.78l-253.09 0c-0.5,0.01 -1.03,0.02 -1.53,0.02 -31.09,0 -58.75,-19.8 -68.77,-49.23l290.58 0c59.51,-0.05 110.64,-42.34 121.86,-100.77l18.75 -105.45c0.83,-4.42 1.25,-8.94 1.25,-13.45 0,-17.43 -6.27,-34.29 -17.66,-47.48l-0 -0zm-32.81 51.55l-18.75 107.8c-5.73,35.13 -36.1,60.93 -71.69,60.93 -0.31,0 -0.65,-0.01 -0.95,-0.01l-297.61 0 -23.43 -196.84 389 0c0.34,-0.01 0.69,-0.02 1.03,-0.02 6.59,0 12.93,2.52 17.71,7.05 3.54,4.22 5.48,9.55 5.48,15.06 0,2.04 -0.27,4.07 -0.79,6.03l-0 0z" data-name="Trazado 7"/>
+   <circle id="Elipse_5" class="fil0" cx="180.44" cy="536.69" r="49.21" data-name="Elipse 5"/>
+   <circle id="Elipse_6" class="fil0" cx="412.44" cy="536.69" r="49.21" data-name="Elipse 6"/>
+  </g>
+  <path class="fil1 str0" d="M432.13 321.1c35.6,0 65.97,-25.81 71.69,-60.93l18.75 -107.8c0.52,-1.97 0.79,-4 0.79,-6.03 0,-5.5 -1.94,-10.84 -5.48,-15.06 -4.78,-4.53 -11.13,-7.05 -17.71,-7.05 -0.34,0 -0.69,0.01 -1.03,0.02l-389 0 23.43 196.84 297.61 -0c0.3,0 0.64,0.01 0.95,0.01z"/>
+ </g>
+</svg>
