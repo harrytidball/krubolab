@@ -51,6 +51,12 @@
   flex-shrink: 0;
 }
 
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .logo-image {
   height: 70px;
   width: auto;
@@ -93,8 +99,8 @@
 
 .search-input:focus {
   outline: none;
-  border-color: var(--color-red);
-  box-shadow: 0 0 0 3px rgba(244, 243, 239, 0.3);
+  border-color: #dca1a2;
+  box-shadow: 0 0 0 3px rgba(220, 161, 162, 0.3);
 }
 
 .search-input::placeholder {
@@ -284,6 +290,8 @@ body.search-active::before {
   position: relative;
   overflow: hidden;
   outline: none; /* Remove any outline */
+  margin: 0;
+  padding: 0;
 }
 
 /* Center Panel - Robot and Content */
@@ -303,7 +311,7 @@ body.search-active::before {
   flex-shrink: 0; /* Don't shrink the robot */
   margin-right: 3rem;
   align-self: flex-end; /* Position at bottom */
-  margin-bottom: -2rem; /* Negative margin to move down more */
+  margin-bottom: -4rem; /* Increased negative margin to move down more */
 }
 
 .robot-image {
@@ -581,7 +589,7 @@ body.search-active::before {
   /* Hero section responsive for smaller screens */
   .hero {
     height: auto; /* Allow height to adjust on smaller screens */
-    min-height: 50vh; /* Much reduced height for mobile/tablet */
+    min-height: 45vh; /* Much reduced height for mobile/tablet */
     padding: 2rem 1rem 0 1rem;
     flex-direction: column;
     justify-content: flex-start;
@@ -595,14 +603,14 @@ body.search-active::before {
     padding: 0;
     max-width: 100%;
     width: 100%;
-    margin-top: 0;
+    margin-top: 2rem; /* Add top margin for iPad */
     height: 100%;
     justify-content: flex-start;
   }
   
   .hero-robot {
     margin-right: 0;
-    margin-bottom: 0;
+    margin-bottom: -2rem; /* Negative margin to position at bottom on iPad */
     align-self: center;
     order: 2; /* Robot second on smaller screens */
     margin-top: auto;
@@ -616,8 +624,9 @@ body.search-active::before {
   .hero-content {
     text-align: center;
     order: 1; /* Content first on smaller screens */
-    max-width: 100%;
+    max-width: 600px; /* Tighter horizontal spacing on tablet */
     padding-left: 0;
+    margin: 0 auto; /* Center the content */
   }
   
   .hero-title {
@@ -665,7 +674,7 @@ body.search-active::before {
   
   .hero-robot {
     margin-right: 0;
-    margin-bottom: 0;
+    margin-bottom: -0.5rem; /* Same negative margin as desktop */
     align-self: center;
     order: 2; /* Robot second on mobile */
     margin-top: auto;
@@ -679,13 +688,15 @@ body.search-active::before {
   .hero-content {
     text-align: center;
     order: 1; /* Content first on mobile */
-    max-width: 100%;
+    max-width: 500px; /* Tighter horizontal spacing on mobile */
     padding-left: 0;
+    margin: 0 auto; /* Center the content */
   }
   
   .hero-title {
     gap: 0.75rem;
     margin-bottom: 1.5rem;
+    margin-top: 1rem;
   }
   
   .hero-greeting {
@@ -712,6 +723,10 @@ body.search-active::before {
   
   .hero-center-panel {
     gap: 1.5rem;
+  }
+  
+  .hero-content {
+    max-width: 400px; /* Even tighter spacing on very small screens */
   }
   
   .robot-image {
@@ -814,9 +829,6 @@ body.search-active::before {
 
 /* ===== RESPONSIVE DESIGN FOR SERVICES ===== */
 @media (max-width: 1024px) {
-  .services-section {
-    padding: 3rem 1.5rem;
-  }
   
   .services-cards {
     gap: 1.5rem;
@@ -843,10 +855,6 @@ body.search-active::before {
 }
 
 @media (max-width: 768px) {
-  .services-section {
-    padding: 2rem 1rem;
-  }
-  
   .services-cards {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -881,9 +889,6 @@ body.search-active::before {
 }
 
 @media (max-width: 480px) {
-  .services-section {
-    padding: 1.5rem 0.75rem;
-  }
   
   .services-cards {
     grid-template-columns: 1fr;
@@ -1652,7 +1657,7 @@ body.search-active::before {
 .quote-robot {
   flex-shrink: 0;
   align-self: flex-end;
-  margin-bottom: 0;
+  margin-bottom: -0.5rem; /* Negative margin to position at bottom */
   margin-top: auto;
 }
 
@@ -1732,13 +1737,12 @@ body.search-active::before {
     order: 2;
     margin-top: auto;
     align-self: center;
+    margin-bottom: -0.5rem; /* Negative margin to position at bottom */
   }
   
   .quote-button {
     margin-bottom: 2rem;
   }
-  
-
   
   .quote-robot-image {
     width: 400px;
@@ -1768,6 +1772,10 @@ body.search-active::before {
   
   .quote-container {
     gap: 1.5rem;
+  }
+  
+  .quote-content {
+    margin-top: 2rem;
   }
   
   .quote-robot-image {

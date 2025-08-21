@@ -60,11 +60,13 @@ function Header() {
         <div className="header-container">
           {/* Logo Section */}
           <div className={`logo-section ${isSearchActive ? 'hidden' : ''}`}>
-            <img 
-              src="/images/krubo-logo.png" 
-              alt="KRUBO Logo" 
-              className="logo-image"
-            />
+            <a href="/" className="logo-link">
+              <img 
+                src="/images/krubo-logo.png" 
+                alt="KRUBO Logo" 
+                className="logo-image"
+              />
+            </a>
           </div>
 
           {/* Search Bar */}
