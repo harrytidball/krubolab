@@ -60,6 +60,7 @@ function WorkshopProducts() {
   const [cart, setCart] = useState(getCartFromStorage());
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -162,17 +163,32 @@ function WorkshopProducts() {
   };
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % Math.ceil(products.length / productsPerSlide));
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % Math.ceil(products.length / productsPerSlide));
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => 
-      prev === 0 ? Math.ceil(products.length / productsPerSlide) - 1 : prev - 1
-    );
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => 
+        prev === 0 ? Math.ceil(products.length / productsPerSlide) - 1 : prev - 1
+      );
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const goToSlide = (index) => {
-    setCurrentSlide(index);
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide(index);
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const getVisibleProducts = () => {
@@ -214,7 +230,9 @@ function WorkshopProducts() {
         
         <div className="products-carousel">
           <div className="carousel-container">
-            <div className="carousel-track">
+            <div 
+              className={`carousel-track ${isTransitioning ? 'transitioning' : ''}`}
+            >
               {getVisibleProducts().map((product) => (
                 <div key={product.id} className="product-card">
                   <div className="product-image">

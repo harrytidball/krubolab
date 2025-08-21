@@ -106,9 +106,14 @@
 .carousel-track {
   display: flex;
   gap: 1.5rem;
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   width: 100%;
   flex-wrap: nowrap;
+}
+
+.carousel-track.transitioning {
+  opacity: 0.3;
+  transform: scale(0.95);
 }
 
 .product-card {
