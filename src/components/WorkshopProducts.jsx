@@ -10,12 +10,56 @@ const getProductsPerSlide = () => {
   return 4;
 };
 
+// Helper function to get favorites from localStorage
+const getFavoritesFromStorage = () => {
+  try {
+    const stored = localStorage.getItem('krubolab-favorites');
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error('Error reading favorites from localStorage:', error);
+    return [];
+  }
+};
+
+// Helper function to save favorites to localStorage
+const saveFavoritesToStorage = (favorites) => {
+  try {
+    localStorage.setItem('krubolab-favorites', JSON.stringify(favorites));
+  } catch (error) {
+    console.error('Error saving favorites to localStorage:', error);
+  }
+};
+
+// Helper function to get cart from localStorage
+const getCartFromStorage = () => {
+  try {
+    const stored = localStorage.getItem('krubolab-cart');
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error('Error reading cart from localStorage:', error);
+    return [];
+  }
+};
+
+// Helper function to save cart to localStorage
+const saveCartToStorage = (cart) => {
+  try {
+    localStorage.setItem('krubolab-cart', JSON.stringify(cart));
+  } catch (error) {
+    console.error('Error saving cart to localStorage:', error);
+  }
+};
+
 function WorkshopProducts() {
   const [products, setProducts] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
   const [productsPerSlide, setProductsPerSlide] = useState(getProductsPerSlide());
   const [imageLoading, setImageLoading] = useState({});
+  const [favorites, setFavorites] = useState(getFavoritesFromStorage());
+  const [cart, setCart] = useState(getCartFromStorage());
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,6 +97,69 @@ function WorkshopProducts() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+      // Save favorites to localStorage whenever favorites state changes
+    useEffect(() => {
+      saveFavoritesToStorage(favorites);
+      // Dispatch custom event to notify other components about favorites change
+      window.dispatchEvent(new CustomEvent('favoritesChanged'));
+    }, [favorites]);
+
+    // Save cart to localStorage whenever cart state changes
+    useEffect(() => {
+      saveCartToStorage(cart);
+      // Dispatch custom event to notify other components about cart change
+      window.dispatchEvent(new CustomEvent('cartChanged'));
+    }, [cart]);
+
+  const toggleFavorite = (productId) => {
+    const product = products.find(p => p.id === productId);
+    const isCurrentlyFavorite = favorites.includes(productId);
+    
+    setFavorites(prev => {
+      if (isCurrentlyFavorite) {
+        return prev.filter(id => id !== productId);
+      } else {
+        return [...prev, productId];
+      }
+    });
+
+    // Show toast notification
+    setToastMessage(isCurrentlyFavorite 
+      ? `${product?.name || 'Producto'} removido de favoritos` 
+      : `${product?.name || 'Producto'} agregado a favoritos`
+    );
+    setShowToast(true);
+    
+    // Hide toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  const isFavorite = (productId) => favorites.includes(productId);
+  const isInCart = (productId) => cart.includes(productId);
+
+  const toggleCart = (productId) => {
+    const product = products.find(p => p.id === productId);
+    const isCurrentlyInCart = cart.includes(productId);
+    
+    setCart(prev => {
+      if (isCurrentlyInCart) {
+        return prev.filter(id => id !== productId);
+      } else {
+        return [...prev, productId];
+      }
+    });
+
+    // Show toast notification
+    setToastMessage(isCurrentlyInCart 
+      ? `${product?.name || 'Producto'} removido del carrito` 
+      : `${product?.name || 'Producto'} agregado al carrito`
+    );
+    setShowToast(true);
+    
+    // Hide toast after 3 seconds
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % Math.ceil(products.length / productsPerSlide));
@@ -133,11 +240,25 @@ function WorkshopProducts() {
                     <h3 className="product-title">{product.name}</h3>
                     <p className="product-price">$ {product.price}</p>
                     <div className="product-actions">
-                      <button className="action-btn cart-btn" aria-label="Agregar al carrito">
-                        <img src="/images/cart.svg" alt="Carrito" />
+                      <button 
+                        className={`action-btn cart-btn ${isInCart(product.id) ? 'in-cart' : ''}`}
+                        aria-label={isInCart(product.id) ? "Quitar del carrito" : "Agregar al carrito"}
+                        onClick={() => toggleCart(product.id)}
+                      >
+                        <img 
+                          src={isInCart(product.id) ? "/images/cart.svg" : "/images/cart.svg"} 
+                          alt={isInCart(product.id) ? "Carrito lleno" : "Carrito"} 
+                        />
                       </button>
-                      <button className="action-btn favorite-btn" aria-label="Agregar a favoritos">
-                        <img src="/images/favorito.svg" alt="Favorito" />
+                      <button 
+                        className={`action-btn favorite-btn ${isFavorite(product.id) ? 'favorited' : ''}`}
+                        aria-label={isFavorite(product.id) ? "Quitar de favoritos" : "Agregar a favoritos"}
+                        onClick={() => toggleFavorite(product.id)}
+                      >
+                        <img 
+                          src={isFavorite(product.id) ? "/images/favorito-filled.svg" : "/images/favorito.svg"} 
+                          alt={isFavorite(product.id) ? "Favorito lleno" : "Favorito"} 
+                        />
                       </button>
                     </div>
                   </div>
@@ -179,6 +300,13 @@ function WorkshopProducts() {
           )}
         </div>
       </div>
+      
+      {/* Toast Notification */}
+      {showToast && (
+        <div className="toast-notification">
+          <span>{toastMessage}</span>
+        </div>
+      )}
     </section>
   );
 }

@@ -4,6 +4,74 @@ function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [isSearchActive, setIsSearchActive] = useState(false);
+  const [favoritesCount, setFavoritesCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
+
+  // Helper function to get favorites count from localStorage
+  const getFavoritesCount = () => {
+    try {
+      const stored = localStorage.getItem('krubolab-favorites');
+      return stored ? JSON.parse(stored).length : 0;
+    } catch (error) {
+      console.error('Error reading favorites from localStorage:', error);
+      return 0;
+    }
+  };
+
+  // Helper function to get cart count from localStorage
+  const getCartCount = () => {
+    try {
+      const stored = localStorage.getItem('krubolab-cart');
+      return stored ? JSON.parse(stored).length : 0;
+    } catch (error) {
+      console.error('Error reading cart from localStorage:', error);
+      return 0;
+    }
+  };
+
+  // Listen for changes in favorites and cart
+  useEffect(() => {
+    const updateFavoritesCount = () => {
+      setFavoritesCount(getFavoritesCount());
+    };
+
+    const updateCartCount = () => {
+      setCartCount(getCartCount());
+    };
+
+    // Initial counts
+    updateFavoritesCount();
+    updateCartCount();
+
+    // Listen for storage changes (when favorites or cart are updated in other components)
+    const handleStorageChange = (e) => {
+      if (e.key === 'krubolab-favorites') {
+        updateFavoritesCount();
+      }
+      if (e.key === 'krubolab-cart') {
+        updateCartCount();
+      }
+    };
+
+    // Listen for custom events when favorites or cart change
+    const handleFavoritesChange = () => {
+      updateFavoritesCount();
+    };
+
+    const handleCartChange = () => {
+      updateCartCount();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('favoritesChanged', handleFavoritesChange);
+    window.addEventListener('cartChanged', handleCartChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('favoritesChanged', handleFavoritesChange);
+      window.removeEventListener('cartChanged', handleCartChange);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -128,6 +196,9 @@ function Header() {
                 width="24" 
                 height="24"
               />
+              {favoritesCount > 0 && (
+                <span className="favorites-count">{favoritesCount}</span>
+              )}
             </button>
             <button className="icon-btn cart-btn">
               <img 
@@ -136,6 +207,9 @@ function Header() {
                 width="24" 
                 height="24"
               />
+              {cartCount > 0 && (
+                <span className="cart-count">{cartCount}</span>
+              )}
             </button>
             
             {/* Mobile Menu Toggle - Hidden on Desktop */}
