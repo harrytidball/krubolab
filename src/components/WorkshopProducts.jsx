@@ -15,12 +15,26 @@ function WorkshopProducts() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
   const [productsPerSlide, setProductsPerSlide] = useState(getProductsPerSlide());
+  const [imageLoading, setImageLoading] = useState({});
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const productsData = await dashboardService.getProducts();
         setProducts(productsData);
+        // Initialize image loading state for all products
+        const initialImageLoading = {};
+        productsData.forEach(product => {
+          // Check if image is already cached
+          const img = new Image();
+          img.src = product.images[0];
+          if (img.complete) {
+            initialImageLoading[product.id] = false;
+          } else {
+            initialImageLoading[product.id] = true;
+          }
+        });
+        setImageLoading(initialImageLoading);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -66,7 +80,21 @@ function WorkshopProducts() {
       <section className="workshop-products-section">
         <div className="workshop-products-container">
           <h2 className="workshop-products-title">LO QUE HACEMOS EN EL TALLER</h2>
-          <div className="loading-spinner">Cargando productos...</div>
+          <div className="loading-skeleton">
+            {[1, 2, 3, 4].map((index) => (
+              <div key={index} className="skeleton-card">
+                <div className="skeleton-image"></div>
+                <div className="skeleton-content">
+                  <div className="skeleton-title"></div>
+                  <div className="skeleton-price"></div>
+                  <div className="skeleton-actions">
+                    <div className="skeleton-btn"></div>
+                    <div className="skeleton-btn"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     );
@@ -83,10 +111,22 @@ function WorkshopProducts() {
               {getVisibleProducts().map((product) => (
                 <div key={product.id} className="product-card">
                   <div className="product-image">
+                    {imageLoading[product.id] && (
+                      <div className="image-skeleton"></div>
+                    )}
                     <img 
                       src={product.images[0]} 
                       alt={product.name}
                       className="product-photo"
+                      onLoad={() => setImageLoading(prev => ({ ...prev, [product.id]: false }))}
+                      onError={() => setImageLoading(prev => ({ ...prev, [product.id]: false }))}
+                      style={{ opacity: imageLoading[product.id] ? 0 : 1, transition: 'opacity 0.3s ease' }}
+                      onLoadStart={() => {
+                        // Set a timeout to prevent infinite loading
+                        setTimeout(() => {
+                          setImageLoading(prev => ({ ...prev, [product.id]: false }));
+                        }, 5000);
+                      }}
                     />
                   </div>
                   <div className="product-info">
