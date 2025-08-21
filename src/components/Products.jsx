@@ -6,12 +6,17 @@ function Products() {
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false); // New state for save/update operations
   const [deletingIds, setDeletingIds] = useState(new Set()); // Track which products are being deleted
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     price: '',
-    category: ''
+    description: '',
+    images: [''],
+    colours: [''],
+    measurements: [''], // Changed from medidas to measurements
+    additionalInformation: ''
   });
 
   // Fetch products on component mount
@@ -35,14 +40,24 @@ function Products() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setSaving(true); // Start loading
+      setError(''); // Clear any previous errors
+      
       if (editingProduct) {
         // Update existing product
         const updatedProduct = {
           ...editingProduct,
           ...formData,
-          price: parseFloat(formData.price)
+          price: formData.price, // Keep as string
+          images: formData.images.filter(img => img.trim() !== ''),
+          colours: formData.colours.filter(col => col.trim() !== ''),
+          measurements: formData.measurements.filter(med => med.trim() !== '')
         };
-        await dashboardService.saveProduct(updatedProduct);
+        
+        // Use the dedicated update method
+        await dashboardService.updateProduct(editingProduct.id, updatedProduct);
+        
+        // Update local state
         setProducts(products.map(p => 
           p.id === editingProduct.id ? updatedProduct : p
         ));
@@ -58,26 +73,44 @@ function Products() {
         const newProduct = {
           id: generateUniqueId(),
           ...formData,
-          price: parseFloat(formData.price)
+          price: formData.price, // Keep as string
+          images: formData.images.filter(img => img.trim() !== ''),
+          colours: formData.colours.filter(col => col.trim() !== ''),
+          measurements: formData.measurements.filter(med => med.trim() !== '')
         };
-        await dashboardService.saveProduct(newProduct);
+        
+        // Use the dedicated create method
+        await dashboardService.createProduct(newProduct);
         setProducts([...products, newProduct]);
       }
-      setFormData({ name: '', price: '', category: '' });
+      setFormData({ 
+        name: '', 
+        price: '', 
+        description: '', 
+        images: [''], 
+        colours: [''], 
+        measurements: [''], 
+        additionalInformation: '' 
+      });
       setShowForm(false);
-      setError('');
     } catch (err) {
       setError('Failed to save product');
       console.error('Error saving product:', err);
+    } finally {
+      setSaving(false); // Stop loading regardless of success/failure
     }
   };
 
   const handleEdit = (product) => {
     setEditingProduct(product);
     setFormData({
-      name: product.name,
-      price: product.price.toString(),
-      category: product.category
+      name: product.name || '',
+      price: product.price ? product.price.toString() : '',
+      description: product.description || '',
+      images: product.images && product.images.length > 0 ? [...product.images, ''] : [''],
+      colours: product.colours && product.colours.length > 0 ? [...product.colours, ''] : [''],
+      measurements: product.measurements && product.measurements.length > 0 ? [...product.measurements, ''] : [''],
+      additionalInformation: product.additionalInformation || ''
     });
     setShowForm(true);
   };
@@ -107,6 +140,28 @@ function Products() {
         return newSet;
       });
     }
+  };
+
+  // Helper functions for dynamic arrays
+  const addArrayItem = (field) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: [...prev[field], '']
+    }));
+  };
+
+  const removeArrayItem = (field, index) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: prev[field].filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateArrayItem = (field, index, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: prev[field].map((item, i) => i === index ? value : item)
+    }));
   };
 
   if (loading) {
@@ -148,6 +203,7 @@ function Products() {
                   required
                 />
               </div>
+              
               <div className="form-group">
                 <label>Price:</label>
                 <input
@@ -158,28 +214,146 @@ function Products() {
                   required
                 />
               </div>
+              
               <div className="form-group">
-                <label>Category:</label>
-                <input
-                  type="text"
-                  value={formData.category}
-                  onChange={(e) => setFormData({...formData, category: e.target.value})}
+                <label>Description:</label>
+                <textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  rows="3"
                   required
                 />
               </div>
+
+              <div className="form-group">
+                <label>Images:</label>
+                {formData.images.map((image, index) => (
+                  <div key={index} className="array-input-group">
+                    <input
+                      type="url"
+                      placeholder="Image URL"
+                      value={image}
+                      onChange={(e) => updateArrayItem('images', index, e.target.value)}
+                    />
+                    {formData.images.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeArrayItem('images', index)}
+                        className="remove-array-item-btn"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => addArrayItem('images')}
+                  className="add-array-item-btn"
+                >
+                  + Add Image
+                </button>
+              </div>
+
+              <div className="form-group">
+                <label>Colours:</label>
+                {formData.colours.map((colour, index) => (
+                  <div key={index} className="array-input-group">
+                    <input
+                      type="text"
+                      placeholder="Colour name"
+                      value={colour}
+                      onChange={(e) => updateArrayItem('colours', index, e.target.value)}
+                    />
+                    {formData.colours.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeArrayItem('colours', index)}
+                        className="remove-array-item-btn"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => addArrayItem('colours')}
+                  className="add-array-item-btn"
+                >
+                  + Add Colour
+                </button>
+              </div>
+
+              <div className="form-group">
+                <label>Medidas (Measurements):</label>
+                {formData.measurements.map((medida, index) => (
+                  <div key={index} className="array-input-group">
+                    <input
+                      type="text"
+                      placeholder="Measurement"
+                      value={medida}
+                      onChange={(e) => updateArrayItem('measurements', index, e.target.value)}
+                    />
+                    {formData.measurements.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeArrayItem('measurements', index)}
+                        className="remove-array-item-btn"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => addArrayItem('measurements')}
+                  className="add-array-item-btn"
+                >
+                  + Add Measurement
+                </button>
+              </div>
+
+              <div className="form-group">
+                <label>Additional Information:</label>
+                <textarea
+                  value={formData.additionalInformation}
+                  onChange={(e) => setFormData({...formData, additionalInformation: e.target.value})}
+                  rows="3"
+                  placeholder="Any additional details about the product..."
+                />
+              </div>
+
               <div className="form-actions">
-                <button type="submit" className="save-btn">
-                  {editingProduct ? 'Update' : 'Save'}
+                <button type="submit" className="save-btn" disabled={saving}>
+                  {saving ? (
+                    <>
+                      <span className="loading-spinner"></span>
+                      {editingProduct ? 'Updating...' : 'Saving...'}
+                    </>
+                  ) : (
+                    editingProduct ? 'Update' : 'Save'
+                  )}
                 </button>
                 <button 
                   type="button" 
                   onClick={() => {
                     setShowForm(false);
                     setEditingProduct(null);
-                    setFormData({ name: '', price: '', category: '' });
+                    setFormData({ 
+                      name: '', 
+                      price: '', 
+                      description: '', 
+                      images: [''], 
+                      colours: [''], 
+                      measurements: [''], 
+                      additionalInformation: '' 
+                    });
                     setError('');
                   }}
                   className="cancel-btn"
+                  disabled={saving}
                 >
                   Cancel
                 </button>
@@ -196,23 +370,52 @@ function Products() {
               <th>ID</th>
               <th>Name</th>
               <th>Price</th>
-              <th>Category</th>
+              <th>Description</th>
+              <th>Images</th>
+              <th>Colours</th>
+              <th>Medidas</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {products.length === 0 ? (
               <tr>
-                <td colSpan="5" className="no-data">No products found</td>
+                <td colSpan="8" className="no-data">No products found</td>
               </tr>
             ) : (
               products.map(product => (
                 <tr key={product.id}>
-                  <td>{product.id}</td>
-                  <td>{product.name}</td>
-                  <td>${product.price}</td>
-                  <td>{product.category}</td>
-                  <td>
+                  <td className="product-id">{product.id}</td>
+                  <td className="product-name">{product.name}</td>
+                  <td className="product-price">${product.price}</td>
+                  <td className="product-description">
+                    {product.description ? 
+                      (product.description.length > 50 ? 
+                        `${product.description.substring(0, 50)}...` : 
+                        product.description
+                      ) : 
+                      '-'
+                    }
+                  </td>
+                  <td className="product-images">
+                    {product.images && product.images.length > 0 ? 
+                      `${product.images.length} image(s)` : 
+                      '-'
+                    }
+                  </td>
+                  <td className="product-colours">
+                    {product.colours && product.colours.length > 0 ? 
+                      product.colours.join(', ') : 
+                      '-'
+                    }
+                  </td>
+                  <td className="product-medidas">
+                    {product.measurements && product.measurements.length > 0 ? 
+                      product.measurements.join(', ') : 
+                      '-'
+                    }
+                  </td>
+                  <td className="product-actions">
                     <button 
                       onClick={() => handleEdit(product)}
                       className="edit-btn"

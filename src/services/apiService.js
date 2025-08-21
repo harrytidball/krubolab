@@ -59,13 +59,57 @@ export const dashboardService = {
     }
   },
 
-  async saveProduct(product) {
+  async createProduct(product) {
     try {
       const response = await apiClient.put('/json', {
         filename: 'products.json',
         content: product
       });
       return response.data;
+    } catch (error) {
+      console.error('Error creating product:', error);
+      throw error;
+    }
+  },
+
+  async updateProduct(productId, updatedProduct) {
+    try {
+      // Get current products
+      const currentProducts = await this.getProducts();
+      
+      // Remove the old product and add the updated one
+      const updatedProducts = currentProducts.map(p => 
+        p.id === productId ? updatedProduct : p
+      );
+      
+      // Send with replace mode to prevent duplication
+      const response = await apiClient.put('/json', {
+        filename: 'products.json',
+        content: updatedProducts,
+        mode: 'replace'
+      });
+      
+      return response.data;
+    } catch (error) {
+      console.error('Error updating product:', error);
+      throw error;
+    }
+  },
+
+  async saveProduct(product) {
+    try {
+      // This method is kept for backward compatibility
+      // It will determine if it's a create or update operation
+      const currentProducts = await this.getProducts();
+      const existingProduct = currentProducts.find(p => p.id === product.id);
+      
+      if (existingProduct) {
+        // Update existing product
+        return await this.updateProduct(product.id, product);
+      } else {
+        // Create new product
+        return await this.createProduct(product);
+      }
     } catch (error) {
       console.error('Error saving product:', error);
       throw error;
