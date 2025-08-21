@@ -384,6 +384,44 @@ body {
   transform: translateY(-1px);
 }
 
+.delete-btn:disabled {
+  background: #9ca3af;
+  color: #6b7280;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.6;
+}
+
+.delete-btn:disabled:hover {
+  background: #9ca3af;
+  transform: none;
+}
+
+/* Loading state for buttons */
+.delete-btn:disabled {
+  position: relative;
+}
+
+.delete-btn:disabled::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+
 /* ===== FORM OVERLAY STYLES ===== */
 .form-overlay {
   position: fixed;

@@ -74,15 +74,54 @@ export const dashboardService = {
 
   async deleteProduct(productId) {
     try {
-      const response = await apiClient.delete('/json', {
-        data: {
-          filename: 'products.json',
-          content: { id: productId }
+      // First, try to get the current products to find the one to delete
+      const currentProducts = await this.getProducts();
+      const productToDelete = currentProducts.find(p => p.id === productId);
+      
+      if (!productToDelete) {
+        throw new Error(`Product with ID ${productId} not found`);
+      }
+      
+      // Try method 1: Remove the specific product from the file
+      try {
+        const response = await apiClient.delete('/json', {
+          data: {
+            filename: 'products.json',
+            content: productToDelete  // Send the full product object instead of just ID
+          }
+        });
+        
+        return response.data;
+      } catch (method1Error) {
+        // Try method 2: Send just the ID
+        try {
+          const response = await apiClient.delete('/json', {
+            data: {
+              filename: 'products.json',
+              content: { id: productId }
+            }
+          });
+          
+          return response.data;
+        } catch (method2Error) {
+          // Try method 3: Update the file by removing the product
+          const updatedProducts = currentProducts.filter(p => p.id !== productId);
+          const response = await apiClient.put('/json', {
+            filename: 'products.json',
+            content: updatedProducts
+          });
+          
+          return response.data;
         }
-      });
-      return response.data;
+      }
+      
     } catch (error) {
       console.error('Error deleting product:', error);
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       throw error;
     }
   },

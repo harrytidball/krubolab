@@ -6,6 +6,7 @@ function Products() {
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [deletingIds, setDeletingIds] = useState(new Set()); // Track which products are being deleted
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -47,9 +48,15 @@ function Products() {
         ));
         setEditingProduct(null);
       } else {
-        // Create new product
+        // Create new product with unique ID
+        const generateUniqueId = () => {
+          const timestamp = Date.now();
+          const random = Math.random().toString(36).substr(2, 9);
+          return `${timestamp}-${random}`;
+        };
+        
         const newProduct = {
-          id: Date.now().toString(),
+          id: generateUniqueId(),
           ...formData,
           price: parseFloat(formData.price)
         };
@@ -77,12 +84,28 @@ function Products() {
 
   const handleDelete = async (id) => {
     try {
+      // Add confirmation dialog
+      const productName = products.find(p => p.id === id)?.name || 'this product';
+      if (!window.confirm(`Are you sure you want to delete "${productName}"?`)) {
+        return;
+      }
+      
+      setError(''); // Clear any previous errors
+      setDeletingIds(prev => new Set(prev).add(id)); // Set loading state
+      
       await dashboardService.deleteProduct(id);
+      
+      // Remove from local state
       setProducts(products.filter(p => p.id !== id));
-      setError('');
+      
     } catch (err) {
-      setError('Failed to delete product');
-      console.error('Error deleting product:', err);
+      setError(`Failed to delete product: ${err.message || 'Unknown error'}`);
+    } finally {
+      setDeletingIds(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
     }
   };
 
@@ -199,8 +222,9 @@ function Products() {
                     <button 
                       onClick={() => handleDelete(product.id)}
                       className="delete-btn"
+                      disabled={deletingIds.has(product.id)}
                     >
-                      Delete
+                      {deletingIds.has(product.id) ? 'Deleting...' : 'Delete'}
                     </button>
                   </td>
                 </tr>

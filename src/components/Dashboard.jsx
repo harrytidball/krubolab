@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Products from './Products';
 import Services from './Services';
@@ -8,6 +8,13 @@ import Orders from './Orders';
 function Dashboard({ onLogout }) {
   const [activeTab, setActiveTab] = useState('products');
   const navigate = useNavigate();
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    if (localStorage.getItem('isAuthenticated') !== 'true') {
+      navigate('/admin');
+    }
+  }, [navigate]);
 
   const handleLogout = () => {
     onLogout();

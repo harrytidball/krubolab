@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login({ onLogin }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  // Clear any existing authentication when login page is accessed
+  useEffect(() => {
+    localStorage.removeItem('isAuthenticated');
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

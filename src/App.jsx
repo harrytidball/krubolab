@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './components/AdminDashboard.css';
 import './components/LandingPage.css';
@@ -7,7 +7,15 @@ import Dashboard from './components/Dashboard';
 import LandingPage from './components/LandingPage';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    // Check localStorage on initial load
+    return localStorage.getItem('isAuthenticated') === 'true';
+  });
+
+  // Persist authentication state to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('isAuthenticated', isAuthenticated.toString());
+  }, [isAuthenticated]);
 
   const handleLogin = (status) => {
     setIsAuthenticated(status);
@@ -15,6 +23,8 @@ function App() {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    // Clear localStorage on logout
+    localStorage.removeItem('isAuthenticated');
   };
 
   return (
