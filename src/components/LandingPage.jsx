@@ -6,6 +6,7 @@ import FeaturedWorks from './FeaturedWorks';
 import Materials from './Materials';
 import WhyChooseUs from './WhyChooseUs';
 import QuoteSection from './QuoteSection';
+import Footer from './Footer';
 
 function LandingPage() {
   return (
@@ -17,6 +18,7 @@ function LandingPage() {
       <Materials />
       <WhyChooseUs />
       <QuoteSection />
+      <Footer />
     </div>
   );
 }
