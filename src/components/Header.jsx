@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [isSearchActive, setIsSearchActive] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -9,14 +11,55 @@ function Header() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+    // Clear search when mobile menu is closed
+    if (isSearchActive) {
+      clearSearch();
+    }
   };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    setIsSearchActive(value.length > 0);
+  };
+
+  const clearSearch = () => {
+    setSearchValue('');
+    setIsSearchActive(false);
+  };
+
+  // Add/remove body class for page dimming
+  useEffect(() => {
+    if (isSearchActive) {
+      document.body.classList.add('search-active');
+    } else {
+      document.body.classList.remove('search-active');
+    }
+
+    return () => {
+      document.body.classList.remove('search-active');
+    };
+  }, [isSearchActive]);
+
+  // Listen for clear search event from footer
+  useEffect(() => {
+    const handleClearSearch = () => {
+      clearSearch();
+    };
+
+    window.addEventListener('clearSearch', handleClearSearch);
+    
+    return () => {
+      window.removeEventListener('clearSearch', handleClearSearch);
+    };
+  }, []);
 
   return (
     <>
-      <header className="header">
+      <header className={`header ${isSearchActive ? 'search-mode' : ''}`}>
         <div className="header-container">
           {/* Logo Section */}
-          <div className="logo-section">
+          <div className={`logo-section ${isSearchActive ? 'hidden' : ''}`}>
             <img 
               src="/images/krubo-logo.png" 
               alt="KRUBO Logo" 
@@ -35,12 +78,14 @@ function Header() {
                 type="text" 
                 placeholder="¿Qué estás buscando?" 
                 className="search-input"
+                value={searchValue}
+                onChange={handleSearchChange}
               />
             </div>
           </div>
 
           {/* Navigation */}
-          <nav className="nav-section">
+          <nav className={`nav-section ${isSearchActive ? 'hidden' : ''}`}>
             <div className="nav-link dropdown-trigger">
               Productos
               <div className="dropdown-menu">
@@ -73,7 +118,7 @@ function Header() {
           </nav>
 
           {/* Right Icons */}
-          <div className="icons-section">
+          <div className={`icons-section ${isSearchActive ? 'hidden' : ''}`}>
             <button className="icon-btn heart-btn">
               <img 
                 src="/images/favorito.svg" 
@@ -100,6 +145,24 @@ function Header() {
               </div>
             </button>
           </div>
+
+          {/* X Button - Right Side of Header */}
+          {isSearchActive && (
+            <div className="header-x-section">
+              <button 
+                className="header-x-btn" 
+                onClick={clearSearch}
+                aria-label="Clear search"
+              >
+                <img 
+                  src="/images/x.svg" 
+                  alt="Clear search" 
+                  width="18" 
+                  height="18"
+                />
+              </button>
+            </div>
+          )}
         </div>
       </header>
 
@@ -117,7 +180,23 @@ function Header() {
                 type="text" 
                 placeholder="¿Qué estás buscando?" 
                 className="search-input"
+                value={searchValue}
+                onChange={handleSearchChange}
               />
+              {isSearchActive && (
+                <button 
+                  className="mobile-clear-search-btn" 
+                  onClick={clearSearch}
+                  aria-label="Clear search"
+                >
+                  <img 
+                    src="/images/x.svg" 
+                    alt="Clear search" 
+                    width="18" 
+                    height="18"
+                  />
+                </button>
+              )}
             </div>
           </div>
 

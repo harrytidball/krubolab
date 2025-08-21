@@ -86,7 +86,7 @@
   padding: 0.75rem 1rem 0.75rem 2.5rem;
   border: 2px solid var(--color-border);
   border-radius: 25px;
-  font-size: 0.875rem;
+  font-size: 1.125rem;
   background: var(--color-white);
   transition: all 0.2s ease;
 }
@@ -100,6 +100,70 @@
 .search-input::placeholder {
   color: var(--color-text-light);
 }
+
+/* Search Functionality Styles */
+
+/* Header Search Mode */
+.header.search-mode .logo-section,
+.header.search-mode .nav-section,
+.header.search-mode .icons-section {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.header.search-mode .search-section {
+  flex: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Header X Button */
+.header-x-section {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 1rem;
+}
+
+.header-x-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Page Dimming Effect */
+body.search-active {
+  position: relative;
+}
+
+body.search-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 99;
+  pointer-events: none;
+}
+
+.header {
+  z-index: 100;
+}
+
+/* Hidden Elements */
+.hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+
 
 /* Navigation Section */
 .nav-section {
@@ -402,6 +466,28 @@
 
 .mobile-search .search-container {
   max-width: 100%;
+}
+
+.mobile-search .search-input {
+  font-size: 1.125rem;
+}
+
+.mobile-search .search-container {
+  position: relative;
+}
+
+.mobile-clear-search-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Mobile Navigation */
@@ -923,6 +1009,12 @@
   
   .footer-column {
     align-items: flex-start;
+  }
+  
+  .footer-x-column {
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 1rem;
   }
   
   .footer-title {
