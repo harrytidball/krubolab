@@ -21,7 +21,7 @@
 .landing-page {
   min-height: 100vh;
   background: var(--color-white);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 /* ===== HEADER STYLES ===== */
@@ -905,7 +905,7 @@ body.search-active::before {
 
 .service-title {
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-text-dark);
   margin: 0;
   line-height: 1.3;
@@ -928,7 +928,7 @@ body.search-active::before {
 .category-item {
   color: var(--color-white);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   flex: 1;
 }
@@ -1195,7 +1195,7 @@ body.search-active::before {
 
 .section-title {
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text-dark);
   text-align: left; /* Changed from center to left */
   margin-bottom: 3rem;
@@ -1260,7 +1260,7 @@ body.search-active::before {
 
 .product-title {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-text-dark);
   margin: 0 0 0.25rem 0;
   line-height: 1.2;
@@ -1268,15 +1268,15 @@ body.search-active::before {
 }
 
 .product-description {
-  font-size: 0.875rem;
-  color: var(--color-text-light);
+  font-size: 1rem;
+  font-weight: 400;
   margin: 0 0 0.5rem 0; /* Reduced from 1rem */
   line-height: 1.2; /* Reduced from 1.4 */
 }
 
 .product-price {
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--color-text-dark);
   margin: 0 0 1rem 0; /* Reduced from 1.5rem */
 }
@@ -1479,7 +1479,7 @@ body.search-active::before {
 
 .materials-title {
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-text-dark);
   margin: 0;
   line-height: 1.1;
@@ -1676,8 +1676,7 @@ body.search-active::before {
 
 .why-choose-us-title {
   font-size: 3rem;
-  font-weight: 700;
-  color: var(--color-text-dark);
+  font-weight: 600;
   margin: 0 0 4rem 0;
   line-height: 1.1;
 }
@@ -1713,8 +1712,7 @@ body.search-active::before {
 
 .why-choose-us-text {
   font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--color-text-dark);
+  font-weight: 500;
   margin: 0;
   line-height: 1.4;
 }
@@ -1837,8 +1835,7 @@ body.search-active::before {
 
 .quote-title {
   font-size: 3rem;
-  font-weight: 700;
-  color: #333;
+  font-weight: 600;
   margin-bottom: 1rem;
   line-height: 1.1;
 }
@@ -1846,7 +1843,6 @@ body.search-active::before {
 .quote-subtitle {
   font-size: 3rem;
   font-weight: 300;
-  color: #333;
   margin-bottom: 2rem;
   line-height: 1.1;
 }
