@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import './components/AdminDashboard.css';
 import './components/LandingPage.css';
+import './components/Checkout.css';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import LandingPage from './components/LandingPage';
+import Checkout from './components/Checkout';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -42,6 +43,16 @@ function App() {
             } 
           />
           <Route 
+            path="/checkout" 
+            element={
+              isAuthenticated ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
+                <Checkout />
+              )
+            } 
+          />
+          <Route 
             path="/admin" 
             element={
               isAuthenticated ? (
@@ -49,7 +60,7 @@ function App() {
               ) : (
                 <div>
                   <header className="App-header">
-                    <h1>Krubolab Admin</h1>
+                    <h1>Krubo Admin</h1>
                   </header>
                   <main>
                     <Login onLogin={handleLogin} />

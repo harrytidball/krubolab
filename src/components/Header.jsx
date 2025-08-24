@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -94,6 +96,10 @@ function Header() {
   const clearSearch = () => {
     setSearchValue('');
     setIsSearchActive(false);
+  };
+
+  const handleCartClick = () => {
+    navigate('/checkout');
   };
 
   // Add/remove body class for page dimming
@@ -200,7 +206,7 @@ function Header() {
                 <span className="favorites-count">{favoritesCount}</span>
               )}
             </button>
-            <button className="icon-btn cart-btn">
+            <button className="icon-btn cart-btn" onClick={handleCartClick}>
               <img 
                 src="/images/cart.svg" 
                 alt="Shopping Cart" 

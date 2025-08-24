@@ -4,6 +4,7 @@ import Products from './Products';
 import Services from './Services';
 import Contacts from './Contacts';
 import Orders from './Orders';
+import './AdminDashboard.css';
 
 function Dashboard({ onLogout }) {
   const [activeTab, setActiveTab] = useState('products');
