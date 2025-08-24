@@ -15,7 +15,6 @@ function Checkout() {
     phone: '',
     department: '',
     city: '',
-    locality: '',
     street: '',
     additionalInfo: ''
   });
@@ -164,7 +163,7 @@ function Checkout() {
 
   const validateForm = () => {
     const errors = {};
-    const requiredFields = ['email', 'fullName', 'identificationNumber', 'phone', 'department', 'city', 'locality', 'street'];
+    const requiredFields = ['email', 'fullName', 'identificationNumber', 'phone', 'department', 'city', 'street'];
     
     requiredFields.forEach(field => {
       if (!formData[field] || formData[field].trim() === '') {
@@ -445,24 +444,6 @@ function Checkout() {
                 </div>
               </div>
 
-              {/* Locality */}
-              <div className="form-group">
-                <label htmlFor="locality" className="form-label">
-                  Localidad
-                </label>
-                <input
-                  type="text"
-                  id="locality"
-                  name="locality"
-                  value={formData.locality}
-                  onChange={handleInputChange}
-                  className={`form-input ${formData.locality ? 'filled' : ''} ${validationErrors.locality ? 'unfilled' : ''}`}
-                />
-                <div className={`form-helper ${formData.locality ? 'filled' : ''} ${validationErrors.locality ? 'unfilled' : ''}`}>
-                  Nombre completo de quien recibirá el pedido
-                </div>
-              </div>
-
               {/* Street and Number */}
               <div className="form-group">
                 <label htmlFor="street" className="form-label">
@@ -523,7 +504,7 @@ function Checkout() {
               </button>
 
               <div className="products-section">
-                <h3 className="products-title">Productos ({enrichedCartItems.length})</h3>
+                <h3 className="products-title">Productos</h3>
                 <div className="products-list">
                   {enrichedCartItems.map((item, index) => (
                     <div key={index} className="product-item">
