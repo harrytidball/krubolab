@@ -133,6 +133,14 @@ function Checkout() {
       [name]: value
     }));
     
+    // Clear validation error for this field when user starts typing
+    if (validationErrors[name]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: false
+      }));
+    }
+    
     // Add/remove filled class for visual feedback
     const input = e.target;
     const helper = input.parentNode.querySelector('.form-helper');
@@ -165,6 +173,20 @@ function Checkout() {
     });
     
     setValidationErrors(errors);
+    
+    // If there are validation errors, scroll to the first one
+    if (Object.keys(errors).length > 0) {
+      const firstErrorField = Object.keys(errors)[0];
+      const errorElement = document.getElementById(firstErrorField);
+      if (errorElement) {
+        errorElement.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'center' 
+        });
+        errorElement.focus();
+      }
+    }
+    
     return Object.keys(errors).length === 0;
   };
 
@@ -290,10 +312,9 @@ function Checkout() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`form-input ${formData.email ? 'filled' : ''} ${validationErrors.email ? 'error' : ''}`}
-                  required
+                  className={`form-input ${formData.email ? 'filled' : ''} ${validationErrors.email ? 'unfilled' : ''}`}
                 />
-                <div className={`form-helper ${formData.email ? 'filled' : ''} ${validationErrors.email ? 'error' : ''}`}>
+                <div className={`form-helper ${formData.email ? 'filled' : ''} ${validationErrors.email ? 'unfilled' : ''}`}>
                   Se utiliza para confirmar pedidos
                 </div>
               </div>
@@ -309,10 +330,9 @@ function Checkout() {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
-                  className="form-input"
-                  required
+                  className={`form-input ${formData.fullName ? 'filled' : ''} ${validationErrors.fullName ? 'unfilled' : ''}`}
                 />
-                <div className="form-helper">
+                <div className={`form-helper ${formData.fullName ? 'filled' : ''} ${validationErrors.fullName ? 'unfilled' : ''}`}>
                   Nombre completo de quien recibirá el pedido
                 </div>
               </div>
@@ -370,8 +390,7 @@ function Checkout() {
                   name="identificationNumber"
                   value={formData.identificationNumber}
                   onChange={handleInputChange}
-                  className="form-input"
-                  required
+                  className={`form-input ${formData.phone ? 'filled' : ''} ${validationErrors.phone ? 'unfilled' : ''}`}
                 />
               </div>
 
@@ -386,10 +405,9 @@ function Checkout() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="form-input"
-                  required
+                  className={`form-input ${formData.phone ? 'filled' : ''} ${validationErrors.phone ? 'unfilled' : ''}`}
                 />
-                <div className="form-helper">
+                <div className={`form-helper ${formData.phone ? 'filled' : ''} ${validationErrors.phone ? 'unfilled' : ''}`}>
                   Utilizado de ser necesario para entregas y otros
                 </div>
               </div>
@@ -405,8 +423,7 @@ function Checkout() {
                   name="department"
                   value={formData.department}
                   onChange={handleInputChange}
-                  className="form-input"
-                  required
+                  className={`form-input ${formData.department ? 'filled' : ''} ${validationErrors.department ? 'unfilled' : ''}`}
                 />
               </div>
 
@@ -421,10 +438,9 @@ function Checkout() {
                   name="city"
                   value={formData.city}
                   onChange={handleInputChange}
-                  className="form-input"
-                  required
+                  className={`form-input ${formData.city ? 'filled' : ''} ${validationErrors.city ? 'unfilled' : ''}`}
                 />
-                <div className="form-helper">
+                <div className={`form-helper ${formData.city ? 'filled' : ''} ${validationErrors.city ? 'unfilled' : ''}`}>
                   Nombre completo de quien recibirá el pedido
                 </div>
               </div>
@@ -440,10 +456,9 @@ function Checkout() {
                   name="locality"
                   value={formData.locality}
                   onChange={handleInputChange}
-                  className="form-input"
-                  required
+                  className={`form-input ${formData.locality ? 'filled' : ''} ${validationErrors.locality ? 'unfilled' : ''}`}
                 />
-                <div className="form-helper">
+                <div className={`form-helper ${formData.locality ? 'filled' : ''} ${validationErrors.locality ? 'unfilled' : ''}`}>
                   Nombre completo de quien recibirá el pedido
                 </div>
               </div>
@@ -459,10 +474,9 @@ function Checkout() {
                   name="street"
                   value={formData.street}
                   onChange={handleInputChange}
-                  className="form-input"
-                  required
+                  className={`form-input ${formData.street ? 'filled' : ''} ${validationErrors.street ? 'unfilled' : ''}`}
                 />
-                <div className="form-helper">
+                <div className={`form-helper ${formData.street ? 'filled' : ''} ${validationErrors.street ? 'unfilled' : ''}`}>
                   Ej: Carrera 20# 15-27
                 </div>
               </div>
@@ -478,7 +492,7 @@ function Checkout() {
                   name="additionalInfo"
                   value={formData.additionalInfo}
                   onChange={handleInputChange}
-                  className="form-input"
+                  className={`form-input ${formData.additionalInfo ? 'filled' : ''} ${validationErrors.additionalInfo ? 'unfilled' : ''}`}
                 />
               </div>
 

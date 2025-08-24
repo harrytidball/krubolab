@@ -92,7 +92,7 @@
   transition: border-color 1s ease;
 }
 
-.form-input.error {
+.form-input.unfilled {
   border-color: #b92123 !important;
   transition: border-color 0.2s ease;
 }
@@ -110,7 +110,7 @@
   color: #1e9f49;
 }
 
-.form-helper.error {
+.form-helper.unfilled {
   color: #b92123;
 }
 
@@ -122,7 +122,7 @@
   font-size: 16px;
 }
 
-.form-helper.error::before {
+.form-helper.unfilled::before {
   content: '⚠';
   color: #b92123;
   font-weight: bold;
