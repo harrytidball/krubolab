@@ -46,16 +46,19 @@ function Checkout() {
 
           console.log('Products array:', productsArray);
           
-          // Clean cart items - ensure they are just IDs
+          // Handle both old format (IDs only) and new format (objects with variants)
           const cleanCartItems = items.map(item => {
             if (typeof item === 'string') {
               return item; // Already an ID string
             } else if (typeof item === 'object' && item !== null) {
-              // If it's an object with numeric keys, extract the ID
+              // Check if it's a new cart item with variants
+              if (item.productId && item.name && item.price) {
+                return item; // New format, keep as is
+              }
+              // If it's an object with numeric keys, extract the ID (old corrupted format)
               const keys = Object.keys(item);
               const numericKeys = keys.filter(key => !isNaN(parseInt(key)));
               if (numericKeys.length > 0) {
-                // This is a corrupted cart item, try to reconstruct the ID
                 const idParts = numericKeys.map(key => item[key]).join('');
                 return idParts;
               }
@@ -64,8 +67,11 @@ function Checkout() {
           });
           
           // Merge cart items with product details
-          const enriched = cleanCartItems.map(cartItemId => {
-            const productDetails = productsArray.find(p => p.id === cartItemId);
+          const enriched = cleanCartItems.map(cartItem => {
+
+            
+            // Old format: enrich with product details
+            const productDetails = productsArray.find(p => p.id === cartItem);
             
             if (!productDetails) {
               return null;
@@ -81,7 +87,9 @@ function Checkout() {
               category: productDetails.category,
               material: productDetails.material,
               dimensions: productDetails.measurements?.[0] || productDetails.dimensions,
-              colours: productDetails.colours
+              colours: productDetails.colours,
+              size: productDetails.measurements?.[0] || null, // First measurement
+              color: productDetails.colours?.[0] || null // First colour
             };
             
             return enrichedItem;
@@ -513,24 +521,26 @@ function Checkout() {
                       </div>
                       <div className="product-details">
                         <h4 className="product-name">{item.name}</h4>
-                        <div className="product-info">
-                          <span className="product-price">
-                            Precio por unidad: {formatPrice(item.price)}
-                          </span>
-                          <span className="product-quantity">
-                            Cantidad: {item.quantity}
-                          </span>
-                          {item.dimensions && (
-                            <span className="product-dimensions">
-                              Medidas: {item.dimensions}
+                                                  <div className="product-info">
+                            {item.quantity > 1 && (
+                              <span className="product-price">
+                                Precio por unidad: {formatPrice(item.price)}
+                              </span>
+                            )}
+                            {item.size && (
+                              <span className="product-size">
+                                Medidas: {item.size}
+                              </span>
+                            )}
+                            {item.color && (
+                              <span className="product-color">
+                                Color: {item.color}
+                              </span>
+                            )}
+                            <span className="product-quantity">
+                              Cantidad: {item.quantity}
                             </span>
-                          )}
-                          {item.colours && item.colours.length > 0 && (
-                            <span className="product-colours">
-                              Colores: {item.colours.join(', ')}
-                            </span>
-                          )}
-                        </div>
+                          </div>
                       </div>
                       <div className="product-total">
                         {formatPrice((typeof item.price === 'string' ? parseFloat(item.price.replace(/\./g, '')) : item.price) * item.quantity)}

@@ -50,6 +50,8 @@ const saveCartToStorage = (cart) => {
   }
 };
 
+
+
 function WorkshopProducts() {
   const [products, setProducts] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -257,6 +259,7 @@ function WorkshopProducts() {
                   <div className="product-info">
                     <h3 className="product-title">{product.name}</h3>
                     <p className="product-price">$ {product.price}</p>
+
                     <div className="product-actions">
                       <button 
                         className={`action-btn cart-btn ${isInCart(product.id) ? 'in-cart' : ''}`}
@@ -267,6 +270,7 @@ function WorkshopProducts() {
                           src={isInCart(product.id) ? "/images/cart-filled.svg" : "/images/cart.svg"} 
                           alt={isInCart(product.id) ? "Carrito lleno" : "Carrito"} 
                         />
+
                       </button>
                       <button 
                         className={`action-btn favorite-btn ${isFavorite(product.id) ? 'favorited' : ''}`}

@@ -186,6 +186,8 @@
   margin-top: -0.35rem;
 }
 
+
+
 .product-actions {
   display: flex;
   gap: 0;
@@ -257,6 +259,8 @@
   transform: scale(1.2);
   filter: brightness(1.1);
 }
+
+
 
 @keyframes cartPulse {
   0% {
