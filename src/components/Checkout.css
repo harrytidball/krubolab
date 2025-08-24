@@ -353,7 +353,6 @@
 }
 
 .products-list {
-  display: flex;
   flex-direction: column;
   gap: 0;
   align-items: flex-start;
@@ -367,7 +366,7 @@
   padding: 8px 20px 8px 0;
   border-radius: 8px;
   background: white;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   align-items: flex-start;
   height: fit-content;
   min-height: auto;
@@ -451,6 +450,7 @@
   padding-top: 4px;
   text-align: right;
   min-width: 100px;
+  justify-self: end;
 }
 
 /* Cart Editing Styles */
@@ -569,6 +569,15 @@
   .checkout-content {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+  
+  /* Reorder sections on mobile: cart above form */
+  .checkout-summary-section {
+    order: -1;
+  }
+  
+  .checkout-form-section {
+    order: 1;
   }
   
   .product-item {

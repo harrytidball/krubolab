@@ -217,6 +217,7 @@ function Checkout() {
     if (newQuantity < 0) return;
     
     if (newQuantity === 0) {
+      // Remove item when quantity reaches 0
       handleRemoveItem(index);
       return;
     }
@@ -646,7 +647,6 @@ function Checkout() {
                                     type="button"
                                     onClick={() => handleQuantityChange(index, (item.tempQuantity || 1) - 1)}
                                     className="quantity-btn quantity-btn-minus"
-                                    disabled={(item.tempQuantity || 1) <= 1}
                                   >
                                     -
                                   </button>
@@ -704,12 +704,12 @@ function Checkout() {
                                   Precio por unidad: {formatPrice(item.price)}
                                 </span>
                               )}
-                              {item.size && (
+                              {item.size && item.size.length > 0 && (
                                 <span className="product-size">
                                   Medidas: {item.size}
                                 </span>
                               )}
-                              {item.color && (
+                              {item.color && item.color.length > 0 && (
                                 <span className="product-color">
                                   Color: {item.color}
                                 </span>

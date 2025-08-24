@@ -157,9 +157,9 @@ function WorkshopProducts() {
         name: product.name,
         price: product.price,
         quantity: 1,
-        color: Array.isArray(product.colours) ? product.colours : (product.colours ? [product.colours] : []),
-        measurements: Array.isArray(product.measurements) ? product.measurements : (product.measurements ? [product.measurements] : []),
-        image: Array.isArray(product.images) ? product.images : (product.images ? [product.images] : []),
+        color: Array.isArray(product.colours) && product.colours.length > 0 ? product.colours[0] : (product.colours || ''),
+        size: Array.isArray(product.measurements) && product.measurements.length > 0 ? product.measurements[0] : (product.measurements || ''),
+        image: Array.isArray(product.images) && product.images.length > 0 ? product.images[0] : (product.images || ''),
         description: product.description
       };
       
