@@ -7,6 +7,8 @@ function Checkout() {
   const [cartItems, setCartItems] = useState([]);
   const [enrichedCartItems, setEnrichedCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditingCart, setIsEditingCart] = useState(false);
+  const [editingItems, setEditingItems] = useState([]);
   const [formData, setFormData] = useState({
     email: '',
     fullName: '',
@@ -34,77 +36,51 @@ function Checkout() {
           
           if (items.length === 0) {
             setEnrichedCartItems([]);
+            setEditingItems([]);
             setIsLoading(false);
             return;
           }
           
-          // Fetch product details from API
-          const allProducts = await dashboardService.getProducts();
-          
-          // Ensure we have an array of products
-          const productsArray = Array.isArray(allProducts) ? allProducts : [];
-
-          console.log('Products array:', productsArray);
-          
-          // Handle both old format (IDs only) and new format (objects with variants)
-          const cleanCartItems = items.map(item => {
-            if (typeof item === 'string') {
-              return item; // Already an ID string
-            } else if (typeof item === 'object' && item !== null) {
-              // Check if it's a new cart item with variants
-              if (item.productId && item.name && item.price) {
-                return item; // New format, keep as is
-              }
-              // If it's an object with numeric keys, extract the ID (old corrupted format)
-              const keys = Object.keys(item);
-              const numericKeys = keys.filter(key => !isNaN(parseInt(key)));
-              if (numericKeys.length > 0) {
-                const idParts = numericKeys.map(key => item[key]).join('');
-                return idParts;
-              }
-            }
-            return item;
+          // Cart items are now stored as full objects, no need for enrichment
+          const enriched = items.map(item => {
+            // Console log: Product loaded from cart
+            console.log('🛒 Product loaded from cart:', {
+              id: item.id,
+              name: item.name,
+              price: item.price,
+              quantity: item.quantity || 1,
+              color: item.color,
+              size: item.size
+            });
+            
+            return {
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              image: item.image,
+              price: item.price,
+              quantity: item.quantity || 1,
+              category: item.category,
+              material: item.material,
+              dimensions: item.dimensions || [],
+              colours: item.colours || [],
+              size: item.size,
+              color: item.color
+            };
           });
           
-          // Merge cart items with product details
-          const enriched = cleanCartItems.map(cartItem => {
-
-            
-            // Old format: enrich with product details
-            const productDetails = productsArray.find(p => p.id === cartItem);
-            
-            if (!productDetails) {
-              return null;
-            }
-            
-            const enrichedItem = {
-              id: productDetails.id,
-              name: productDetails.name,
-              description: productDetails.description,
-              image: productDetails.images?.[0], // Use first image from images array
-              price: productDetails.price,
-              quantity: 1, // Default quantity since cart only stores IDs
-              category: productDetails.category,
-              material: productDetails.material,
-              dimensions: productDetails.measurements?.[0] || productDetails.dimensions,
-              colours: productDetails.colours,
-              size: productDetails.measurements?.[0] || null, // First measurement
-              color: productDetails.colours?.[0] || null // First colour
-            };
-            
-            return enrichedItem;
-          }).filter(Boolean); // Remove any null items
-          
-          // Clean up corrupted cart data in localStorage
-          if (JSON.stringify(items) !== JSON.stringify(cleanCartItems)) {
-            localStorage.setItem('krubolab-cart', JSON.stringify(cleanCartItems));
-          }
-          
           setEnrichedCartItems(enriched);
+          setEditingItems(enriched.map(item => ({
+            ...item,
+            tempQuantity: item.quantity || 1,
+            tempColor: item.color,
+            tempSize: item.size
+          })));
         }
       } catch (error) {
-        // Fallback to cart items without enrichment
-        setEnrichedCartItems(cartItems);
+        console.error('Error loading cart items:', error);
+        setEnrichedCartItems([]);
+        setEditingItems([]);
       } finally {
         setIsLoading(false);
       }
@@ -169,6 +145,159 @@ function Checkout() {
     }));
   };
 
+  // Cart editing functions
+  const handleEditCart = () => {
+    // Ensure we have items to edit
+    if (!enrichedCartItems || enrichedCartItems.length === 0) {
+      console.warn('No items to edit in cart');
+      return;
+    }
+    
+    // Initialize editing items with safe defaults and ensure arrays
+    const safeEditingItems = enrichedCartItems.map(item => {
+      // Ensure dimensions and colours are always arrays
+      const safeItem = {
+        ...item,
+        tempQuantity: item.quantity || 1,
+        tempColor: item.color || null,
+        tempSize: item.size || null,
+        dimensions: Array.isArray(item.dimensions) ? item.dimensions : 
+                   (item.dimensions ? [item.dimensions] : []),
+        colours: Array.isArray(item.colours) ? item.colours : 
+                (item.colours ? [item.colours] : [])
+      };
+      
+      return safeItem;
+    });
+    
+    setEditingItems(safeEditingItems);
+    setIsEditingCart(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditingCart(false);
+    // Reset editing items to original values
+    if (enrichedCartItems && enrichedCartItems.length > 0) {
+      setEditingItems(enrichedCartItems.map(item => {
+        // Ensure dimensions and colours are always arrays
+        return {
+          ...item,
+          tempQuantity: item.quantity || 1,
+          tempColor: item.color || null,
+          tempSize: item.size || null,
+          dimensions: Array.isArray(item.dimensions) ? item.dimensions : 
+                     (item.dimensions ? [item.dimensions] : []),
+          colours: Array.isArray(item.colours) ? item.colours : 
+                  (item.colours ? [item.colours] : [])
+        };
+      }));
+    } else {
+      // If no enriched items, reset to empty array
+      setEditingItems([]);
+    }
+  };
+
+  const handleQuantityChange = (index, newQuantity) => {
+    if (newQuantity < 0) return;
+    
+    if (newQuantity === 0) {
+      // Remove item immediately when quantity reaches 0
+      console.log('🗑️ Item removed from cart (quantity = 0):', {
+        index,
+        item: editingItems[index]
+      });
+      handleRemoveItem(index);
+      return;
+    }
+    
+    // Console log: Quantity changed
+    console.log('📊 Quantity changed:', {
+      index,
+      itemName: editingItems[index].name,
+      oldQuantity: editingItems[index].tempQuantity || 1,
+      newQuantity
+    });
+    
+    setEditingItems(prev => prev.map((item, i) => 
+      i === index ? { ...item, tempQuantity: newQuantity } : item
+    ));
+  };
+
+  const handleColorChange = (index, newColor) => {
+    // Console log: Color changed
+    console.log('🎨 Color changed:', {
+      index,
+      itemName: editingItems[index].name,
+      oldColor: editingItems[index].tempColor || editingItems[index].color,
+      newColor
+    });
+    
+    setEditingItems(prev => prev.map((item, i) => 
+      i === index ? { ...item, tempColor: newColor } : item
+    ));
+  };
+
+  const handleSizeChange = (index, newSize) => {
+    // Console log: Size changed
+    console.log('📏 Size changed:', {
+      index,
+      itemName: editingItems[index].name,
+      oldSize: editingItems[index].tempSize || editingItems[index].size,
+      newSize
+    });
+    
+    setEditingItems(prev => prev.map((item, i) => 
+      i === index ? { ...item, tempSize: newSize } : item
+    ));
+  };
+
+  const handleRemoveItem = (index) => {
+    // Console log: Item removed
+    console.log('🗑️ Item removed from cart:', {
+      index,
+      item: editingItems[index]
+    });
+    
+    setEditingItems(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSaveCartChanges = () => {
+    // Filter out items with quantity 0 and update quantities
+    const updatedItems = editingItems
+      .filter(item => item.tempQuantity > 0)
+      .map(item => ({
+        ...item,
+        quantity: item.tempQuantity,
+        color: item.tempColor,
+        size: item.tempSize
+      }));
+
+    // Console log: Cart changes saved
+    console.log('💾 Cart changes saved:', {
+      totalItems: updatedItems.length,
+      items: updatedItems.map(item => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        color: item.color,
+        size: item.size,
+        price: item.price
+      }))
+    });
+
+    // Update enriched cart items
+    setEnrichedCartItems(updatedItems);
+    
+    // Update localStorage with updated cart data (same format)
+    localStorage.setItem('krubolab-cart', JSON.stringify(updatedItems));
+    
+    // Exit edit mode
+    setIsEditingCart(false);
+    
+    // Dispatch cart change event
+    window.dispatchEvent(new Event('cartChanged'));
+  };
+
   const validateForm = () => {
     const errors = {};
     const requiredFields = ['email', 'fullName', 'identificationNumber', 'phone', 'department', 'city', 'street'];
@@ -198,12 +327,14 @@ function Checkout() {
   };
 
   const calculateSubtotal = () => {
-    return enrichedCartItems.reduce((total, item) => {
+    const itemsToCalculate = isEditingCart ? editingItems : enrichedCartItems;
+    return itemsToCalculate.reduce((total, item) => {
       let itemPrice = item.price;
       if (typeof itemPrice === 'string') {
         itemPrice = parseFloat(itemPrice.replace(/\./g, ''));
       }
-      return total + (itemPrice * (item.quantity || 1));
+      const quantity = isEditingCart ? item.tempQuantity : (item.quantity || 1);
+      return total + (itemPrice * quantity);
     }, 0);
   };
 
@@ -223,7 +354,7 @@ function Checkout() {
     }).format(numericPrice);
   };
 
-  const handleEditCart = () => {
+  const handleEditCartNavigation = () => {
     navigate('/');
   };
 
@@ -289,6 +420,8 @@ function Checkout() {
       </div>
     );
   }
+
+  const itemsToDisplay = isEditingCart ? (editingItems || []) : (enrichedCartItems || []);
 
   return (
     <div className="checkout-page">
@@ -489,7 +622,7 @@ function Checkout() {
               <button type="submit" className="btn-checkout">
                 Continuar
               </button>
-              <button type="button" onClick={handleEditCart} className="btn-back-cart">
+              <button type="button" onClick={handleEditCartNavigation} className="btn-back-cart">
                 Volver al carrito
               </button>
             </form>
@@ -503,47 +636,123 @@ function Checkout() {
                 <span className="subtotal-price">{formatPrice(calculateSubtotal())}</span>
               </div>
 
-              <button onClick={handleEditCart} className="btn-edit-cart">
-                <svg className="edit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                  <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>
-                Editar productos en el carrito
-              </button>
+              {!isEditingCart ? (
+                <button onClick={handleEditCart} className="btn-edit-cart">
+                  <svg className="edit-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                  </svg>
+                  Editar productos en el carrito
+                </button>
+              ) : (
+                <div className="cart-edit-controls">
+                  <button onClick={handleSaveCartChanges} className="btn-save-cart">
+                    Guardar cambios
+                  </button>
+                  <button onClick={handleCancelEdit} className="btn-cancel-edit">
+                    Cancelar
+                  </button>
+                </div>
+              )}
 
               <div className="products-section">
                 <h3 className="products-title">Productos</h3>
                 <div className="products-list">
-                  {enrichedCartItems.map((item, index) => (
+                  {itemsToDisplay.map((item, index) => (
                     <div key={index} className="product-item">
                       <div className="product-image-issue">
                         <img src={item.image} alt={item.name} className="checkout-product-image" />
                       </div>
                       <div className="product-details">
-                        <h4 className="product-name">{item.name}</h4>
-                                                  <div className="product-info">
-                            {item.quantity > 1 && (
-                              <span className="product-price">
-                                Precio por unidad: {formatPrice(item.price)}
+                        <h4 className="product-name-checkout">{item.name}</h4>
+                        <div className="product-info">
+                          {isEditingCart ? (
+                            <>
+                              {/* Quantity Controls */}
+                              <div className="product-quantity-controls">
+                                <label className="quantity-label">Cantidad:</label>
+                                <div className="quantity-buttons">
+                                  <button 
+                                    type="button"
+                                    onClick={() => handleQuantityChange(index, (item.tempQuantity || 1) - 1)}
+                                    className="quantity-btn quantity-btn-minus"
+                                    disabled={(item.tempQuantity || 1) <= 1}
+                                  >
+                                    -
+                                  </button>
+                                  <span className="quantity-display">{item.tempQuantity || 1}</span>
+                                  <button 
+                                    type="button"
+                                    onClick={() => handleQuantityChange(index, (item.tempQuantity || 1) + 1)}
+                                    className="quantity-btn quantity-btn-plus"
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </div>
+
+                              {/* Color Selector */}
+                              {item.colours && item.colours.length > 1 && (
+                                <div className="product-color-selector">
+                                  <label className="color-label">Color:</label>
+                                  <select 
+                                    value={item.tempColor || item.color || ''} 
+                                    onChange={(e) => handleColorChange(index, e.target.value)}
+                                    className="color-select"
+                                  >
+                                    {item.colours.map((color, colorIndex) => (
+                                      <option key={colorIndex} value={color}>
+                                        {color}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              )}
+
+                              {/* Size Selector */}
+                              {item.dimensions && item.dimensions.length > 1 && (
+                                <div className="product-size-selector">
+                                  <label className="size-label">Tamaño:</label>
+                                  <select 
+                                    value={item.tempSize || item.size || ''} 
+                                    onChange={(e) => handleSizeChange(index, e.target.value)}
+                                    className="size-select"
+                                  >
+                                    {item.dimensions.map((dimension, dimIndex) => (
+                                      <option key={dimIndex} value={dimension}>
+                                        {dimension}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {item.quantity > 1 && (
+                                <span className="product-price-checkout">
+                                  Precio por unidad: {formatPrice(item.price)}
+                                </span>
+                              )}
+                              {item.size && (
+                                <span className="product-size">
+                                  Medidas: {item.size}
+                                </span>
+                              )}
+                              {item.color && (
+                                <span className="product-color">
+                                  Color: {item.color}
+                                </span>
+                              )}
+                              <span className="product-quantity">
+                                Cantidad: <b>{item.quantity}</b>
                               </span>
-                            )}
-                            {item.size && (
-                              <span className="product-size">
-                                Medidas: {item.size}
-                              </span>
-                            )}
-                            {item.color && (
-                              <span className="product-color">
-                                Color: {item.color}
-                              </span>
-                            )}
-                            <span className="product-quantity">
-                              Cantidad: <b>{item.quantity}</b>
-                            </span>
-                          </div>
+                            </>
+                          )}
+                        </div>
                       </div>
                       <div className="product-total">
-                        {formatPrice((typeof item.price === 'string' ? parseFloat(item.price.replace(/\./g, '')) : item.price) * item.quantity)}
+                        {formatPrice((typeof item.price === 'string' ? parseFloat(item.price.replace(/\./g, '')) : item.price) * (isEditingCart ? (item.tempQuantity || 1) : (item.quantity || 1)))}
                       </div>
                     </div>
                   ))}

@@ -44,6 +44,13 @@ const getCartFromStorage = () => {
 // Helper function to save cart to localStorage
 const saveCartToStorage = (cart) => {
   try {
+    // Console log: Cart being saved to localStorage
+    console.log('💾 Cart saved to localStorage:', {
+      cartSize: cart.length,
+      cartItems: cart,
+      timestamp: new Date().toISOString()
+    });
+    
     localStorage.setItem('krubolab-cart', JSON.stringify(cart));
   } catch (error) {
     console.error('Error saving cart to localStorage:', error);
@@ -139,19 +146,48 @@ function WorkshopProducts() {
   };
 
   const isFavorite = (productId) => favorites.includes(productId);
-  const isInCart = (productId) => cart.includes(productId);
+  const isInCart = (productId) => cart.some(item => item.id === productId);
 
   const toggleCart = (productId) => {
     const product = products.find(p => p.id === productId);
-    const isCurrentlyInCart = cart.includes(productId);
+    const isCurrentlyInCart = cart.some(item => item.id === productId);
     
-    setCart(prev => {
-      if (isCurrentlyInCart) {
-        return prev.filter(id => id !== productId);
-      } else {
-        return [...prev, productId];
-      }
-    });
+    if (isCurrentlyInCart) {
+      // Console log: Product removed from cart
+      console.log('🗑️ Product removed from cart:', {
+        id: productId,
+        name: product?.name,
+        price: product?.price,
+        currentCartSize: cart.length - 1
+      });
+      
+      setCart(prev => prev.filter(item => item.id !== productId));
+    } else {
+      // Console log: Product added to cart
+      console.log('🛒 Product added to cart:', {
+        id: productId,
+        name: product?.name,
+        price: product?.price,
+        currentCartSize: cart.length + 1,
+        product: product
+      });
+      
+      // Store the full product object
+      const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+        color: product.colours?.[0] || null,
+        size: product.measurements?.[0] || product.dimensions?.[0] || null,
+        image: product.images?.[0],
+        description: product.description,
+        category: product.category,
+        material: product.material
+      };
+      
+      setCart(prev => [...prev, cartItem]);
+    }
 
     // Show toast notification
     setToastMessage(isCurrentlyInCart 
