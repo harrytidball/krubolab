@@ -43,16 +43,6 @@ function Checkout() {
           
           // Cart items are now stored as full objects, no need for enrichment
           const enriched = items.map(item => {
-            // Console log: Product loaded from cart
-            console.log('🛒 Product loaded from cart:', {
-              id: item.id,
-              name: item.name,
-              price: item.price,
-              quantity: item.quantity || 1,
-              color: item.color,
-              size: item.size
-            });
-            
             return {
               id: item.id,
               name: item.name,
@@ -68,14 +58,40 @@ function Checkout() {
               color: item.color
             };
           });
-          
-          setEnrichedCartItems(enriched);
-          setEditingItems(enriched.map(item => ({
-            ...item,
-            tempQuantity: item.quantity || 1,
-            tempColor: item.color,
-            tempSize: item.size
-          })));
+
+          // Fetch full product data to get all available colors and measurements
+          try {
+            const allProducts = await dashboardService.getProducts();
+            const enrichedWithFullData = enriched.map(cartItem => {
+              const fullProduct = allProducts.find(p => p.id === cartItem.id);
+              if (fullProduct) {
+                return {
+                  ...cartItem,
+                  colours: fullProduct.colours || [], // All available colors
+                  measurements: fullProduct.measurements || [] // All available measurements
+                };
+              }
+              return cartItem;
+            });
+            
+            setEnrichedCartItems(enrichedWithFullData);
+            setEditingItems(enrichedWithFullData.map(item => ({
+              ...item,
+              tempQuantity: item.quantity || 1,
+              tempColor: item.color,
+              tempSize: item.size
+            })));
+          } catch (error) {
+            console.error('Error fetching full product data:', error);
+            // Fallback to basic enrichment if API fails
+            setEnrichedCartItems(enriched);
+            setEditingItems(enriched.map(item => ({
+              ...item,
+              tempQuantity: item.quantity || 1,
+              tempColor: item.color,
+              tempSize: item.size
+            })));
+          }
         }
       } catch (error) {
         console.error('Error loading cart items:', error);
@@ -201,22 +217,9 @@ function Checkout() {
     if (newQuantity < 0) return;
     
     if (newQuantity === 0) {
-      // Remove item immediately when quantity reaches 0
-      console.log('🗑️ Item removed from cart (quantity = 0):', {
-        index,
-        item: editingItems[index]
-      });
       handleRemoveItem(index);
       return;
     }
-    
-    // Console log: Quantity changed
-    console.log('📊 Quantity changed:', {
-      index,
-      itemName: editingItems[index].name,
-      oldQuantity: editingItems[index].tempQuantity || 1,
-      newQuantity
-    });
     
     setEditingItems(prev => prev.map((item, i) => 
       i === index ? { ...item, tempQuantity: newQuantity } : item
@@ -224,40 +227,20 @@ function Checkout() {
   };
 
   const handleColorChange = (index, newColor) => {
-    // Console log: Color changed
-    console.log('🎨 Color changed:', {
-      index,
-      itemName: editingItems[index].name,
-      oldColor: editingItems[index].tempColor || editingItems[index].color,
-      newColor
-    });
-    
     setEditingItems(prev => prev.map((item, i) => 
       i === index ? { ...item, tempColor: newColor } : item
     ));
   };
 
   const handleSizeChange = (index, newSize) => {
-    // Console log: Size changed
-    console.log('📏 Size changed:', {
-      index,
-      itemName: editingItems[index].name,
-      oldSize: editingItems[index].tempSize || editingItems[index].size,
-      newSize
-    });
-    
+
     setEditingItems(prev => prev.map((item, i) => 
       i === index ? { ...item, tempSize: newSize } : item
     ));
   };
 
   const handleRemoveItem = (index) => {
-    // Console log: Item removed
-    console.log('🗑️ Item removed from cart:', {
-      index,
-      item: editingItems[index]
-    });
-    
+
     setEditingItems(prev => prev.filter((_, i) => i !== index));
   };
 
@@ -271,19 +254,6 @@ function Checkout() {
         color: item.tempColor,
         size: item.tempSize
       }));
-
-    // Console log: Cart changes saved
-    console.log('💾 Cart changes saved:', {
-      totalItems: updatedItems.length,
-      items: updatedItems.map(item => ({
-        id: item.id,
-        name: item.name,
-        quantity: item.quantity,
-        color: item.color,
-        size: item.size,
-        price: item.price
-      }))
-    });
 
     // Update enriched cart items
     setEnrichedCartItems(updatedItems);
@@ -692,7 +662,7 @@ function Checkout() {
                               </div>
 
                               {/* Color Selector */}
-                              {item.colours && item.colours.length > 1 && (
+                              {item.colours && item.colours.length > 0 && (
                                 <div className="product-color-selector">
                                   <label className="color-label">Color:</label>
                                   <select 
@@ -710,7 +680,7 @@ function Checkout() {
                               )}
 
                               {/* Size Selector */}
-                              {item.dimensions && item.dimensions.length > 1 && (
+                              {item.measurements && item.measurements.length > 0 && (
                                 <div className="product-size-selector">
                                   <label className="size-label">Tamaño:</label>
                                   <select 
@@ -718,9 +688,9 @@ function Checkout() {
                                     onChange={(e) => handleSizeChange(index, e.target.value)}
                                     className="size-select"
                                   >
-                                    {item.dimensions.map((dimension, dimIndex) => (
-                                      <option key={dimIndex} value={dimension}>
-                                        {dimension}
+                                    {item.measurements.map((measurement, measurementIndex) => (
+                                      <option key={measurementIndex} value={measurement}>
+                                        {measurement}
                                       </option>
                                     ))}
                                   </select>

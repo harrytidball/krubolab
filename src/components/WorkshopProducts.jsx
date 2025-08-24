@@ -44,13 +44,7 @@ const getCartFromStorage = () => {
 // Helper function to save cart to localStorage
 const saveCartToStorage = (cart) => {
   try {
-    // Console log: Cart being saved to localStorage
-    console.log('💾 Cart saved to localStorage:', {
-      cartSize: cart.length,
-      cartItems: cart,
-      timestamp: new Date().toISOString()
-    });
-    
+
     localStorage.setItem('krubolab-cart', JSON.stringify(cart));
   } catch (error) {
     console.error('Error saving cart to localStorage:', error);
@@ -153,37 +147,20 @@ function WorkshopProducts() {
     const isCurrentlyInCart = cart.some(item => item.id === productId);
     
     if (isCurrentlyInCart) {
-      // Console log: Product removed from cart
-      console.log('🗑️ Product removed from cart:', {
-        id: productId,
-        name: product?.name,
-        price: product?.price,
-        currentCartSize: cart.length - 1
-      });
-      
+
       setCart(prev => prev.filter(item => item.id !== productId));
     } else {
-      // Console log: Product added to cart
-      console.log('🛒 Product added to cart:', {
-        id: productId,
-        name: product?.name,
-        price: product?.price,
-        currentCartSize: cart.length + 1,
-        product: product
-      });
-      
+
       // Store the full product object
       const cartItem = {
         id: product.id,
         name: product.name,
         price: product.price,
         quantity: 1,
-        color: product.colours?.[0] || null,
-        size: product.measurements?.[0] || product.dimensions?.[0] || null,
-        image: product.images?.[0],
-        description: product.description,
-        category: product.category,
-        material: product.material
+        color: Array.isArray(product.colours) ? product.colours : (product.colours ? [product.colours] : []),
+        measurements: Array.isArray(product.measurements) ? product.measurements : (product.measurements ? [product.measurements] : []),
+        image: Array.isArray(product.images) ? product.images : (product.images ? [product.images] : []),
+        description: product.description
       };
       
       setCart(prev => [...prev, cartItem]);
