@@ -516,8 +516,8 @@ function Checkout() {
                 <div className="products-list">
                   {enrichedCartItems.map((item, index) => (
                     <div key={index} className="product-item">
-                      <div className="product-name">
-
+                      <div className="product-image">
+                        <img src={item.image} alt={item.name} className="checkout-product-image" />
                       </div>
                       <div className="product-details">
                         <h4 className="product-name">{item.name}</h4>
@@ -538,7 +538,7 @@ function Checkout() {
                               </span>
                             )}
                             <span className="product-quantity">
-                              Cantidad: {item.quantity}
+                              Cantidad: <b>{item.quantity}</b>
                             </span>
                           </div>
                       </div>
