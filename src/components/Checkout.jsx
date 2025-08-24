@@ -357,7 +357,7 @@ function Checkout() {
                       onChange={() => handleIdentificationTypeChange('cedula')}
                       className="radio-input"
                     />
-                    <span className="radio-text">Cédula de ciudadanía</span>
+                    <span className="radio-text">Cédula de Ciudadanía</span>
                   </label>
                   <label className="radio-label">
                     <input
@@ -387,7 +387,7 @@ function Checkout() {
               {/* Identification Number */}
               <div className="form-group">
                 <label htmlFor="identificationNumber" className="form-label">
-                  {formData.identificationType === 'cedula' && 'Cédula de ciudadanía'}
+                  {formData.identificationType === 'cedula' && 'Cédula de Ciudadanía'}
                   {formData.identificationType === 'extranjeria' && 'Cédula Extranjería'}
                   {formData.identificationType === 'nit' && 'Número NIT'}
                 </label>
@@ -516,7 +516,7 @@ function Checkout() {
                 <div className="products-list">
                   {enrichedCartItems.map((item, index) => (
                     <div key={index} className="product-item">
-                      <div className="product-image">
+                      <div className="product-image-issue">
                         <img src={item.image} alt={item.name} className="checkout-product-image" />
                       </div>
                       <div className="product-details">

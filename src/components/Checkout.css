@@ -334,9 +334,9 @@
   margin-bottom: 0;
 }
 
-.product-image {
+.product-image-issue {
   flex-shrink: 0;
-  margin-bottom: -6rem !important;
+  margin-bottom: 2rem !important;
 }
 
 .checkout-product-image {
