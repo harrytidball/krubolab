@@ -774,4 +774,150 @@ body {
   .data-table th:nth-child(3) {
     border-right: none;
   }
+}
+
+/* Order Items Display */
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.item-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.item-quantity {
+  color: #666;
+  font-size: 11px;
+}
+
+.item-size {
+  color: #007bff;
+  font-size: 11px;
+}
+
+.item-color {
+  color: #28a745;
+  font-size: 11px;
+}
+
+/* Expandable Order Rows */
+.order-row {
+  transition: background-color 0.2s ease;
+}
+
+.order-row:hover {
+  background-color: #f8f9fa;
+}
+
+.order-row.expanded {
+  background-color: #e3f2fd;
+}
+
+.customer-details-row {
+  background-color: #f8f9fa;
+}
+
+.customer-details {
+  padding: 20px;
+}
+
+.customer-details h4 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.customer-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.customer-info-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.customer-info-item:last-child {
+  border-bottom: none;
+}
+
+.customer-info-item strong {
+  color: #495057;
+  margin-right: 8px;
+}
+
+/* Sortable Headers */
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.sortable-header:hover {
+  background-color: #e9ecef;
+}
+
+.sort-indicator {
+  margin-left: 8px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.sortable-header:active {
+  background-color: #dee2e6;
+}
+
+/* Search Section */
+.search-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.search-box {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.search-input::placeholder {
+  color: #6c757d;
+}
+
+.results-info {
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 500;
 } 

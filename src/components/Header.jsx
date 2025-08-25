@@ -143,7 +143,7 @@ function Header() {
             </a>
           </div>
 
-          {/* Search Bar */}
+          {/* Search Bar 
           <div className="search-section">
             <div className="search-container">
               <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -158,7 +158,7 @@ function Header() {
                 onChange={handleSearchChange}
               />
             </div>
-          </div>
+          </div>*/}
 
           {/* Navigation */}
           <nav className={`nav-section ${isSearchActive ? 'hidden' : ''}`}>
@@ -251,7 +251,7 @@ function Header() {
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
-          {/* Mobile Search */}
+          {/* Mobile Search 
           <div className="mobile-search">
             <div className="search-container">
               <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -281,6 +281,7 @@ function Header() {
               )}
             </div>
           </div>
+          */}
 
           {/* Mobile Navigation */}
           <nav className="mobile-nav">

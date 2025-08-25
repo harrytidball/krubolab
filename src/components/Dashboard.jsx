@@ -7,8 +7,16 @@ import Orders from './Orders';
 import './AdminDashboard.css';
 
 function Dashboard({ onLogout }) {
-  const [activeTab, setActiveTab] = useState('products');
+  const [activeTab, setActiveTab] = useState(() => {
+    // Get the active tab from localStorage, default to 'products'
+    return localStorage.getItem('dashboardActiveTab') || 'products';
+  });
   const navigate = useNavigate();
+
+  // Save active tab to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('dashboardActiveTab', activeTab);
+  }, [activeTab]);
 
   // Check authentication status on component mount
   useEffect(() => {

@@ -252,9 +252,8 @@ export const dashboardService = {
   async getOrders() {
     try {
       const response = await apiClient.get('/json/orders.json');
-      return response.data.content || [];
+      return response.data.content || response.data || [];
     } catch (error) {
-      console.error('Error fetching orders:', error);
       return [];
     }
   },
@@ -274,12 +273,19 @@ export const dashboardService = {
 
   async deleteOrder(orderId) {
     try {
-      const response = await apiClient.delete('/json', {
-        data: {
-          filename: 'orders.json',
-          content: { id: orderId }
-        }
+      // Get current orders first
+      const currentOrders = await this.getOrders();
+      
+      // Filter out the order to delete
+      const updatedOrders = currentOrders.filter(order => order.id !== orderId);
+      
+      // Update the orders.json file with the filtered list
+      const response = await apiClient.put('/json', {
+        filename: 'orders.json',
+        content: updatedOrders,
+        mode: 'replace'
       });
+      
       return response.data;
     } catch (error) {
       console.error('Error deleting order:', error);
