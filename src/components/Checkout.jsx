@@ -338,15 +338,26 @@ function Checkout() {
     }
     
     try {
-      // Create order object
+      // Create order object in the format expected by the Orders component
       const order = {
         id: Date.now().toString(),
-        customer: formData,
-        items: enrichedCartItems,
-        subtotal: calculateSubtotal(),
-        status: 'pending',
-        createdAt: new Date().toISOString(),
-        orderNumber: `KRU-${Date.now()}`
+        items: enrichedCartItems.map(item => {
+          const itemData = {
+            id: item.id,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity || 1
+          };
+          
+          if (item.size && item.size.length > 0) itemData.size = item.size;
+          if (item.color && item.color.length > 0) itemData.color = item.color;
+          
+          return itemData;
+        }),
+        total: calculateSubtotal(),
+        date: new Date().toISOString().split('T')[0],
+        orderNumber: `KRU-${Date.now()}`,
+        customer: formData
       };
 
       // Save order to API
@@ -358,9 +369,10 @@ function Checkout() {
       // Dispatch cart change event
       window.dispatchEvent(new Event('cartChanged'));
       
-      // Show success message and redirect
-      alert('¡Pedido realizado con éxito! Tu número de orden es: ' + order.orderNumber);
-      navigate('/');
+      // Redirect to confirmation page with order data
+      navigate('/confirmation', { 
+        state: { orderData: order } 
+      });
       
     } catch (error) {
       alert('Error al procesar el pedido. Por favor, inténtalo de nuevo.');

@@ -6,6 +6,8 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import LandingPage from './components/LandingPage';
 import Checkout from './components/Checkout';
+import OrderConfirmation from './components/OrderConfirmation';
+import AdminBanner from './components/AdminBanner';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -36,7 +38,10 @@ function App() {
             path="/" 
             element={
               isAuthenticated ? (
-                <Navigate to="/dashboard" replace />
+                <div>
+                  <AdminBanner />
+                  <LandingPage />
+                </div>
               ) : (
                 <LandingPage />
               )
@@ -44,12 +49,28 @@ function App() {
           />
           <Route 
             path="/checkout" 
+            element={<Checkout />}
+          />
+          <Route 
+            path="/confirmation" 
+            element={<OrderConfirmation />}
+          />
+          <Route 
+            path="/website" 
             element={
-              isAuthenticated ? (
-                <Navigate to="/dashboard" replace />
-              ) : (
-                <Checkout />
-              )
+              <LandingPage />
+            } 
+          />
+          <Route 
+            path="/website/checkout" 
+            element={
+              <Checkout />
+            } 
+          />
+          <Route 
+            path="/website/confirmation" 
+            element={
+              <OrderConfirmation />
             } 
           />
           <Route 

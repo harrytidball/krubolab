@@ -741,6 +741,91 @@
   background: #0056b3;
 }
 
+/* Confirmation Page Styles */
+.confirmation-content {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.confirmation-icon {
+  margin: 0 auto 24px;
+  color: #28a745;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background: rgba(40, 167, 69, 0.1);
+  border-radius: 50%;
+}
+
+.confirmation-title {
+  color: #28a745;
+  margin-bottom: 16px;
+}
+
+.confirmation-message {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.order-details {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.order-details > div {
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.order-details > div:last-child {
+  margin-bottom: 0;
+}
+
+.order-number {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #333;
+}
+
+.status-pending {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.confirmation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.customer-info {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e9ecef;
+}
+
+.customer-details {
+  margin-top: 16px;
+}
+
+.customer-details p {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.customer-details p:last-child {
+  margin-bottom: 0;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .checkout-content {
@@ -825,5 +910,23 @@
   .product-color-selector,
   .product-size-selector {
     text-align: center;
+  }
+
+  .confirmation-content {
+    padding: 16px 0;
+  }
+
+  .confirmation-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 16px;
+  }
+
+  .order-details {
+    padding: 16px;
+  }
+
+  .confirmation-actions {
+    gap: 8px;
   }
 }
