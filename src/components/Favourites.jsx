@@ -16,7 +16,7 @@ function Favourites() {
       const stored = localStorage.getItem('krubolab-favorites');
       if (stored) {
         const favouritesList = JSON.parse(stored);
-        
+
         // Handle both old format (array of IDs) and new format (array of objects)
         if (Array.isArray(favouritesList) && favouritesList.length > 0) {
           if (typeof favouritesList[0] === 'string' || typeof favouritesList[0] === 'number') {
@@ -118,15 +118,6 @@ function Favourites() {
     navigate('/checkout');
   };
 
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(price);
-  };
-
   if (favourites.length === 0) {
     return (
       <>
@@ -144,11 +135,12 @@ function Favourites() {
             <h2 className="favourites-subtitle">Favoritos</h2>
             <p className="favourites-count">{favourites.length} producto{favourites.length > 1 ? 's' : ''}</p>
           </div>
-            <div className="empty-favourites">
+          
+          <div className="empty-favourites">
             <div className="empty-favourites-message">
-                Parece que esta lista esta vacía. Sigue explorando a tu alrededor y agrega aquí los elementos que quieras para seleccionar los finales.
+              Parece que esta lista esta vacía. Sigue explorando a tu alrededor y agrega aquí los elementos que quieras para seleccionar los finales.
             </div>
-            </div>
+          </div>
             </div>
           </div>
         </div>
@@ -190,7 +182,6 @@ function Favourites() {
                   
                   <div className="favourite-product-details">
                     <h3 className="favourite-product-name">{product.name}</h3>
-                    <p className="favourite-product-description">{product.description}</p>
                     
                     <div className="favourite-product-actions">
                       <div className="favourite-quantity-selector">
@@ -226,7 +217,7 @@ function Favourites() {
                   </div>
                   
                   <div className="favourite-product-price">
-                    <span className="favourite-price">{formatPrice(product.price)}</span>
+                    <span className="favourite-price">$ {product.price}</span>
                   </div>
                   
                   <div className="favourite-product-buttons">
@@ -241,14 +232,7 @@ function Favourites() {
                         height="20"
                       />
                     </button>
-                    
-                    <button className="favourite-more-options-btn">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="19" cy="12" r="1"></circle>
-                        <circle cx="5" cy="12" r="1"></circle>
-                      </svg>
-                    </button>
+                
                   </div>
                 </div>
               ))}
@@ -259,7 +243,7 @@ function Favourites() {
                 <h3 className="favourite-summary-title">Resumen</h3>
                 <div className="favourite-summary-subtotal">
                   <span>Subtotal</span>
-                  <span className="favourite-subtotal-amount">{formatPrice(subtotal)}</span>
+                  <span className="favourite-subtotal-amount">$ {subtotal}</span>
                 </div>
                 <button 
                   className="favourite-add-all-to-cart-btn"

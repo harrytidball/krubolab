@@ -14,7 +14,18 @@ const getProductsPerSlide = () => {
 const getFavoritesFromStorage = () => {
   try {
     const stored = localStorage.getItem('krubolab-favorites');
-    return stored ? JSON.parse(stored) : [];
+    if (!stored) return [];
+    
+    const favorites = JSON.parse(stored);
+    
+    // Handle migration from old format (array of IDs) to new format (array of objects)
+    if (Array.isArray(favorites) && favorites.length > 0 && typeof favorites[0] === 'string') {
+      // Old format detected - clear it and return empty array
+      localStorage.removeItem('krubolab-favorites');
+      return [];
+    }
+    
+    return favorites;
   } catch (error) {
     console.error('Error reading favorites from localStorage:', error);
     return [];
@@ -118,13 +129,24 @@ function WorkshopProducts() {
 
   const toggleFavorite = (productId) => {
     const product = products.find(p => p.id === productId);
-    const isCurrentlyFavorite = favorites.includes(productId);
+    const isCurrentlyFavorite = favorites.some(fav => fav.id === productId);
     
     setFavorites(prev => {
       if (isCurrentlyFavorite) {
-        return prev.filter(id => id !== productId);
+        return prev.filter(fav => fav.id !== productId);
       } else {
-        return [...prev, productId];
+        // Store the full product object with quantity
+        const favoriteItem = {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          quantity: 1,
+          color: Array.isArray(product.colours) && product.colours.length > 0 ? product.colours[0] : (product.colours || ''),
+          size: Array.isArray(product.measurements) && product.measurements.length > 0 ? product.measurements[0] : (product.measurements || ''),
+          image: Array.isArray(product.images) && product.images.length > 0 ? product.images[0] : (product.images || ''),
+          description: product.description
+        };
+        return [...prev, favoriteItem];
       }
     });
 
@@ -139,7 +161,7 @@ function WorkshopProducts() {
     setTimeout(() => setShowToast(false), 3000);
   };
 
-  const isFavorite = (productId) => favorites.includes(productId);
+  const isFavorite = (productId) => favorites.some(fav => fav.id === productId);
   const isInCart = (productId) => cart.some(item => item.id === productId);
 
   const toggleCart = (productId) => {
