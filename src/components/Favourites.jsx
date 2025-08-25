@@ -6,6 +6,7 @@ function Favourites() {
   const navigate = useNavigate();
   const [favourites, setFavourites] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
 
   useEffect(() => {
     loadFavourites();
@@ -96,6 +97,13 @@ function Favourites() {
     window.dispatchEvent(new CustomEvent('favoritesChanged'));
   };
 
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: 'success' });
+    }, 3000);
+  };
+
   const addToCart = (product) => {
     try {
       const existingCart = localStorage.getItem('krubolab-cart');
@@ -117,20 +125,56 @@ function Favourites() {
       // Dispatch custom event to update header count
       window.dispatchEvent(new CustomEvent('cartChanged'));
       
+      // Show success toast
+      showToast(`${product.name} añadido al carrito`);
+      
       // Remove from favourites after adding to cart
       removeFromFavourites(product.id);
+      
+      // If this was the last item in favourites, redirect to checkout
+      if (favourites.length === 1) {
+        navigate('/checkout');
+      }
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      // Error handling for cart operations
+      showToast('Error al añadir al carrito', 'error');
     }
   };
 
   const addAllToCart = () => {
-    favourites.forEach(product => {
-      addToCart(product);
-    });
-    
-    // Navigate to checkout after adding all items
-    navigate('/checkout');
+    try {
+      // Add all products to cart first
+      favourites.forEach(product => {
+        const existingCart = localStorage.getItem('krubolab-cart');
+        const cart = existingCart ? JSON.parse(existingCart) : [];
+        
+        const existingItem = cart.find(item => item.id === product.id);
+        
+        if (existingItem) {
+          existingItem.quantity += (product.quantity || 1);
+        } else {
+          cart.push({
+            ...product,
+            quantity: product.quantity || 1
+          });
+        }
+        
+        localStorage.setItem('krubolab-cart', JSON.stringify(cart));
+      });
+      
+      // Clear all favourites at once
+      setFavourites([]);
+      localStorage.removeItem('krubolab-favorites');
+      
+      // Dispatch events to update header counts
+      window.dispatchEvent(new CustomEvent('cartChanged'));
+      window.dispatchEvent(new CustomEvent('favoritesChanged'));
+      
+      // Navigate to checkout after adding all items
+      navigate('/checkout');
+    } catch (error) {
+      // Error handling for cart operations
+    }
   };
 
   if (favourites.length === 0) {
@@ -245,8 +289,6 @@ function Favourites() {
                   <div className="favourite-product-price">
                     <span className="favourite-price">{formatPrice(parseFloat(product.price.replace(/\./g, '')) * (product.quantity || 1))}</span>
                   </div>
-                  
-
                 </div>
               ))}
             </div>
@@ -276,6 +318,15 @@ function Favourites() {
         </div>
       </div>
     </div>
+    
+    {/* Toast Notification */}
+    {toast.show && (
+      <div className={`toast-notification ${toast.type}`}>
+        <div className="toast-content">
+          <span className="toast-message">{toast.message}</span>
+        </div>
+      </div>
+    )}
     </>
   );
 }
