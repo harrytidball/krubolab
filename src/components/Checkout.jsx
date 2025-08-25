@@ -267,6 +267,11 @@ function Checkout() {
     
     // Dispatch cart change event
     window.dispatchEvent(new Event('cartChanged'));
+    
+    // If no products left after saving changes, redirect to home page
+    if (updatedItems.length === 0) {
+      navigate('/');
+    }
   };
 
   const validateForm = () => {
@@ -638,10 +643,11 @@ function Checkout() {
                 </div>
               )}
 
-              <div className="products-section">
-                <h3 className="products-title">Productos</h3>
-                <div className="products-list">
-                  {itemsToDisplay.map((item, index) => (
+              {itemsToDisplay.length > 0 && (
+                <div className="products-section">
+                  <h3 className="products-title">Productos</h3>
+                  <div className="products-list">
+                    {itemsToDisplay.map((item, index) => (
                     <div key={index} className="product-item">
                       <div className="product-image-issue">
                         <img src={item.image} alt={item.name} className="checkout-product-image" />
@@ -740,6 +746,7 @@ function Checkout() {
                   ))}
                 </div>
               </div>
+              )}
             </div>
           </div>
         </div>
