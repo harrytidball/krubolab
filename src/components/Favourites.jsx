@@ -8,6 +8,7 @@ function Favourites() {
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
+    console.log('Favourites component mounted');
     loadFavourites();
   }, []);
 
@@ -49,9 +50,24 @@ function Favourites() {
 
   const calculateSubtotal = (favouritesList) => {
     const total = favouritesList.reduce((sum, item) => {
-      return sum + (item.price * (item.quantity || 1));
+      let itemPrice = item.price;
+      if (typeof itemPrice === 'string') {
+        itemPrice = parseFloat(itemPrice.replace(/\./g, ''));
+      }
+      return sum + (itemPrice * (item.quantity || 1));
     }, 0);
     setSubtotal(total);
+  };
+
+  const formatPrice = (price) => {
+    // Remove dots if they exist and convert to number
+    let numericPrice = price;
+    if (typeof price === 'string') {
+      numericPrice = parseFloat(price.replace(/\./g, ''));
+    }
+    
+    // Add thousands separators with dots
+    return `$ ${numericPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
   };
 
   const updateQuantity = (productId, newQuantity) => {
@@ -212,28 +228,26 @@ function Favourites() {
                             +
                           </button>
                         </div>
+                        
+                        <button 
+                          className="favourite-add-to-cart-btn"
+                          onClick={() => addToCart(product)}
+                        >
+                          <img 
+                            src="/images/cart.svg" 
+                            alt="Add to cart" 
+                            width="20" 
+                            height="20"
+                          />
+                        </button>
                       </div>
                     </div>
                   </div>
-                  
                   <div className="favourite-product-price">
-                    <span className="favourite-price">$ {product.price}</span>
+                    <span className="favourite-price">{formatPrice(parseFloat(product.price.replace(/\./g, '')) * (product.quantity || 1))}</span>
                   </div>
                   
-                  <div className="favourite-product-buttons">
-                    <button 
-                      className="favourite-add-to-cart-btn"
-                      onClick={() => addToCart(product)}
-                    >
-                      <img 
-                        src="/images/cart.svg" 
-                        alt="Add to cart" 
-                        width="20" 
-                        height="20"
-                      />
-                    </button>
-                
-                  </div>
+
                 </div>
               ))}
             </div>
@@ -243,7 +257,7 @@ function Favourites() {
                 <h3 className="favourite-summary-title">Resumen</h3>
                 <div className="favourite-summary-subtotal">
                   <span>Subtotal</span>
-                  <span className="favourite-subtotal-amount">$ {subtotal}</span>
+                  <span className="favourite-subtotal-amount">{formatPrice(subtotal)}</span>
                 </div>
                 <button 
                   className="favourite-add-all-to-cart-btn"
