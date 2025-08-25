@@ -13,7 +13,12 @@ function Header() {
   const getFavoritesCount = () => {
     try {
       const stored = localStorage.getItem('krubolab-favorites');
-      return stored ? JSON.parse(stored).length : 0;
+      if (stored) {
+        const favorites = JSON.parse(stored);
+        // Handle both old format (array of IDs) and new format (array of objects)
+        return Array.isArray(favorites) ? favorites.length : 0;
+      }
+      return 0;
     } catch (error) {
       console.error('Error reading favorites from localStorage:', error);
       return 0;
@@ -195,7 +200,7 @@ function Header() {
 
           {/* Right Icons */}
           <div className={`icons-section ${isSearchActive ? 'hidden' : ''}`}>
-            <button className="icon-btn heart-btn">
+            <button className="icon-btn heart-btn" onClick={() => navigate('/favourites')}>
               <img 
                 src="/images/favorito.svg" 
                 alt="Favorito" 

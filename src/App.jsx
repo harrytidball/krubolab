@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './components/LandingPage.css';
 import './components/Checkout.css';
+import './components/Favourites.css';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import LandingPage from './components/LandingPage';
 import Checkout from './components/Checkout';
 import OrderConfirmation from './components/OrderConfirmation';
 import AdminBanner from './components/AdminBanner';
+import Favourites from './components/Favourites';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -50,6 +52,10 @@ function App() {
           <Route 
             path="/checkout" 
             element={<Checkout />}
+          />
+          <Route 
+            path="/favourites" 
+            element={<Favourites />}
           />
           <Route 
             path="/confirmation" 
