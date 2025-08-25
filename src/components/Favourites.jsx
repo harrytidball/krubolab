@@ -8,7 +8,6 @@ function Favourites() {
   const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
-    console.log('Favourites component mounted');
     loadFavourites();
   }, []);
 
