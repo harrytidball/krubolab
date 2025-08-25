@@ -20,9 +20,10 @@ function Favourites() {
         // Handle both old format (array of IDs) and new format (array of objects)
         if (Array.isArray(favouritesList) && favouritesList.length > 0) {
           if (typeof favouritesList[0] === 'string' || typeof favouritesList[0] === 'number') {
-            // Old format - clear it and add sample data
+            // Old format - clear it and set empty array
             localStorage.removeItem('krubolab-favorites');
-            addSampleProducts();
+            setFavourites([]);
+            setSubtotal(0);
             return;
           }
           
@@ -30,54 +31,20 @@ function Favourites() {
           setFavourites(favouritesList);
           calculateSubtotal(favouritesList);
         } else {
-          // Empty or invalid - add sample data
-          addSampleProducts();
+          // Empty or invalid - set empty array
+          setFavourites([]);
+          setSubtotal(0);
         }
       } else {
-        // No data - add sample products for testing
-        addSampleProducts();
+        // No data - set empty array
+        setFavourites([]);
+        setSubtotal(0);
       }
     } catch (error) {
-      console.error('Error loading favourites:', error);
-      // On error, add sample data
-      addSampleProducts();
+      // On error, set empty array
+      setFavourites([]);
+      setSubtotal(0);
     }
-  };
-
-  const addSampleProducts = () => {
-    const sampleProducts = [
-      {
-        id: 'sample-1',
-        name: 'Dummy articulable',
-        description: 'Esqueleto articulable / Impresión 3d',
-        price: 15000,
-        quantity: 2,
-        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg4MFY4MEgyMFYyMFoiIGZpbGw9IiNFNUU1RTUiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iMiI+CjxwYXRoIGQ9Ik0xMiA1djE0TTUgMTJoMTQiLz4KPC9zdmc+Cjwvc3ZnPgo='
-      },
-      {
-        id: 'sample-2',
-        name: 'Busto Deadpool',
-        description: 'Busto personalizado / Impresión 3d',
-        price: 60000,
-        quantity: 1,
-        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg4MFY4MEgyMFYyMFoiIGZpbGw9IiNFNUU1RTUiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iMiI+CjxwYXRoIGQ9Ik0xMiA1djE0TTUgMTJoMTQiLz4KPC9zdmc+Cjwvc3ZnPgo='
-      },
-      {
-        id: 'sample-3',
-        name: 'Labrador negro',
-        description: 'Figura decorativa / Impresión 3d',
-        price: 2000,
-        quantity: 1,
-        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg4MFY4MEgyMFYyMFoiIGZpbGw9IiNFNUU1RTUiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iMiI+CjxwYXRoIGQ9Ik0xMiA1djE0TTUgMTJoMTQiLz4KPC9zdmc+Cjwvc3ZnPgo='
-      }
-    ];
-    
-    setFavourites(sampleProducts);
-    localStorage.setItem('krubolab-favorites', JSON.stringify(sampleProducts));
-    calculateSubtotal(sampleProducts);
-    
-    // Dispatch custom event to update header count
-    window.dispatchEvent(new CustomEvent('favoritesChanged'));
   };
 
   const calculateSubtotal = (favouritesList) => {
@@ -168,15 +135,20 @@ function Favourites() {
           <div className="favourites-container">
             <div className="favourites-content">
               <h1 className="favourites-title">TUS FAVORITOS</h1>
-              <div className="empty-favourites">
-                <p>No tienes productos favoritos</p>
-                <button 
-                  className="favourite-back-to-home-btn"
-                  onClick={() => navigate('/')}
-                >
-                  Volver al inicio
-                </button>
-              </div>
+              <div className="favourites-alert">
+            <div className="alert-icon">⚠️</div>
+            <span>Esta lista es solo temporal</span>
+          </div>
+
+          <div className="favourites-section">
+            <h2 className="favourites-subtitle">Favoritos</h2>
+            <p className="favourites-count">{favourites.length} producto{favourites.length > 1 ? 's' : ''}</p>
+          </div>
+            <div className="empty-favourites">
+            <div className="empty-favourites-message">
+                Parece que esta lista esta vacía. Sigue explorando a tu alrededor y agrega aquí los elementos que quieras para seleccionar los finales.
+            </div>
+            </div>
             </div>
           </div>
         </div>

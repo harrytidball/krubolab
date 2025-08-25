@@ -305,6 +305,23 @@
   background-color: #0056b3;
 }
 
+.empty-favourites {
+  text-align: left;
+}
+
+.empty-favourites-message {
+  background-color: #F9F9F9;
+  border-radius: 12px;
+  padding: 50px;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: black;
+  max-width: 700px;
+  margin-left: 0;
+  margin-right: auto;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .favourite-layout {
@@ -397,9 +414,15 @@
   
   .favourite-product-price {
     text-align: center;
-  }
+    }
   
   .favourite-product-buttons {
     justify-content: center;
+  }
+  
+  .empty-favourites-message {
+    padding: 30px 20px;
+    font-size: 1rem;
+    max-width: 100%;
   }
 }
