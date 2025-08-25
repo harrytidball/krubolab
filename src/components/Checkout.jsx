@@ -399,9 +399,12 @@ function Checkout() {
     return (
       <div className="checkout-empty">
         <div className="checkout-empty-content">
-          <h2>Tu carrito está vacío</h2>
-          <p>Agrega algunos productos antes de proceder al checkout</p>
-          <button onClick={() => navigate('/')} className="btn-primary">
+          <div className="checkout-empty-logo">
+            <img src="/images/krubo-logo.png" alt="Krubo Lab" className="krubo-logo" />
+          </div>
+          <h2 className="checkout-empty-title">Tu carrito está vacío</h2>
+          <p className="checkout-empty-description">Agrega algunos productos antes de proceder al checkout</p>
+          <button onClick={() => navigate('/')} className="checkout-empty-btn">
             Continuar comprando
           </button>
         </div>

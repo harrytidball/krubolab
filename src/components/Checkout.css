@@ -703,42 +703,70 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 60vh;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background-color: #e1e1e1;
 }
 
 .checkout-empty-content {
   text-align: center;
-  max-width: 400px;
+  max-width: 500px;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.checkout-empty-content h2 {
+.checkout-empty-logo {
+  margin-bottom: 30px;
+}
+
+.krubo-logo {
+  height: 80px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+.checkout-empty-title {
   font-size: 28px;
+  font-weight: 700;
   color: #333;
   margin-bottom: 16px;
+  line-height: 1.2;
 }
 
-.checkout-empty-content p {
+.checkout-empty-description {
   font-size: 16px;
   color: #666;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
+  line-height: 1.5;
 }
 
-.btn-primary {
-  background: #007bff;
+.checkout-empty-btn {
+  background: linear-gradient(135deg, #ce5a5c 0%, #b84a4c 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 16px 32px;
+  border-radius: 50px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 550;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(206, 90, 92, 0.3);
 }
 
-.btn-primary:hover {
-  background: #0056b3;
+.checkout-empty-btn:hover {
+  background: linear-gradient(135deg, #b84a4c 0%, #a03a3c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(206, 90, 92, 0.4);
+}
+
+.checkout-empty-btn:active {
+  transform: translateY(0);
 }
 
 /* Confirmation Page Styles */
@@ -1078,5 +1106,35 @@
 
   .confirmation-actions {
     gap: 8px;
+  }
+  
+  /* Responsive styles for empty cart */
+  .checkout-empty {
+    padding: 20px 16px;
+    min-height: 100vh;
+  }
+  
+  .checkout-empty-content {
+    padding: 30px 20px;
+    max-width: 100%;
+  }
+  
+  .krubo-logo {
+    height: 60px;
+    max-width: 150px;
+  }
+  
+  .checkout-empty-title {
+    font-size: 24px;
+  }
+  
+  .checkout-empty-description {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+  
+  .checkout-empty-btn {
+    padding: 14px 28px;
+    font-size: 15px;
   }
 }
