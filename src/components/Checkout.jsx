@@ -614,7 +614,7 @@ function Checkout() {
                 Continuar
               </button>
               <button type="button" onClick={handleEditCartNavigation} className="btn-back-cart">
-                Volver al carrito
+                Volver al inicio
               </button>
             </form>
           </div>
