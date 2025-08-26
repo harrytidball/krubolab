@@ -291,11 +291,11 @@ function WorkshopProducts() {
                       }}
                     />
                   </div>
-                  <div className="product-info">
-                    <h3 className="product-title">{product.name}</h3>
-                    <p className="product-price">$ {product.price}</p>
+                  <div className="workshop-product-info">
+                    <h3 className="workshop-product-title">{product.name}</h3>
+                    <p className="workshop-product-price">$ {product.price}</p>
 
-                    <div className="product-actions">
+                    <div className="workshop-product-actions">
                       <button 
                         className={`action-btn cart-btn ${isInCart(product.id) ? 'in-cart' : ''}`}
                         aria-label={isInCart(product.id) ? "Quitar del carrito" : "Agregar al carrito"}
