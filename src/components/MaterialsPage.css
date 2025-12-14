@@ -1,0 +1,121 @@
+/* Materials Page Styles */
+
+.materials-page {
+  min-height: 100vh;
+  background: var(--color-white);
+  font-family: 'Rubik', sans-serif;
+}
+
+.materials-main {
+  width: 100%;
+  padding: 0;
+}
+
+.materials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+/* Title Section */
+.materials-page-title {
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: #c72124;
+  margin: 0 0 4rem 0;
+  text-align: left;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* Philosophy Section */
+.philosophy-section {
+  margin-bottom: 4rem;
+}
+
+.philosophy-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  line-height: 1.8;
+  margin: 0;
+  max-width: 800px;
+}
+
+/* Materials Description Section */
+.materials-description-section {
+  margin-bottom: 4rem;
+}
+
+.materials-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  line-height: 1.8;
+  margin: 0;
+  max-width: 800px;
+}
+
+/* Custom Pieces Section */
+.custom-pieces-section {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.custom-pieces-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  line-height: 1.8;
+  margin: 0;
+  max-width: 800px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .materials-container {
+    padding: 3rem 1.5rem;
+  }
+
+  .materials-page-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .philosophy-description,
+  .materials-description,
+  .custom-pieces-description {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .materials-container {
+    padding: 2rem 1rem;
+  }
+
+  .materials-page-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .philosophy-description,
+  .materials-description,
+  .custom-pieces-description {
+    font-size: 1rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .materials-page-title {
+    font-size: 1.75rem;
+  }
+
+  .philosophy-description,
+  .materials-description,
+  .custom-pieces-description {
+    font-size: 0.95rem;
+  }
+}
+

@@ -13,6 +13,7 @@ import Favourites from './components/Favourites';
 import LaserCutting from './components/LaserCutting';
 import ThreeDPrinting from './components/ThreeDPrinting';
 import OurProjects from './components/OurProjects';
+import MaterialsPage from './components/MaterialsPage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -71,6 +72,10 @@ function App() {
           <Route 
             path="/nuestros-proyectos" 
             element={<OurProjects />}
+          />
+          <Route 
+            path="/nuestros-materiales" 
+            element={<MaterialsPage />}
           />
           <Route 
             path="/confirmation" 

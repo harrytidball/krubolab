@@ -189,7 +189,7 @@ function Header() {
             <div className="nav-link dropdown-trigger">
               Acerca de
               <div className="dropdown-menu">
-                <div className="dropdown-item">Nuestros materiales</div>
+                <div className="dropdown-item" onClick={() => navigate('/nuestros-materiales')}>Nuestros materiales</div>
               </div>
             </div>
             
@@ -311,7 +311,7 @@ function Header() {
             <div className="mobile-nav-section">
               <h3 className="mobile-nav-title">Acerca de</h3>
               <div className="mobile-nav-items">
-                <a href="#" className="mobile-nav-item">Nuestros materiales</a>
+                <a href="/nuestros-materiales" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/nuestros-materiales'); closeMobileMenu(); }}>Nuestros materiales</a>
               </div>
             </div>
 
