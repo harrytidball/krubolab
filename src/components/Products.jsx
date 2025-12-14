@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
 import { dashboardService } from '../services/apiService';
 
+// Helper function to format material names for display
+const formatMaterialName = (material) => {
+  const materialMap = {
+    'madera': 'Madera',
+    'acrilico': 'Acrílico',
+    'vidrio': 'Vidrio',
+    'pla': 'PLA',
+    'petg': 'PETG',
+    'abs': 'ABS',
+    'asa': 'ASA'
+  };
+  return materialMap[material.toLowerCase()] || material;
+};
+
 function Products() {
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -324,12 +338,19 @@ function Products() {
                 <label>Materials:</label>
                 {formData.materials.map((material, index) => (
                   <div key={index} className="array-input-group">
-                    <input
-                      type="text"
-                      placeholder="Material name"
+                    <select
                       value={material}
                       onChange={(e) => updateArrayItem('materials', index, e.target.value)}
-                    />
+                    >
+                      <option value="">Select a material</option>
+                      <option value="madera">Madera</option>
+                      <option value="acrilico">Acrílico</option>
+                      <option value="vidrio">Vidrio</option>
+                      <option value="pla">PLA</option>
+                      <option value="petg">PETG</option>
+                      <option value="abs">ABS</option>
+                      <option value="asa">ASA</option>
+                    </select>
                     {formData.materials.length > 1 && (
                       <button
                         type="button"
@@ -425,7 +446,7 @@ function Products() {
                   <td className="product-id">{product.id}</td>
                   <td className="product-name">{product.name}</td>
                   <td className="product-price">${product.price}</td>
-                  <td className="product-description">
+                  <td className="product-description" style={{ fontSize: 'var(--text-sm) !important' }}>
                     {product.description ? 
                       (product.description.length > 50 ? 
                         `${product.description.substring(0, 50)}...` : 
@@ -454,7 +475,7 @@ function Products() {
                   </td>
                   <td className="product-materials">
                     {product.materials && product.materials.length > 0 ? 
-                      product.materials.join(', ') : 
+                      product.materials.map(formatMaterialName).join(', ') : 
                       '-'
                     }
                   </td>

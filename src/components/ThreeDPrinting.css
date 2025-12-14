@@ -1,0 +1,220 @@
+/* Three D Printing Page Styles */
+
+.three-d-printing-page {
+  min-height: 100vh;
+  background: var(--color-white);
+  font-family: 'Rubik', sans-serif;
+}
+
+/* Hero Section */
+.three-d-printing-hero {
+  width: 100%;
+  margin: 0;
+  padding: 4rem 3rem;
+  background: #e1e1e1;
+}
+
+.three-d-printing-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #c72124;
+  margin: 0 0 2rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  color: var(--color-text-dark);
+  line-height: 1.8;
+  margin: 0 auto;
+  max-width: 800px;
+  font-weight: 400;
+}
+
+/* Polymers Introduction Section */
+.polymers-intro-section {
+  padding: 4rem 2rem;
+  background: #e1e1e1;
+}
+
+.polymers-intro-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.polymers-intro-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.polymers-intro-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+/* Material Section */
+.material-section {
+  padding: 4rem 2rem;
+  background: #e1e1e1;
+}
+
+/* Alternating backgrounds: PLA (#dcdada), PETG (#e1e1e1), ABS (#dcdada), ASA (#e1e1e1) */
+.material-section:nth-of-type(3) {
+  background: #dcdada;
+}
+
+.material-section:nth-of-type(5) {
+  background: #dcdada;
+}
+
+.material-section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.material-section-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.material-section-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 800px;
+}
+
+.material-product-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  font-size: 1rem;
+  background: #f0f0f0;
+}
+
+/* No Products Message */
+.no-products-message {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+}
+
+/* Loading */
+.loading-container {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  font-size: 1.25rem;
+  color: var(--color-text-light);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .three-d-printing-hero {
+    padding: 3rem 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .polymers-intro-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .polymers-intro-title {
+    font-size: 1.75rem;
+  }
+
+  .polymers-intro-description {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .three-d-printing-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .polymers-intro-section {
+    padding: 2rem 1rem;
+  }
+
+  .polymers-intro-title {
+    font-size: 1.5rem;
+  }
+
+  .polymers-intro-description {
+    font-size: 1rem;
+  }
+
+  .material-section {
+    padding: 2rem 1rem;
+  }
+
+  .material-section-title {
+    font-size: 2rem;
+  }
+
+  .material-section-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .polymers-intro-title {
+    font-size: 1.25rem;
+  }
+
+  .polymers-intro-description {
+    font-size: 0.95rem;
+  }
+}
+
