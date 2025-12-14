@@ -44,7 +44,7 @@
 
 .our-projects-hero-title {
   font-size: 4rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #c62124;
   margin-bottom: 2rem;
   text-transform: uppercase;
@@ -160,6 +160,13 @@
 
   .our-projects-hero-description {
     font-size: 1rem;
+  }
+}
+
+/* Tablet/iPad sizes - increase description font size */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .our-projects-hero-description {
+    font-size: 1.25rem;
   }
 
   .our-projects-grid {

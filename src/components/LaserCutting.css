@@ -250,6 +250,13 @@
   }
 }
 
+/* Tablet/iPad sizes - override to increase font size */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-description {
+    font-size: 1.25rem;
+  }
+}
+
 @media (max-width: 768px) {
   .laser-cutting-hero {
     padding: 2rem 1.5rem;

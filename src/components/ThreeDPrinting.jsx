@@ -295,10 +295,21 @@ function ThreeDPrinting() {
       {/* Hero Section */}
       <section className="three-d-printing-hero">
         <div className="three-d-printing-hero-container">
-          <h1 className="hero-title">IMPRESIÓN 3D</h1>
-          <p className="hero-description">
-            Es una tecnología que convierte tus ideas en objetos reales, creando piezas adicionando material por capas a partir de un modelo digital. Es ideal para prototipado rápido, producción personalizada y soluciones muy creativas.
-          </p>
+          <div className="three-d-printing-hero-content">
+            <div className="three-d-printing-hero-text-content">
+              <h1 className="hero-title">IMPRESIÓN 3D</h1>
+              <p className="hero-description">
+                Es una tecnología que convierte tus ideas en objetos reales, creando piezas adicionando material por capas a partir de un modelo digital. Es ideal para prototipado rápido, producción personalizada y soluciones muy creativas.
+              </p>
+            </div>
+            <div className="three-d-printing-hero-image-wrapper">
+              <img 
+                src="/images/3d-printing.png" 
+                alt="Impresión 3D" 
+                className="three-d-printing-hero-image"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

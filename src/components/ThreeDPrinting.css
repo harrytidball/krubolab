@@ -17,7 +17,31 @@
 .three-d-printing-hero-container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.three-d-printing-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.three-d-printing-hero-text-content {
   text-align: center;
+  width: 100%;
+}
+
+.three-d-printing-hero-image-wrapper {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.three-d-printing-hero-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .hero-title {
@@ -36,6 +60,24 @@
   margin: 0 auto;
   max-width: 800px;
   font-weight: 400;
+}
+
+/* Show image on large screens, hide text */
+@media (min-width: 1200px) {
+  .three-d-printing-hero {
+    padding-top: 2rem;
+    padding-bottom: 0rem;
+  }
+
+  .three-d-printing-hero-text-content {
+    display: none;
+  }
+
+  .three-d-printing-hero-image-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* Polymers Introduction Section */
@@ -165,6 +207,13 @@
 
   .polymers-intro-description {
     font-size: 1.125rem;
+  }
+}
+
+/* Tablet/iPad sizes - override to increase font size */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-description {
+    font-size: 1.25rem;
   }
 }
 
