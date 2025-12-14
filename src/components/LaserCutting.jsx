@@ -278,10 +278,21 @@ function LaserCutting() {
       {/* Hero Section */}
       <section className="laser-cutting-hero">
         <div className="laser-cutting-hero-container">
-          <h1 className="hero-title">CORTE Y TALLADO LÁSER</h1>
-          <p className="hero-description">
-            El corte y tallado láser es una técnica de fabricación precisa que utiliza un haz de luz concentrado para cortar, grabar o marcar materiales como madera, acrílico, MDF, cuero y más. Permite obtener acabados limpios, detalles finos y diseños personalizados con gran exactitud, ideal para proyectos creativos, piezas industriales, prototipos y decoración.
-          </p>
+          <div className="laser-cutting-hero-content">
+            <div className="hero-text-content">
+              <h1 className="hero-title">CORTE Y TALLADO LÁSER</h1>
+              <p className="hero-description">
+                El corte y tallado láser es una técnica de fabricación precisa que utiliza un haz de luz concentrado para cortar, grabar o marcar materiales como madera, acrílico, MDF, cuero y más. Permite obtener acabados limpios, detalles finos y diseños personalizados con gran exactitud, ideal para proyectos creativos, piezas industriales, prototipos y decoración.
+              </p>
+            </div>
+            <div className="hero-image-wrapper">
+              <img 
+                src="/images/laser-cutting.png" 
+                alt="Corte y Tallado Láser" 
+                className="hero-image"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

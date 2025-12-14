@@ -14,6 +14,34 @@
   margin: 0 auto;
 }
 
+.our-projects-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.our-projects-hero-text-content {
+  width: 100%;
+}
+
+.our-projects-hero-image-wrapper {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.our-projects-section {
+  box-shadow: none;
+}
+
+.our-projects-hero-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
 .our-projects-hero-title {
   font-size: 4rem;
   font-weight: 600;
@@ -29,6 +57,24 @@
   color: #000000;
   line-height: 1.6;
   max-width: 800px;
+}
+
+/* Show image on large screens, hide text */
+@media (min-width: 1200px) {
+  .our-projects-hero {
+    padding-top: 2rem;
+    padding-bottom: 0rem;
+  }
+
+  .our-projects-hero-text-content {
+    display: none;
+  }
+
+  .our-projects-hero-image-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* Products Grid */

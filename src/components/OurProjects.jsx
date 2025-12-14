@@ -186,13 +186,24 @@ function OurProjects() {
         <Header />
         <section className="our-projects-hero">
           <div className="our-projects-hero-container">
-            <h1 className="our-projects-hero-title">NUESTROS PROYECTOS</h1>
-            <p className="our-projects-hero-description">
-              Trabajamos con variedad de materiales para cumplir funciones específicas y lograr acabados diversos. Cada creación es el resultado de diseño consciente y detalle en la fabricación.
-            </p>
+            <div className="our-projects-hero-content">
+              <div className="our-projects-hero-text-content">
+                <h1 className="our-projects-hero-title">NUESTROS PROYECTOS</h1>
+                <p className="our-projects-hero-description">
+                  Trabajamos con variedad de materiales para cumplir funciones específicas y lograr acabados diversos. Cada creación es el resultado de diseño consciente y detalle en la fabricación.
+                </p>
+              </div>
+              <div className="our-projects-hero-image-wrapper">
+                <img 
+                  src="/images/our-projects.png" 
+                  alt="Nuestros Proyectos" 
+                  className="our-projects-hero-image"
+                />
+              </div>
+            </div>
           </div>
         </section>
-        <section className="workshop-products-section">
+        <section className="workshop-products-section our-projects-section">
           <div className="workshop-products-container">
             <div className="our-projects-grid loading-skeleton">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((index) => (
@@ -223,15 +234,26 @@ function OurProjects() {
       {/* Hero Section */}
       <section className="our-projects-hero">
         <div className="our-projects-hero-container">
-          <h1 className="our-projects-hero-title">NUESTROS PROYECTOS</h1>
-          <p className="our-projects-hero-description">
-            Trabajamos con variedad de materiales para cumplir funciones específicas y lograr acabados diversos. Cada creación es el resultado de diseño consciente y detalle en la fabricación.
-          </p>
+          <div className="our-projects-hero-content">
+            <div className="our-projects-hero-text-content">
+              <h1 className="our-projects-hero-title">NUESTROS PROYECTOS</h1>
+              <p className="our-projects-hero-description">
+                Trabajamos con variedad de materiales para cumplir funciones específicas y lograr acabados diversos. Cada creación es el resultado de diseño consciente y detalle en la fabricación.
+              </p>
+            </div>
+            <div className="our-projects-hero-image-wrapper">
+              <img 
+                src="/images/our-projects.png" 
+                alt="Nuestros Proyectos" 
+                className="our-projects-hero-image"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Products Section */}
-      <section className="workshop-products-section">
+      <section className="workshop-products-section our-projects-section">
         <div className="workshop-products-container">
           <div className="our-projects-grid">
             {products.map((product) => (

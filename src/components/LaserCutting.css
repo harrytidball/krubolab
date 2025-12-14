@@ -17,7 +17,31 @@
 .laser-cutting-hero-container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.laser-cutting-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-text-content {
   text-align: center;
+  width: 100%;
+}
+
+.hero-image-wrapper {
+  display: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .hero-title {
@@ -36,6 +60,24 @@
   margin: 0 auto;
   max-width: 800px;
   font-weight: 400;
+}
+
+/* Show image on large screens, hide text */
+@media (min-width: 1200px) {
+  .laser-cutting-hero {
+    padding-top: 2rem;
+    padding-bottom: 0rem;
+  }
+
+  .hero-text-content {
+    display: none;
+  }
+
+  .hero-image-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 /* Material Section */
@@ -188,6 +230,12 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1199px) {
+  .hero-image-wrapper {
+    display: none;
+  }
+}
+
 @media (max-width: 968px) {
   .laser-cutting-hero {
     padding: 3rem 2rem;
