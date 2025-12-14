@@ -75,7 +75,40 @@ function OrderConfirmation() {
           </div>
 
           <div className="confirmation-actions">
-            <button onClick={() => window.open('https://wa.me/573042450295?text=Hola, tengo una consulta sobre mi pedido', '_blank')} className="btn-whatsapp">
+            <button onClick={() => {
+              const itemsText = orderData.items.map(item => {
+                let itemText = `• ${item.name} x${item.quantity}`;
+                if (item.size) itemText += ` - Talla: ${item.size}`;
+                if (item.color) itemText += ` - Color: ${item.color}`;
+                return itemText;
+              }).join('\n');
+              
+              const totalFormatted = new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+              }).format(orderData.total);
+              
+              const addressParts = [
+                orderData.customer.street,
+                orderData.customer.city,
+                orderData.customer.department
+              ].filter(Boolean);
+              let addressText = addressParts.join(', ');
+              if (orderData.customer.additionalInfo) {
+                addressText += ` - ${orderData.customer.additionalInfo}`;
+              }
+              
+              const message = `Hola, tengo una consulta sobre mi pedido\n\n` +
+                `Número de pedido: ${orderData.orderNumber}\n` +
+                `Nombre: ${orderData.customer.fullName}\n` +
+                `Dirección: ${addressText}\n` +
+                `Total: ${totalFormatted}\n\n` +
+                `Productos:\n${itemsText}`;
+              
+              window.open(`https://wa.me/573042450295?text=${encodeURIComponent(message)}`, '_blank');
+            }} className="btn-whatsapp">
               Ir a WhatsApp
             </button>
             <button onClick={() => navigate('/')} className="btn-back">
