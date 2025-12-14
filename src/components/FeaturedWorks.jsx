@@ -19,7 +19,7 @@ function FeaturedWorks() {
               <h3 className="featured-product-title">Pyramid Head</h3>
               <p className="product-description">Figura coleccionable</p>
               <p className="product-price" style={{marginTop: '3px'}}>$ 50.000</p>
-              <button className="featured-ver-mas-btn">VER MÁS</button>
+              <button className="featured-ver-mas-btn">próximamente</button>
             </div>
           </div>
 
@@ -35,7 +35,7 @@ function FeaturedWorks() {
               <h3 className="featured-product-title">Head-1</h3>
               <p className="product-description">Porta audífonos</p>
               <p className="product-price" style={{marginTop: '3px'}}>$ 70.000</p>
-              <button className="featured-ver-mas-btn">VER MÁS</button>
+              <button className="featured-ver-mas-btn">próximamente</button>
             </div>
           </div>
 
@@ -51,7 +51,7 @@ function FeaturedWorks() {
               <h3 className="featured-product-title">Okus</h3>
               <p className="product-description">Mesa de noche</p>
               <p className="product-price" style={{marginTop: '3px'}}>$ 200.000</p>
-              <button className="featured-ver-mas-btn">VER MÁS</button>
+              <button className="featured-ver-mas-btn">próximamente</button>
             </div>
           </div>
 
@@ -67,7 +67,7 @@ function FeaturedWorks() {
               <h3 className="featured-product-title">Repuestos Singer</h3>
               <p className="product-description">Piezas mecánicas</p>
               <p className="product-price" style={{marginTop: '3px'}}>$ 30.000</p>
-              <button className="featured-ver-mas-btn">VER MÁS</button>
+              <button className="featured-ver-mas-btn">próximamente</button>
             </div>
           </div>
         </div>

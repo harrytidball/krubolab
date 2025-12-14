@@ -1278,7 +1278,7 @@ body.search-active::before {
   border-radius: 25px; /* Rounded corners */
   font-size: 0.875rem;
   font-weight: 400;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.2s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
