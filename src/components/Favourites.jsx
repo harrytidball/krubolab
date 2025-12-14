@@ -229,7 +229,11 @@ function Favourites() {
             <div className="favourites-list">
               {favourites.map((product) => (
                 <div key={product.id} className="favourite-item">
-                  <div className="favourite-product-image">
+                  <div 
+                    className="favourite-product-image"
+                    onClick={() => navigate(`/producto/${product.id}`)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <img 
                       src={product.image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg4MFY4MEgyMFYyMFoiIGZpbGw9IiNFNUU1RTUiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNDQ0NDQ0MiIHN0cm9rZS13aWR0aD0iMiI+CjxwYXRoIGQ9Ik0xMiA1djE0TTUgMTJoMTQiLz4KPC9zdmc+Cjwvc3ZnPgo='} 
                       alt={product.name}

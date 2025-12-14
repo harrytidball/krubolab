@@ -125,6 +125,8 @@ function ProductDetail() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [productsPerSlide, setProductsPerSlide] = useState(getProductsPerSlide());
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [fullscreenImageIndex, setFullscreenImageIndex] = useState(0);
 
   useEffect(() => {
     // Add background class to body
@@ -145,8 +147,8 @@ function ProductDetail() {
         const foundProduct = products.find(p => p.id === id);
         
         if (!foundProduct) {
-          // Product not found, redirect to home
-          navigate('/');
+          // Product not found, redirect to 404
+          navigate('/404', { replace: true });
           return;
         }
         
@@ -160,7 +162,7 @@ function ProductDetail() {
           setSelectedMeasurement(foundProduct.measurements[0]);
         }
       } catch (error) {
-        navigate('/');
+        navigate('/404', { replace: true });
       } finally {
         setLoading(false);
       }
@@ -184,6 +186,28 @@ function ProductDetail() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    // Handle keyboard events for fullscreen mode
+    const handleKeyDown = (e) => {
+      if (!isFullscreen) return;
+      
+      if (e.key === 'Escape') {
+        setIsFullscreen(false);
+      } else if (e.key === 'ArrowLeft' && product && product.images) {
+        setFullscreenImageIndex((prev) => 
+          prev === 0 ? product.images.length - 1 : prev - 1
+        );
+      } else if (e.key === 'ArrowRight' && product && product.images) {
+        setFullscreenImageIndex((prev) => 
+          prev === product.images.length - 1 ? 0 : prev + 1
+        );
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFullscreen, product]);
 
   const handleAddToCart = () => {
     if (!product) return;
@@ -497,7 +521,14 @@ function ProductDetail() {
         <div className="product-detail-images">
           {product.images && product.images.length > 0 && (
             <>
-              <div className="main-image-container">
+              <div 
+                className="main-image-container"
+                onClick={() => {
+                  setIsFullscreen(true);
+                  setFullscreenImageIndex(selectedImageIndex);
+                }}
+                style={{ cursor: 'pointer' }}
+              >
                 <img
                   src={product.images[selectedImageIndex]}
                   alt={product.name}
@@ -510,7 +541,14 @@ function ProductDetail() {
                     <button
                       key={index}
                       className={`thumbnail-image ${selectedImageIndex === index ? 'active' : ''}`}
-                      onClick={() => setSelectedImageIndex(index)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImageIndex(index);
+                      }}
+                      onDoubleClick={() => {
+                        setIsFullscreen(true);
+                        setFullscreenImageIndex(index);
+                      }}
                     >
                       <img src={image} alt={`${product.name} ${index + 1}`} />
                     </button>
@@ -623,6 +661,75 @@ function ProductDetail() {
       {showToast && (
         <div className="product-detail-toast">
           {toastMessage}
+        </div>
+      )}
+
+      {/* Fullscreen Image Modal */}
+      {isFullscreen && product.images && product.images.length > 0 && (
+        <div 
+          className="fullscreen-image-modal"
+          onClick={() => setIsFullscreen(false)}
+        >
+          <button 
+            className="fullscreen-close-btn"
+            onClick={() => setIsFullscreen(false)}
+            aria-label="Cerrar"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          
+          {product.images.length > 1 && (
+            <>
+              <button 
+                className="fullscreen-nav-btn fullscreen-prev-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setFullscreenImageIndex((prev) => 
+                    prev === 0 ? product.images.length - 1 : prev - 1
+                  );
+                }}
+                aria-label="Imagen anterior"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button 
+                className="fullscreen-nav-btn fullscreen-next-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setFullscreenImageIndex((prev) => 
+                    prev === product.images.length - 1 ? 0 : prev + 1
+                  );
+                }}
+                aria-label="Siguiente imagen"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </>
+          )}
+          
+          <div 
+            className="fullscreen-image-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={product.images[fullscreenImageIndex]}
+              alt={`${product.name} - Imagen ${fullscreenImageIndex + 1}`}
+              className="fullscreen-image"
+            />
+          </div>
+          
+          {product.images.length > 1 && (
+            <div className="fullscreen-image-counter">
+              {fullscreenImageIndex + 1} / {product.images.length}
+            </div>
+          )}
         </div>
       )}
       </div>

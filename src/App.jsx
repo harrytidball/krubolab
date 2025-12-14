@@ -15,6 +15,7 @@ import ThreeDPrinting from './components/ThreeDPrinting';
 import OurProjects from './components/OurProjects';
 import MaterialsPage from './components/MaterialsPage';
 import ProductDetail from './components/ProductDetail';
+import NotFound from './components/NotFound';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -87,6 +88,10 @@ function App() {
             element={<OrderConfirmation />}
           />
           <Route 
+            path="/404" 
+            element={<NotFound />}
+          />
+          <Route 
             path="/sitio" 
             element={
               <LandingPage />
@@ -130,6 +135,10 @@ function App() {
                 <Navigate to="/administrador" replace />
               )
             } 
+          />
+          <Route 
+            path="*" 
+            element={<NotFound />} 
           />
         </Routes>
       </div>

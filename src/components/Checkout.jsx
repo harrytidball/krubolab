@@ -652,7 +652,11 @@ function Checkout() {
                   <div className="products-list">
                     {itemsToDisplay.map((item, index) => (
                     <div key={index} className="product-item">
-                      <div className="product-image-issue">
+                      <div 
+                        className="product-image-issue"
+                        onClick={() => navigate(`/producto/${item.id}`)}
+                        style={{ cursor: 'pointer' }}
+                      >
                         <img src={item.image} alt={item.name} className="checkout-product-image" />
                       </div>
                       <div className="product-details">

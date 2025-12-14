@@ -1,75 +1,61 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function FeaturedWorks() {
+  const navigate = useNavigate();
+
+  // Featured products configuration with product IDs
+  const featuredProducts = [
+    { id: '1755811194068-dxxyw2y8f', name: 'Pyramid Head', image: '/images/pyramid-head.png', description: 'Figura coleccionable', price: '$ 50.000' },
+    { id: '1755810988886-0v6ghicff', name: 'Head-1', image: '/images/head-1.png', description: 'Porta audífonos', price: '$ 70.000' },
+    { id: '1755811124030-jjs47ubk2', name: 'Okus', image: '/images/okus.png', description: 'Mesa de noche', price: '$ 200.000' },
+    { name: 'Repuestos Singer', image: '/images/repuestos-cosedora-singer.png', description: 'Piezas mecánicas', price: '$ 30.000' }
+  ];
+
+  const handleProductClick = (productId) => {
+    if (productId) {
+      navigate(`/producto/${productId}`);
+    } else {
+      navigate('/404');
+    }
+  };
+
   return (
     <section className="featured-works">
       <div className="featured-works-container">
         <h2 className="section-title">TRABAJOS DESTACADOS</h2>
         
         <div className="featured-works-grid">
-          <div className="product-card">
-            <div className="featured-product-image">
-              <img 
-                src="/images/pyramid-head.png" 
-                alt="Pyramid Head Figura Coleccionable" 
-                className="featured-product-img"
-              />
+          {featuredProducts.map((product, index) => (
+            <div 
+              key={index}
+              className="product-card"
+              onClick={() => handleProductClick(product.id)}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="featured-product-image">
+                <img 
+                  src={product.image} 
+                  alt={`${product.name} ${product.description}`}
+                  className="featured-product-img"
+                />
+              </div>
+              <div className="product-info">
+                <h3 className="featured-product-title">{product.name}</h3>
+                <p className="product-description">{product.description}</p>
+                <p className="product-price" style={{marginTop: '3px'}}>{product.price}</p>
+                <button 
+                  className="featured-ver-mas-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleProductClick(product.id);
+                  }}
+                >
+                  Ver más
+                </button>
+              </div>
             </div>
-            <div className="product-info">
-              <h3 className="featured-product-title">Pyramid Head</h3>
-              <p className="product-description">Figura coleccionable</p>
-              <p className="product-price" style={{marginTop: '3px'}}>$ 50.000</p>
-              <button className="featured-ver-mas-btn">próximamente</button>
-            </div>
-          </div>
-
-          <div className="product-card">
-            <div className="featured-product-image">
-              <img 
-                src="/images/head-1.png" 
-                alt="Head-1 Porta Audífonos" 
-                className="featured-product-img"
-              />
-            </div>
-            <div className="product-info">
-              <h3 className="featured-product-title">Head-1</h3>
-              <p className="product-description">Porta audífonos</p>
-              <p className="product-price" style={{marginTop: '3px'}}>$ 70.000</p>
-              <button className="featured-ver-mas-btn">próximamente</button>
-            </div>
-          </div>
-
-          <div className="product-card">
-            <div className="featured-product-image">
-              <img 
-                src="/images/okus.png" 
-                alt="Okus Mesa de Noche" 
-                className="featured-product-img"
-              />
-            </div>
-            <div className="product-info">
-              <h3 className="featured-product-title">Okus</h3>
-              <p className="product-description">Mesa de noche</p>
-              <p className="product-price" style={{marginTop: '3px'}}>$ 200.000</p>
-              <button className="featured-ver-mas-btn">próximamente</button>
-            </div>
-          </div>
-
-          <div className="product-card">
-            <div className="featured-product-image">
-              <img 
-                src="/images/repuestos-cosedora-singer.png" 
-                alt="Repuestos Cosedora Singer Piezas Mecánicas" 
-                className="featured-product-img"
-              />
-            </div>
-            <div className="product-info">
-              <h3 className="featured-product-title">Repuestos Singer</h3>
-              <p className="product-description">Piezas mecánicas</p>
-              <p className="product-price" style={{marginTop: '3px'}}>$ 30.000</p>
-              <button className="featured-ver-mas-btn">próximamente</button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

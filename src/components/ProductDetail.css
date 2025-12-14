@@ -890,3 +890,126 @@ body.product-detail-page {
   }
 }
 
+/* Fullscreen Image Modal */
+.fullscreen-image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.fullscreen-image-container {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.fullscreen-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  cursor: default;
+}
+
+.fullscreen-close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 10001;
+}
+
+.fullscreen-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fullscreen-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 10001;
+}
+
+.fullscreen-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.fullscreen-prev-btn {
+  left: 2rem;
+}
+
+.fullscreen-next-btn {
+  right: 2rem;
+}
+
+.fullscreen-image-counter {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  z-index: 10001;
+}
+
+@media (max-width: 768px) {
+  .fullscreen-close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .fullscreen-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .fullscreen-prev-btn {
+    left: 1rem;
+  }
+
+  .fullscreen-next-btn {
+    right: 1rem;
+  }
+
+  .fullscreen-image-counter {
+    bottom: 1rem;
+    font-size: 0.875rem;
+  }
+}
+
