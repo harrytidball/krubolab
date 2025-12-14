@@ -12,6 +12,7 @@ import AdminBanner from './components/AdminBanner';
 import Favourites from './components/Favourites';
 import LaserCutting from './components/LaserCutting';
 import ThreeDPrinting from './components/ThreeDPrinting';
+import OurProjects from './components/OurProjects';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -66,6 +67,10 @@ function App() {
           <Route 
             path="/3dprinting" 
             element={<ThreeDPrinting />}
+          />
+          <Route 
+            path="/nuestros-proyectos" 
+            element={<OurProjects />}
           />
           <Route 
             path="/confirmation" 
