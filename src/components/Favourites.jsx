@@ -133,7 +133,7 @@ function Favourites() {
       
       // If this was the last item in favourites, redirect to checkout
       if (favourites.length === 1) {
-        navigate('/checkout');
+        navigate('/carrito');
       }
     } catch (error) {
       // Error handling for cart operations
@@ -171,7 +171,7 @@ function Favourites() {
       window.dispatchEvent(new CustomEvent('favoritesChanged'));
       
       // Navigate to checkout after adding all items
-      navigate('/checkout');
+      navigate('/carrito');
     } catch (error) {
       // Error handling for cart operations
     }

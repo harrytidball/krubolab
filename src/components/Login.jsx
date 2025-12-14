@@ -16,7 +16,7 @@ function Login({ onLogin }) {
     // Simple password check - in production, this should be more secure
     if (password === 'admin123') {
       onLogin(true);
-      navigate('/dashboard');
+      navigate('/panel');
     } else {
       setError('Contraseña inválida');
     }

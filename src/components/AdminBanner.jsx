@@ -6,7 +6,7 @@ function AdminBanner() {
   const location = useLocation();
   
   // Don't show banner on admin routes
-  if (location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/admin')) {
+  if (location.pathname.startsWith('/panel') || location.pathname.startsWith('/administrador')) {
     return null;
   }
 
@@ -22,7 +22,7 @@ function AdminBanner() {
       </p>
       <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
         <button 
-          onClick={() => navigate('/dashboard')} 
+          onClick={() => navigate('/panel')} 
           style={{
             padding: '8px 16px',
             background: '#007bff',
@@ -35,7 +35,7 @@ function AdminBanner() {
           Ir al Dashboard
         </button>
         <button 
-          onClick={() => navigate('/website')} 
+          onClick={() => navigate('/sitio')} 
           style={{
             padding: '8px 16px',
             background: '#28a745',

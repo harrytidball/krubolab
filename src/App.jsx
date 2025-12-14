@@ -14,6 +14,7 @@ import LaserCutting from './components/LaserCutting';
 import ThreeDPrinting from './components/ThreeDPrinting';
 import OurProjects from './components/OurProjects';
 import MaterialsPage from './components/MaterialsPage';
+import ProductDetail from './components/ProductDetail';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -54,19 +55,19 @@ function App() {
             } 
           />
           <Route 
-            path="/checkout" 
+            path="/carrito" 
             element={<Checkout />}
           />
           <Route 
-            path="/favourites" 
+            path="/favoritos" 
             element={<Favourites />}
           />
           <Route 
-            path="/laser-cutting" 
+            path="/corte-laser" 
             element={<LaserCutting />}
           />
           <Route 
-            path="/3dprinting" 
+            path="/impresion-3d" 
             element={<ThreeDPrinting />}
           />
           <Route 
@@ -78,32 +79,36 @@ function App() {
             element={<MaterialsPage />}
           />
           <Route 
-            path="/confirmation" 
+            path="/producto/:id" 
+            element={<ProductDetail />}
+          />
+          <Route 
+            path="/confirmacion" 
             element={<OrderConfirmation />}
           />
           <Route 
-            path="/website" 
+            path="/sitio" 
             element={
               <LandingPage />
             } 
           />
           <Route 
-            path="/website/checkout" 
+            path="/sitio/carrito" 
             element={
               <Checkout />
             } 
           />
           <Route 
-            path="/website/confirmation" 
+            path="/sitio/confirmacion" 
             element={
               <OrderConfirmation />
             } 
           />
           <Route 
-            path="/admin" 
+            path="/administrador" 
             element={
               isAuthenticated ? (
-                <Navigate to="/dashboard" replace />
+                <Navigate to="/panel" replace />
               ) : (
                 <div>
                   <header className="App-header">
@@ -117,12 +122,12 @@ function App() {
             } 
           />
           <Route 
-            path="/dashboard" 
+            path="/panel" 
             element={
               isAuthenticated ? (
                 <Dashboard onLogout={handleLogout} />
               ) : (
-                <Navigate to="/admin" replace />
+                <Navigate to="/administrador" replace />
               )
             } 
           />

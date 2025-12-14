@@ -104,7 +104,7 @@ function Header() {
   };
 
   const handleCartClick = () => {
-    navigate('/checkout');
+    navigate('/carrito');
   };
 
   // Add/remove body class for page dimming
@@ -170,8 +170,8 @@ function Header() {
             <div className="nav-link dropdown-trigger">
               Productos
               <div className="dropdown-menu">
-                <div className="dropdown-item" onClick={() => navigate('/3dprinting')}>Impresión 3D</div>
-                <div className="dropdown-item" onClick={() => navigate('/laser-cutting')}>Corte láser</div>
+                <div className="dropdown-item" onClick={() => navigate('/impresion-3d')}>Impresión 3D</div>
+                <div className="dropdown-item" onClick={() => navigate('/corte-laser')}>Corte láser</div>
                 <div className="dropdown-item" onClick={() => navigate('/nuestros-proyectos')}>Nuestros proyectos</div>
                 {/* <div className="dropdown-item">Personalizados</div> */}
               </div>
@@ -199,7 +199,7 @@ function Header() {
 
           {/* Right Icons */}
           <div className={`icons-section ${isSearchActive ? 'hidden' : ''}`}>
-            <button className="icon-btn heart-btn" onClick={() => navigate('/favourites')}>
+            <button className="icon-btn heart-btn" onClick={() => navigate('/favoritos')}>
               <img 
                 src="/images/favorito.svg" 
                 alt="Favorito" 
@@ -292,8 +292,8 @@ function Header() {
             <div className="mobile-nav-section">
               <h3 className="mobile-nav-title">Productos</h3>
               <div className="mobile-nav-items">
-                <a href="/3dprinting" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/3dprinting'); closeMobileMenu(); }}>Impresión 3D</a>
-                <a href="/laser-cutting" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/laser-cutting'); closeMobileMenu(); }}>Corte láser</a>
+                <a href="/impresion-3d" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/impresion-3d'); closeMobileMenu(); }}>Impresión 3D</a>
+                <a href="/corte-laser" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/corte-laser'); closeMobileMenu(); }}>Corte láser</a>
                 <a href="/nuestros-proyectos" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/nuestros-proyectos'); closeMobileMenu(); }}>Nuestros proyectos</a>
                 {/* <a href="#" className="mobile-nav-item">Personalizados</a> */}
               </div>

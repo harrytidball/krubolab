@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { dashboardService } from '../services/apiService';
 import Header from './Header';
 import Footer from './Footer';
@@ -55,6 +56,7 @@ const saveCartToStorage = (cart) => {
 };
 
 function OurProjects() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState({});
@@ -233,7 +235,12 @@ function OurProjects() {
         <div className="workshop-products-container">
           <div className="our-projects-grid">
             {products.map((product) => (
-              <div key={product.id} className="product-card">
+              <div 
+                key={product.id} 
+                className="product-card"
+                onClick={() => navigate(`/producto/${product.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className="product-image">
                   {imageLoading[product.id] && (
                     <div className="image-skeleton"></div>
@@ -261,7 +268,10 @@ function OurProjects() {
                     <button 
                       className={`action-btn cart-btn ${isInCart(product.id) ? 'in-cart' : ''}`}
                       aria-label={isInCart(product.id) ? "Quitar del carrito" : "Agregar al carrito"}
-                      onClick={() => toggleCart(product.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleCart(product.id);
+                      }}
                     >
                       <img 
                         src={isInCart(product.id) ? "/images/cart-filled.svg" : "/images/cart.svg"} 
@@ -271,7 +281,10 @@ function OurProjects() {
                     <button 
                       className={`action-btn favorite-btn ${isFavorite(product.id) ? 'favorited' : ''}`}
                       aria-label={isFavorite(product.id) ? "Quitar de favoritos" : "Agregar a favoritos"}
-                      onClick={() => toggleFavorite(product.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(product.id);
+                      }}
                     >
                       <img 
                         src={isFavorite(product.id) ? "/images/favorito-filled.svg" : "/images/favorito.svg"} 

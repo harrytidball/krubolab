@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { dashboardService } from '../services/apiService';
 import './WorkshopProducts.css';
 
@@ -65,6 +66,7 @@ const saveCartToStorage = (cart) => {
 
 
 function WorkshopProducts() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -271,7 +273,12 @@ function WorkshopProducts() {
               className={`carousel-track ${isTransitioning ? 'transitioning' : ''}`}
             >
               {getVisibleProducts().map((product) => (
-                <div key={product.id} className="product-card">
+                <div 
+                  key={product.id} 
+                  className="product-card"
+                  onClick={() => navigate(`/producto/${product.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div className="product-image">
                     {imageLoading[product.id] && (
                       <div className="image-skeleton"></div>
@@ -299,7 +306,10 @@ function WorkshopProducts() {
                       <button 
                         className={`action-btn cart-btn ${isInCart(product.id) ? 'in-cart' : ''}`}
                         aria-label={isInCart(product.id) ? "Quitar del carrito" : "Agregar al carrito"}
-                        onClick={() => toggleCart(product.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleCart(product.id);
+                        }}
                       >
                         <img 
                           src={isInCart(product.id) ? "/images/cart-filled.svg" : "/images/cart.svg"} 
@@ -310,7 +320,10 @@ function WorkshopProducts() {
                       <button 
                         className={`action-btn favorite-btn ${isFavorite(product.id) ? 'favorited' : ''}`}
                         aria-label={isFavorite(product.id) ? "Quitar de favoritos" : "Agregar a favoritos"}
-                        onClick={() => toggleFavorite(product.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleFavorite(product.id);
+                        }}
                       >
                         <img 
                           src={isFavorite(product.id) ? "/images/favorito-filled.svg" : "/images/favorito.svg"} 

@@ -21,7 +21,7 @@ function Dashboard({ onLogout }) {
   // Check authentication status on component mount
   useEffect(() => {
     if (localStorage.getItem('isAuthenticated') !== 'true') {
-      navigate('/admin');
+      navigate('/administrador');
     }
   }, [navigate]);
 

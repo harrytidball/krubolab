@@ -375,7 +375,7 @@ function Checkout() {
       window.dispatchEvent(new Event('cartChanged'));
       
       // Redirect to confirmation page with order data
-      navigate('/confirmation', { 
+      navigate('/confirmacion', { 
         state: { orderData: order } 
       });
       

@@ -302,7 +302,12 @@ function LaserCutting() {
                       className={`carousel-track ${isTransitioning[material.key] ? 'transitioning' : ''}`}
                     >
                       {getVisibleProducts(materialProducts, material.key).map((product) => (
-                        <div key={product.id} className="product-card">
+                        <div 
+                          key={product.id} 
+                          className="product-card"
+                          onClick={() => navigate(`/producto/${product.id}`)}
+                          style={{ cursor: 'pointer' }}
+                        >
                           <div className="product-image">
                             {imageLoading[product.id] && (
                               <div className="image-skeleton"></div>
@@ -333,7 +338,10 @@ function LaserCutting() {
                               <button 
                                 className={`action-btn cart-btn ${isInCart(product.id) ? 'in-cart' : ''}`}
                                 aria-label={isInCart(product.id) ? "Quitar del carrito" : "Agregar al carrito"}
-                                onClick={() => toggleCart(product.id)}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleCart(product.id);
+                                }}
                               >
                                 <img 
                                   src={isInCart(product.id) ? "/images/cart-filled.svg" : "/images/cart.svg"} 
@@ -343,7 +351,10 @@ function LaserCutting() {
                               <button 
                                 className={`action-btn favorite-btn ${isFavorite(product.id) ? 'favorited' : ''}`}
                                 aria-label={isFavorite(product.id) ? "Quitar de favoritos" : "Agregar a favoritos"}
-                                onClick={() => toggleFavorite(product.id)}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleFavorite(product.id);
+                                }}
                               >
                                 <img 
                                   src={isFavorite(product.id) ? "/images/favorito-filled.svg" : "/images/favorito.svg"} 
