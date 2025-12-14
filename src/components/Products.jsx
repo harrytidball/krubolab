@@ -45,7 +45,7 @@ function Products() {
       const data = await dashboardService.getProducts();
       setProducts(data);
     } catch (err) {
-      setError('Failed to load products');
+      setError('Error al cargar productos');
       console.error('Error loading products:', err);
     } finally {
       setLoading(false);
@@ -112,7 +112,7 @@ function Products() {
       });
       setShowForm(false);
     } catch (err) {
-      setError('Failed to save product');
+      setError('Error al guardar producto');
       console.error('Error saving product:', err);
     } finally {
       setSaving(false); // Stop loading regardless of success/failure
@@ -137,8 +137,8 @@ function Products() {
   const handleDelete = async (id) => {
     try {
       // Add confirmation dialog
-      const productName = products.find(p => p.id === id)?.name || 'this product';
-      if (!window.confirm(`Are you sure you want to delete "${productName}"?`)) {
+      const productName = products.find(p => p.id === id)?.name || 'este producto';
+      if (!window.confirm(`¿Estás seguro de que quieres eliminar "${productName}"?`)) {
         return;
       }
       
@@ -151,7 +151,7 @@ function Products() {
       setProducts(products.filter(p => p.id !== id));
       
     } catch (err) {
-      setError(`Failed to delete product: ${err.message || 'Unknown error'}`);
+      setError(`Error al eliminar producto: ${err.message || 'Error desconocido'}`);
     } finally {
       setDeletingIds(prev => {
         const newSet = new Set(prev);
@@ -187,9 +187,9 @@ function Products() {
     return (
       <div className="products">
         <div className="section-header">
-          <h2>Products Management</h2>
+          <h2>Gestión de Productos</h2>
         </div>
-        <div className="loading">Loading products...</div>
+        <div className="loading">Cargando productos...</div>
       </div>
     );
   }
@@ -197,12 +197,12 @@ function Products() {
   return (
     <div className="products">
       <div className="section-header">
-        <h2>Products Management</h2>
+        <h2>Gestión de Productos</h2>
         <button 
           onClick={() => setShowForm(true)} 
           className="add-btn"
         >
-          Add Product
+          Agregar Producto
         </button>
       </div>
 
@@ -211,10 +211,10 @@ function Products() {
       {showForm && (
         <div className="form-overlay">
           <div className="form-container">
-            <h3>{editingProduct ? 'Edit Product' : 'Add New Product'}</h3>
+            <h3>{editingProduct ? 'Editar Producto' : 'Agregar Nuevo Producto'}</h3>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Name:</label>
+                <label>Nombre:</label>
                 <input
                   type="text"
                   value={formData.name}
@@ -224,7 +224,7 @@ function Products() {
               </div>
               
               <div className="form-group">
-                <label>Price:</label>
+                <label>Precio:</label>
                 <input
                   type="number"
                   step="0.01"
@@ -235,7 +235,7 @@ function Products() {
               </div>
               
               <div className="form-group">
-                <label>Description:</label>
+                <label>Descripción:</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
@@ -245,12 +245,12 @@ function Products() {
               </div>
 
               <div className="form-group">
-                <label>Images:</label>
+                <label>Imágenes:</label>
                 {formData.images.map((image, index) => (
                   <div key={index} className="array-input-group">
                     <input
                       type="url"
-                      placeholder="Image URL"
+                      placeholder="URL de Imagen"
                       value={image}
                       onChange={(e) => updateArrayItem('images', index, e.target.value)}
                     />
@@ -260,7 +260,7 @@ function Products() {
                         onClick={() => removeArrayItem('images', index)}
                         className="remove-array-item-btn"
                       >
-                        Remove
+                        Eliminar
                       </button>
                     )}
                   </div>
@@ -270,17 +270,17 @@ function Products() {
                   onClick={() => addArrayItem('images')}
                   className="add-array-item-btn"
                 >
-                  + Add Image
+                  + Agregar Imagen
                 </button>
               </div>
 
               <div className="form-group">
-                <label>Colours:</label>
+                <label>Colores:</label>
                 {formData.colours.map((colour, index) => (
                   <div key={index} className="array-input-group">
                     <input
                       type="text"
-                      placeholder="Colour name"
+                      placeholder="Nombre del color"
                       value={colour}
                       onChange={(e) => updateArrayItem('colours', index, e.target.value)}
                     />
@@ -290,7 +290,7 @@ function Products() {
                         onClick={() => removeArrayItem('colours', index)}
                         className="remove-array-item-btn"
                       >
-                        Remove
+                        Eliminar
                       </button>
                     )}
                   </div>
@@ -300,17 +300,17 @@ function Products() {
                   onClick={() => addArrayItem('colours')}
                   className="add-array-item-btn"
                 >
-                  + Add Colour
+                  + Agregar Color
                 </button>
               </div>
 
               <div className="form-group">
-                <label>Medidas (Measurements):</label>
+                <label>Medidas:</label>
                 {formData.measurements.map((medida, index) => (
                   <div key={index} className="array-input-group">
                     <input
                       type="text"
-                      placeholder="Measurement"
+                      placeholder="Medida"
                       value={medida}
                       onChange={(e) => updateArrayItem('measurements', index, e.target.value)}
                     />
@@ -320,7 +320,7 @@ function Products() {
                         onClick={() => removeArrayItem('measurements', index)}
                         className="remove-array-item-btn"
                       >
-                        Remove
+                        Eliminar
                       </button>
                     )}
                   </div>
@@ -330,19 +330,19 @@ function Products() {
                   onClick={() => addArrayItem('measurements')}
                   className="add-array-item-btn"
                 >
-                  + Add Measurement
+                  + Agregar Medida
                 </button>
               </div>
 
               <div className="form-group">
-                <label>Materials:</label>
+                <label>Materiales:</label>
                 {formData.materials.map((material, index) => (
                   <div key={index} className="array-input-group">
                     <select
                       value={material}
                       onChange={(e) => updateArrayItem('materials', index, e.target.value)}
                     >
-                      <option value="">Select a material</option>
+                      <option value="">Seleccionar un material</option>
                       <option value="madera">Madera</option>
                       <option value="acrilico">Acrílico</option>
                       <option value="vidrio">Vidrio</option>
@@ -357,7 +357,7 @@ function Products() {
                         onClick={() => removeArrayItem('materials', index)}
                         className="remove-array-item-btn"
                       >
-                        Remove
+                        Eliminar
                       </button>
                     )}
                   </div>
@@ -367,17 +367,17 @@ function Products() {
                   onClick={() => addArrayItem('materials')}
                   className="add-array-item-btn"
                 >
-                  + Add Material
+                  + Agregar Material
                 </button>
               </div>
 
               <div className="form-group">
-                <label>Additional Information:</label>
+                <label>Información Adicional:</label>
                 <textarea
                   value={formData.additionalInformation}
                   onChange={(e) => setFormData({...formData, additionalInformation: e.target.value})}
                   rows="3"
-                  placeholder="Any additional details about the product..."
+                  placeholder="Cualquier detalle adicional sobre el producto..."
                 />
               </div>
 
@@ -386,10 +386,10 @@ function Products() {
                   {saving ? (
                     <>
                       <span className="loading-spinner"></span>
-                      {editingProduct ? 'Updating...' : 'Saving...'}
+                      {editingProduct ? 'Actualizando...' : 'Guardando...'}
                     </>
                   ) : (
-                    editingProduct ? 'Update' : 'Save'
+                    editingProduct ? 'Actualizar' : 'Guardar'
                   )}
                 </button>
                 <button 
@@ -412,7 +412,7 @@ function Products() {
                   className="cancel-btn"
                   disabled={saving}
                 >
-                  Cancel
+                  Cancelar
                 </button>
               </div>
             </form>
@@ -425,20 +425,20 @@ function Products() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Description</th>
-              <th>Images</th>
-              <th>Colours</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Descripción</th>
+              <th>Imágenes</th>
+              <th>Colores</th>
               <th>Medidas</th>
-              <th>Materials</th>
-              <th>Actions</th>
+              <th>Materiales</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {products.length === 0 ? (
               <tr>
-                <td colSpan="9" className="no-data">No products found</td>
+                <td colSpan="9" className="no-data">No se encontraron productos</td>
               </tr>
             ) : (
               products.map(product => (
@@ -457,7 +457,7 @@ function Products() {
                   </td>
                   <td className="product-images">
                     {product.images && product.images.length > 0 ? 
-                      `${product.images.length} image(s)` : 
+                      `${product.images.length} imagen(es)` : 
                       '-'
                     }
                   </td>
@@ -484,14 +484,14 @@ function Products() {
                       onClick={() => handleEdit(product)}
                       className="edit-btn"
                     >
-                      Edit
+                      Editar
                     </button>
                     <button 
                       onClick={() => handleDelete(product.id)}
                       className="delete-btn"
                       disabled={deletingIds.has(product.id)}
                     >
-                      {deletingIds.has(product.id) ? 'Deleting...' : 'Delete'}
+                      {deletingIds.has(product.id) ? 'Eliminando...' : 'Eliminar'}
                     </button>
                   </td>
                 </tr>

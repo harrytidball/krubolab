@@ -25,7 +25,7 @@ function Services() {
       const data = await dashboardService.getServices();
       setServices(data);
     } catch (err) {
-      setError('Failed to load services');
+      setError('Error al cargar servicios');
       console.error('Error loading services:', err);
     } finally {
       setLoading(false);
@@ -61,7 +61,7 @@ function Services() {
       setShowForm(false);
       setError('');
     } catch (err) {
-      setError('Failed to save service');
+      setError('Error al guardar servicio');
       console.error('Error saving service:', err);
     }
   };
@@ -83,7 +83,7 @@ function Services() {
       setServices(services.filter(s => s.id !== id));
       setError('');
     } catch (err) {
-      setError('Failed to delete service');
+      setError('Error al eliminar servicio');
       console.error('Error deleting service:', err);
     }
   };
@@ -92,9 +92,9 @@ function Services() {
     return (
       <div className="services">
         <div className="section-header">
-          <h2>Services Management</h2>
+          <h2>Gestión de Servicios</h2>
         </div>
-        <div className="loading">Loading services...</div>
+        <div className="loading">Cargando servicios...</div>
       </div>
     );
   }
@@ -102,12 +102,12 @@ function Services() {
   return (
     <div className="services">
       <div className="section-header">
-        <h2>Services Management</h2>
+        <h2>Gestión de Servicios</h2>
         <button 
           onClick={() => setShowForm(true)} 
           className="add-btn"
         >
-          Add Service
+          Agregar Servicio
         </button>
       </div>
 
@@ -116,10 +116,10 @@ function Services() {
       {showForm && (
         <div className="form-overlay">
           <div className="form-container">
-            <h3>{editingService ? 'Edit Service' : 'Add New Service'}</h3>
+            <h3>{editingService ? 'Editar Servicio' : 'Agregar Nuevo Servicio'}</h3>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Name:</label>
+                <label>Nombre:</label>
                 <input
                   type="text"
                   value={formData.name}
@@ -128,7 +128,7 @@ function Services() {
                 />
               </div>
               <div className="form-group">
-                <label>Price:</label>
+                <label>Precio:</label>
                 <input
                   type="number"
                   step="0.01"
@@ -138,7 +138,7 @@ function Services() {
                 />
               </div>
               <div className="form-group">
-                <label>Duration:</label>
+                <label>Duración:</label>
                 <input
                   type="text"
                   value={formData.duration}
@@ -147,7 +147,7 @@ function Services() {
                 />
               </div>
               <div className="form-group">
-                <label>Category:</label>
+                <label>Categoría:</label>
                 <input
                   type="text"
                   value={formData.category}
@@ -157,7 +157,7 @@ function Services() {
               </div>
               <div className="form-actions">
                 <button type="submit" className="save-btn">
-                  {editingService ? 'Update' : 'Save'}
+                  {editingService ? 'Actualizar' : 'Guardar'}
                 </button>
                 <button 
                   type="button" 
@@ -169,7 +169,7 @@ function Services() {
                   }}
                   className="cancel-btn"
                 >
-                  Cancel
+                  Cancelar
                 </button>
               </div>
             </form>
@@ -182,17 +182,17 @@ function Services() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Duration</th>
-              <th>Category</th>
-              <th>Actions</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Duración</th>
+              <th>Categoría</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {services.length === 0 ? (
               <tr>
-                <td colSpan="6" className="no-data">No services found</td>
+                <td colSpan="6" className="no-data">No se encontraron servicios</td>
               </tr>
             ) : (
               services.map(service => (
@@ -207,13 +207,13 @@ function Services() {
                       onClick={() => handleEdit(service)}
                       className="edit-btn"
                     >
-                      Edit
+                      Editar
                     </button>
                     <button 
                       onClick={() => handleDelete(service.id)}
                       className="delete-btn"
                     >
-                      Delete
+                      Eliminar
                     </button>
                   </td>
                 </tr>

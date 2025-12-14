@@ -22,7 +22,7 @@ function Orders() {
       const data = await dashboardService.getOrders();
       setOrders(data);
     } catch (err) {
-      setError('Failed to load orders');
+      setError('Error al cargar pedidos');
     } finally {
       setLoading(false);
     }
@@ -57,7 +57,7 @@ function Orders() {
       console.log('Order deleted successfully');
     } catch (err) {
       console.error('Error deleting order:', err);
-      setError(`Failed to delete order: ${err.message}`);
+      setError(`Error al eliminar pedido: ${err.message}`);
     }
   };
 
@@ -145,7 +145,7 @@ function Orders() {
       ));
       setError('');
     } catch (err) {
-      setError('Failed to update order status');
+      setError('Error al actualizar el estado del pedido');
       console.error('Error updating order status:', err);
     }
   };
@@ -154,9 +154,9 @@ function Orders() {
     return (
       <div className="orders">
         <div className="section-header">
-          <h2>Orders Management</h2>
+          <h2>Gestión de Pedidos</h2>
         </div>
-        <div className="loading">Loading orders...</div>
+        <div className="loading">Cargando pedidos...</div>
       </div>
     );
   }
@@ -164,7 +164,7 @@ function Orders() {
   return (
     <div className="orders">
       <div className="section-header">
-        <h2>Orders Management</h2>
+        <h2>Gestión de Pedidos</h2>
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -174,14 +174,14 @@ function Orders() {
         <div className="search-box">
           <input
             type="text"
-            placeholder="Search for an order"
+            placeholder="Buscar un pedido"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
           />
         </div>
         <div className="results-info" style={{ marginLeft: '10px' }}>
-          Showing {filteredOrders.length} of {orders.length} orders
+          Mostrando {filteredOrders.length} de {orders.length} pedidos
         </div>
       </div>
 
@@ -193,7 +193,7 @@ function Orders() {
                 className="sortable-header"
                 onClick={() => sortOrders('date')}
               >
-                Date
+                Fecha
                 {sortConfig.key === 'date' && (
                   <span className="sort-indicator">
                     {sortConfig.direction === 'asc' ? ' ↑' : ' ↓'}
@@ -204,7 +204,7 @@ function Orders() {
                 className="sortable-header"
                 onClick={() => sortOrders('orderNumber')}
               >
-                Order #
+                N° de Pedido
                 {sortConfig.key === 'orderNumber' && (
                   <span className="sort-indicator">
                     {sortConfig.direction === 'asc' ? ' ↑' : ' ↓'}
@@ -215,7 +215,7 @@ function Orders() {
                 className="sortable-header"
                 onClick={() => sortOrders('items')}
               >
-                Items
+                Artículos
                 {sortConfig.key === 'items' && (
                   <span className="sort-indicator">
                     {sortConfig.direction === 'asc' ? ' ↑' : ' ↓'}
@@ -233,14 +233,14 @@ function Orders() {
                   </span>
                 )}
               </th>
-              <th>Actions</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {filteredOrders.length === 0 ? (
               <tr>
                 <td colSpan="5" className="no-data">
-                  {searchTerm ? 'No orders match your search' : 'No orders found'}
+                  {searchTerm ? 'No hay pedidos que coincidan con tu búsqueda' : 'No se encontraron pedidos'}
                 </td>
               </tr>
             ) : (
@@ -283,7 +283,7 @@ function Orders() {
                         }}
                         className="delete-btn"
                       >
-                        Delete
+                        Eliminar
                       </button>
                     </td>
                   </tr>
@@ -291,26 +291,26 @@ function Orders() {
                     <tr className="customer-details-row">
                       <td colSpan="5">
                         <div className="customer-details">
-                          <h4>Customer Details</h4>
+                          <h4>Detalles del Cliente</h4>
                           <div className="customer-info-grid">
                             <div className="customer-info-item">
-                              <strong>Full Name:</strong> {order.customer?.fullName}
+                              <strong>Nombre Completo:</strong> {order.customer?.fullName}
                             </div>
                             <div className="customer-info-item">
-                              <strong>Email:</strong> {order.customer?.email}
+                              <strong>Correo Electrónico:</strong> {order.customer?.email}
                             </div>
                             <div className="customer-info-item">
-                              <strong>Phone:</strong> {order.customer?.phone}
+                              <strong>Teléfono:</strong> {order.customer?.phone}
                             </div>
                             <div className="customer-info-item">
-                              <strong>Identification:</strong> {order.customer?.identificationType} - {order.customer?.identificationNumber}
+                              <strong>Identificación:</strong> {order.customer?.identificationType} - {order.customer?.identificationNumber}
                             </div>
                             <div className="customer-info-item">
-                              <strong>Address:</strong> {order.customer?.street}, {order.customer?.city}, {order.customer?.department}
+                              <strong>Dirección:</strong> {order.customer?.street}, {order.customer?.city}, {order.customer?.department}
                             </div>
                             {order.customer?.additionalInfo && (
                               <div className="customer-info-item">
-                                <strong>Additional Info:</strong> {order.customer.additionalInfo}
+                                <strong>Información Adicional:</strong> {order.customer.additionalInfo}
                               </div>
                             )}
                           </div>

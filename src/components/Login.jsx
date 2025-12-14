@@ -18,17 +18,17 @@ function Login({ onLogin }) {
       onLogin(true);
       navigate('/dashboard');
     } else {
-      setError('Invalid password');
+      setError('Contraseña inválida');
     }
   };
 
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Admin Login</h2>
+        <h2>Inicio de Sesión de Administrador</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Contraseña:</label>
             <input
               type="password"
               id="password"
@@ -39,7 +39,7 @@ function Login({ onLogin }) {
           </div>
           {error && <div className="error">{error}</div>}
           <button type="submit" className="login-btn">
-            Login
+            Iniciar Sesión
           </button>
         </form>
       </div>

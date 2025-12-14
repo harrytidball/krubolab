@@ -26,7 +26,7 @@ function Contacts() {
       const data = await dashboardService.getContacts();
       setContacts(data);
     } catch (err) {
-      setError('Failed to load contacts');
+      setError('Error al cargar contactos');
       console.error('Error loading contacts:', err);
     } finally {
       setLoading(false);
@@ -60,7 +60,7 @@ function Contacts() {
       setShowForm(false);
       setError('');
     } catch (err) {
-      setError('Failed to save contact');
+      setError('Error al guardar contacto');
       console.error('Error saving contact:', err);
     }
   };
@@ -83,7 +83,7 @@ function Contacts() {
       setContacts(contacts.filter(c => c.id !== id));
       setError('');
     } catch (err) {
-      setError('Failed to delete contact');
+      setError('Error al eliminar contacto');
       console.error('Error deleting contact:', err);
     }
   };
@@ -92,9 +92,9 @@ function Contacts() {
     return (
       <div className="contacts">
         <div className="section-header">
-          <h2>Contacts Management</h2>
+          <h2>Gestión de Contactos</h2>
         </div>
-        <div className="loading">Loading contacts...</div>
+        <div className="loading">Cargando contactos...</div>
       </div>
     );
   }
@@ -102,12 +102,12 @@ function Contacts() {
   return (
     <div className="contacts">
       <div className="section-header">
-        <h2>Contacts Management</h2>
+        <h2>Gestión de Contactos</h2>
         <button 
           onClick={() => setShowForm(true)} 
           className="add-btn"
         >
-          Add Contact
+          Agregar Contacto
         </button>
       </div>
 
@@ -116,10 +116,10 @@ function Contacts() {
       {showForm && (
         <div className="form-overlay">
           <div className="form-container">
-            <h3>{editingContact ? 'Edit Contact' : 'Add New Contact'}</h3>
+            <h3>{editingContact ? 'Editar Contacto' : 'Agregar Nuevo Contacto'}</h3>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Name:</label>
+                <label>Nombre:</label>
                 <input
                   type="text"
                   value={formData.name}
@@ -128,7 +128,7 @@ function Contacts() {
                 />
               </div>
               <div className="form-group">
-                <label>Email:</label>
+                <label>Correo Electrónico:</label>
                 <input
                   type="email"
                   value={formData.email}
@@ -137,7 +137,7 @@ function Contacts() {
                 />
               </div>
               <div className="form-group">
-                <label>Phone:</label>
+                <label>Teléfono:</label>
                 <input
                   type="tel"
                   value={formData.phone}
@@ -146,7 +146,7 @@ function Contacts() {
                 />
               </div>
               <div className="form-group">
-                <label>Company:</label>
+                <label>Empresa:</label>
                 <input
                   type="text"
                   value={formData.company}
@@ -155,22 +155,22 @@ function Contacts() {
                 />
               </div>
               <div className="form-group">
-                <label>Status:</label>
+                <label>Estado:</label>
                 <select
                   value={formData.status}
                   onChange={(e) => setFormData({...formData, status: e.target.value})}
                   required
                 >
-                  <option value="">Select Status</option>
-                  <option value="Active">Active</option>
+                  <option value="">Seleccionar Estado</option>
+                  <option value="Active">Activo</option>
                   <option value="Lead">Lead</option>
-                  <option value="Inactive">Inactive</option>
-                  <option value="Prospect">Prospect</option>
+                  <option value="Inactive">Inactivo</option>
+                  <option value="Prospect">Prospecto</option>
                 </select>
               </div>
               <div className="form-actions">
                 <button type="submit" className="save-btn">
-                  {editingContact ? 'Update' : 'Save'}
+                  {editingContact ? 'Actualizar' : 'Guardar'}
                 </button>
                 <button 
                   type="button" 
@@ -182,7 +182,7 @@ function Contacts() {
                   }}
                   className="cancel-btn"
                 >
-                  Cancel
+                  Cancelar
                 </button>
               </div>
             </form>
@@ -195,18 +195,18 @@ function Contacts() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Company</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th>Nombre</th>
+              <th>Correo Electrónico</th>
+              <th>Teléfono</th>
+              <th>Empresa</th>
+              <th>Estado</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {contacts.length === 0 ? (
               <tr>
-                <td colSpan="7" className="no-data">No contacts found</td>
+                <td colSpan="7" className="no-data">No se encontraron contactos</td>
               </tr>
             ) : (
               contacts.map(contact => (
@@ -226,13 +226,13 @@ function Contacts() {
                       onClick={() => handleEdit(contact)}
                       className="edit-btn"
                     >
-                      Edit
+                      Editar
                     </button>
                     <button 
                       onClick={() => handleDelete(contact.id)}
                       className="delete-btn"
                     >
-                      Delete
+                      Eliminar
                     </button>
                   </td>
                 </tr>

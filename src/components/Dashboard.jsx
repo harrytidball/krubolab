@@ -48,9 +48,9 @@ function Dashboard({ onLogout }) {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>Krubolab Admin Dashboard</h1>
+        <h1>Panel de Administración Krubolab</h1>
         <button onClick={handleLogout} className="logout-btn">
-          Logout
+          Cerrar Sesión
         </button>
       </header>
       
@@ -59,25 +59,25 @@ function Dashboard({ onLogout }) {
           className={`nav-btn ${activeTab === 'products' ? 'active' : ''}`}
           onClick={() => setActiveTab('products')}
         >
-          Products
+          Productos
         </button>
         <button
           className={`nav-btn ${activeTab === 'services' ? 'active' : ''}`}
           onClick={() => setActiveTab('services')}
         >
-          Services
+          Servicios
         </button>
         <button
           className={`nav-btn ${activeTab === 'contacts' ? 'active' : ''}`}
           onClick={() => setActiveTab('contacts')}
         >
-          Contacts
+          Contactos
         </button>
         <button
           className={`nav-btn ${activeTab === 'orders' ? 'active' : ''}`}
           onClick={() => setActiveTab('orders')}
         >
-          Orders
+          Pedidos
         </button>
       </nav>
 
