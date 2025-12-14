@@ -172,20 +172,19 @@ function Header() {
               <div className="dropdown-menu">
                 <div className="dropdown-item" onClick={() => navigate('/3dprinting')}>Impresión 3D</div>
                 <div className="dropdown-item" onClick={() => navigate('/laser-cutting')}>Corte láser</div>
-                <div className="dropdown-item">Mobiliario</div>
                 <div className="dropdown-item" onClick={() => navigate('/nuestros-proyectos')}>Nuestros proyectos</div>
-                <div className="dropdown-item">Personalizados</div>
+                {/* <div className="dropdown-item">Personalizados</div> */}
               </div>
             </div>
             
-            <div className="nav-link dropdown-trigger">
+            {/* <div className="nav-link dropdown-trigger">
               Servicios
               <div className="dropdown-menu">
                 <div className="dropdown-item">Diseño CAD 2D</div>
                 <div className="dropdown-item">Diseño CAD 3D</div>
                 <div className="dropdown-item">Reparaciones</div>
               </div>
-            </div>
+            </div> */}
             
             <div className="nav-link dropdown-trigger">
               Acerca de
@@ -194,8 +193,8 @@ function Header() {
               </div>
             </div>
             
-            <button className="nav-link">Diseños personalizados</button>
-            <button className="nav-link">Contáctanos</button>
+            {/* <button className="nav-link">Diseños personalizados</button> */}
+            <a href="https://wa.me/573042450295?text=Hola, me gustaría contactar con ustedes" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ textDecoration: 'none', display: 'inline-block' }}>Contáctanos</a>
           </nav>
 
           {/* Right Icons */}
@@ -295,20 +294,19 @@ function Header() {
               <div className="mobile-nav-items">
                 <a href="/3dprinting" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/3dprinting'); closeMobileMenu(); }}>Impresión 3D</a>
                 <a href="/laser-cutting" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/laser-cutting'); closeMobileMenu(); }}>Corte láser</a>
-                <a href="#" className="mobile-nav-item">Mobiliario</a>
                 <a href="/nuestros-proyectos" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/nuestros-proyectos'); closeMobileMenu(); }}>Nuestros proyectos</a>
-                <a href="#" className="mobile-nav-item">Personalizados</a>
+                {/* <a href="#" className="mobile-nav-item">Personalizados</a> */}
               </div>
             </div>
 
-            <div className="mobile-nav-section">
+            {/* <div className="mobile-nav-section">
               <h3 className="mobile-nav-title">Servicios</h3>
               <div className="mobile-nav-items">
                 <a href="#" className="mobile-nav-item">Diseño CAD 2D</a>
                 <a href="#" className="mobile-nav-item">Diseño CAD 3D</a>
                 <a href="#" className="mobile-nav-item">Reparaciones</a>
               </div>
-            </div>
+            </div> */}
 
             <div className="mobile-nav-section">
               <h3 className="mobile-nav-title">Acerca de</h3>
@@ -319,8 +317,8 @@ function Header() {
 
             <div className="mobile-nav-section">
               <div className="mobile-nav-items">
-                <a href="#" className="mobile-nav-item">Diseños personalizados</a>
-                <a href="#" className="mobile-nav-item">Contáctanos</a>
+                {/* <a href="#" className="mobile-nav-item">Diseños personalizados</a> */}
+                <a href="https://wa.me/573042450295?text=Hola, me gustaría contactar con ustedes" target="_blank" rel="noopener noreferrer" className="mobile-nav-item" onClick={closeMobileMenu}>Contáctanos</a>
               </div>
             </div>
           </nav>

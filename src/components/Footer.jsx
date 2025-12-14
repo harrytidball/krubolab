@@ -42,7 +42,7 @@ function Footer() {
         </div>
 
         {/* INFORMACIÓN Column */}
-        <div className="footer-column">
+        {/* <div className="footer-column">
           <h3 className="footer-title">INFORMACIÓN</h3>
           <div className="footer-content">
             <div className="footer-item">
@@ -58,7 +58,7 @@ function Footer() {
               <span>Nuestros materiales</span>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* SÍGUENOS EN Column */}
         <div className="footer-column">
