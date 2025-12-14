@@ -1,0 +1,247 @@
+/* Laser Cutting Page Styles */
+
+.laser-cutting-page {
+  min-height: 100vh;
+  background: var(--color-white);
+  font-family: 'Rubik', sans-serif;
+}
+
+/* Hero Section */
+.laser-cutting-hero {
+  width: 100%;
+  margin: 0;
+  padding: 4rem 3rem;
+  background: #dcdada;
+}
+
+.laser-cutting-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #c72124;
+  margin: 0 0 2rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--color-text-dark);
+  line-height: 1.8;
+  margin: 0 auto;
+  max-width: 800px;
+  font-weight: 400;
+}
+
+/* Material Section */
+.material-section {
+  padding: 4rem 2rem;
+  background: #e1e1e1;
+}
+
+.material-section:nth-of-type(3) {
+  background: #dcdada;
+}
+
+.material-section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.material-section-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.material-section-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 800px;
+}
+
+/* Products Grid */
+.material-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.material-product-card {
+  background: transparent;
+  border-radius: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.material-product-card:hover {
+  transform: translateY(-8px);
+}
+
+.material-product-image {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  background: #f8f8f8;
+}
+
+.material-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.material-product-card:hover .material-product-img {
+  transform: scale(1.05);
+}
+
+.material-product-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+  font-size: 1rem;
+  background: #f0f0f0;
+}
+
+.material-favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.material-favorite-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.material-favorite-btn.active {
+  background: rgba(255, 255, 255, 1);
+}
+
+.material-product-info {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.material-product-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.material-product-price {
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--color-text-dark);
+  margin: 0;
+}
+
+/* No Products Message */
+.no-products-message {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+}
+
+/* Loading */
+.loading-container {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  font-size: 1.25rem;
+  color: var(--color-text-light);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .laser-cutting-hero {
+    padding: 3rem 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .laser-cutting-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .material-section {
+    padding: 2rem 1rem;
+  }
+
+  .material-section-title {
+    font-size: 2rem;
+  }
+
+  .material-section-description {
+    font-size: 0.9rem;
+  }
+
+  .material-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .material-product-image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .material-products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

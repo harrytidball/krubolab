@@ -171,7 +171,7 @@ function Header() {
               Productos
               <div className="dropdown-menu">
                 <div className="dropdown-item">Impresión 3D</div>
-                <div className="dropdown-item">Corte láser</div>
+                <div className="dropdown-item" onClick={() => navigate('/laser-cutting')}>Corte láser</div>
                 <div className="dropdown-item">Mobiliario</div>
                 <div className="dropdown-item">Nuestros proyectos</div>
                 <div className="dropdown-item">Personalizados</div>
@@ -294,7 +294,7 @@ function Header() {
               <h3 className="mobile-nav-title">Productos</h3>
               <div className="mobile-nav-items">
                 <a href="#" className="mobile-nav-item">Impresión 3D</a>
-                <a href="#" className="mobile-nav-item">Corte láser</a>
+                <a href="/laser-cutting" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/laser-cutting'); closeMobileMenu(); }}>Corte láser</a>
                 <a href="#" className="mobile-nav-item">Mobiliario</a>
                 <a href="#" className="mobile-nav-item">Nuestros proyectos</a>
                 <a href="#" className="mobile-nav-item">Personalizados</a>

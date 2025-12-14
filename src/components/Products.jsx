@@ -16,6 +16,7 @@ function Products() {
     images: [''],
     colours: [''],
     measurements: [''], // Changed from medidas to measurements
+    materials: [''],
     additionalInformation: ''
   });
 
@@ -51,7 +52,8 @@ function Products() {
           price: formData.price, // Keep as string
           images: formData.images.filter(img => img.trim() !== ''),
           colours: formData.colours.filter(col => col.trim() !== ''),
-          measurements: formData.measurements.filter(med => med.trim() !== '')
+          measurements: formData.measurements.filter(med => med.trim() !== ''),
+          materials: formData.materials.filter(mat => mat.trim() !== '')
         };
         
         // Use the dedicated update method
@@ -76,7 +78,8 @@ function Products() {
           price: formData.price, // Keep as string
           images: formData.images.filter(img => img.trim() !== ''),
           colours: formData.colours.filter(col => col.trim() !== ''),
-          measurements: formData.measurements.filter(med => med.trim() !== '')
+          measurements: formData.measurements.filter(med => med.trim() !== ''),
+          materials: formData.materials.filter(mat => mat.trim() !== '')
         };
         
         // Use the dedicated create method
@@ -90,6 +93,7 @@ function Products() {
         images: [''], 
         colours: [''], 
         measurements: [''], 
+        materials: [''],
         additionalInformation: '' 
       });
       setShowForm(false);
@@ -110,6 +114,7 @@ function Products() {
       images: product.images && product.images.length > 0 ? [...product.images, ''] : [''],
       colours: product.colours && product.colours.length > 0 ? [...product.colours, ''] : [''],
       measurements: product.measurements && product.measurements.length > 0 ? [...product.measurements, ''] : [''],
+      materials: product.materials && product.materials.length > 0 ? [...product.materials, ''] : [''],
       additionalInformation: product.additionalInformation || ''
     });
     setShowForm(true);
@@ -316,6 +321,36 @@ function Products() {
               </div>
 
               <div className="form-group">
+                <label>Materials:</label>
+                {formData.materials.map((material, index) => (
+                  <div key={index} className="array-input-group">
+                    <input
+                      type="text"
+                      placeholder="Material name"
+                      value={material}
+                      onChange={(e) => updateArrayItem('materials', index, e.target.value)}
+                    />
+                    {formData.materials.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => removeArrayItem('materials', index)}
+                        className="remove-array-item-btn"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => addArrayItem('materials')}
+                  className="add-array-item-btn"
+                >
+                  + Add Material
+                </button>
+              </div>
+
+              <div className="form-group">
                 <label>Additional Information:</label>
                 <textarea
                   value={formData.additionalInformation}
@@ -348,6 +383,7 @@ function Products() {
                       images: [''], 
                       colours: [''], 
                       measurements: [''], 
+                      materials: [''],
                       additionalInformation: '' 
                     });
                     setError('');
@@ -374,13 +410,14 @@ function Products() {
               <th>Images</th>
               <th>Colours</th>
               <th>Medidas</th>
+              <th>Materials</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {products.length === 0 ? (
               <tr>
-                <td colSpan="8" className="no-data">No products found</td>
+                <td colSpan="9" className="no-data">No products found</td>
               </tr>
             ) : (
               products.map(product => (
@@ -412,6 +449,12 @@ function Products() {
                   <td className="product-medidas">
                     {product.measurements && product.measurements.length > 0 ? 
                       product.measurements.join(', ') : 
+                      '-'
+                    }
+                  </td>
+                  <td className="product-materials">
+                    {product.materials && product.materials.length > 0 ? 
+                      product.materials.join(', ') : 
                       '-'
                     }
                   </td>
