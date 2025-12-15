@@ -28,9 +28,24 @@
   letter-spacing: -0.02em;
 }
 
+/* Content Grid */
+.materials-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.materials-left-column,
+.materials-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
 /* Philosophy Section */
 .philosophy-section {
-  margin-bottom: 4rem;
+  margin-bottom: 0;
 }
 
 .philosophy-description {
@@ -39,12 +54,11 @@
   color: var(--color-text-dark);
   line-height: 1.8;
   margin: 0;
-  max-width: 800px;
 }
 
 /* Materials Description Section */
 .materials-description-section {
-  margin-bottom: 4rem;
+  margin-bottom: 0;
 }
 
 .materials-description {
@@ -53,13 +67,12 @@
   color: var(--color-text-dark);
   line-height: 1.8;
   margin: 0;
-  max-width: 800px;
 }
 
 /* Custom Pieces Section */
 .custom-pieces-section {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .custom-pieces-description {
@@ -68,7 +81,32 @@
   color: var(--color-text-dark);
   line-height: 1.8;
   margin: 0;
-  max-width: 800px;
+}
+
+/* Material Images */
+.material-image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.material-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.cement-image {
+  margin-bottom: 2rem;
+}
+
+.acrylic-image {
+  margin-top: 2rem;
+}
+
+.aluminum-image {
+  margin-top: 2rem;
 }
 
 /* Responsive Design */
@@ -80,6 +118,15 @@
   .materials-page-title {
     font-size: 2.5rem;
     margin-bottom: 3rem;
+  }
+
+  .materials-content-grid {
+    gap: 2rem;
+  }
+
+  .materials-left-column,
+  .materials-right-column {
+    gap: 2rem;
   }
 
   .philosophy-description,
@@ -99,12 +146,28 @@
     margin-bottom: 2rem;
   }
 
+  .materials-content-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .materials-left-column,
+  .materials-right-column {
+    gap: 2rem;
+  }
+
+  .cement-image,
+  .acrylic-image,
+  .aluminum-image {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
   .philosophy-description,
   .materials-description,
   .custom-pieces-description {
     font-size: 1rem;
   }
-
 }
 
 @media (max-width: 480px) {
