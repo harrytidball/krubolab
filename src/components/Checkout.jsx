@@ -400,7 +400,7 @@ function Checkout() {
       <div className="checkout-empty">
         <div className="checkout-empty-content">
           <div className="checkout-empty-logo">
-            <img src={`${import.meta.env.BASE_URL}images/krubo-logo.png`} alt="Krubo Lab" className="krubo-logo" />
+            <img src="/images/krubo-logo.png" alt="Krubo Lab" className="krubo-logo" />
           </div>
           <h2 className="checkout-empty-title">Tu carrito está vacío</h2>
           <p className="checkout-empty-description">Agrega algunos productos antes de proceder al checkout</p>
@@ -422,7 +422,7 @@ function Checkout() {
           <div className="checkout-form-section">
             <div className="checkout-logo">
               <img 
-                src={`${import.meta.env.BASE_URL}images/krubo-logo.png`} 
+                src="/images/krubo-logo.png" 
                 alt="KRUBO Logo" 
                 className="checkout-logo-image"
               />

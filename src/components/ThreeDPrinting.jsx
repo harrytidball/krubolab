@@ -304,7 +304,7 @@ function ThreeDPrinting() {
             </div>
             <div className="three-d-printing-hero-image-wrapper">
               <img 
-                src={`${import.meta.env.BASE_URL}images/3d-printing.png`} 
+                src="/images/3d-printing.png" 
                 alt="Impresión 3D" 
                 className="three-d-printing-hero-image"
               />
@@ -382,7 +382,7 @@ function ThreeDPrinting() {
                                 }}
                               >
                                 <img 
-                                  src={isInCart(product.id) ? `${import.meta.env.BASE_URL}images/cart-filled.svg` : `${import.meta.env.BASE_URL}images/cart.svg`} 
+                                  src={isInCart(product.id) ? "/images/cart-filled.svg" : "/images/cart.svg"} 
                                   alt={isInCart(product.id) ? "Carrito lleno" : "Carrito"} 
                                 />
                               </button>
@@ -395,7 +395,7 @@ function ThreeDPrinting() {
                                 }}
                               >
                                 <img 
-                                  src={isFavorite(product.id) ? `${import.meta.env.BASE_URL}images/favorito-filled.svg` : `${import.meta.env.BASE_URL}images/favorito.svg`} 
+                                  src={isFavorite(product.id) ? "/images/favorito-filled.svg" : "/images/favorito.svg"} 
                                   alt={isFavorite(product.id) ? "Favorito lleno" : "Favorito"} 
                                 />
                               </button>
@@ -412,14 +412,14 @@ function ThreeDPrinting() {
                           onClick={() => prevSlide(material.key)}
                           aria-label="Producto anterior"
                         >
-                          <img src={`${import.meta.env.BASE_URL}images/next-arrow.svg`} alt="Anterior" className="nav-icon prev-icon" />
+                          <img src="/images/next-arrow.svg" alt="Anterior" className="nav-icon prev-icon" />
                         </button>
                         <button 
                           className="carousel-nav next-btn" 
                           onClick={() => nextSlide(material.key)}
                           aria-label="Siguiente producto"
                         >
-                          <img src={`${import.meta.env.BASE_URL}images/next-arrow.svg`} alt="Siguiente" className="nav-icon next-icon" />
+                          <img src="/images/next-arrow.svg" alt="Siguiente" className="nav-icon next-icon" />
                         </button>
                       </>
                     )}

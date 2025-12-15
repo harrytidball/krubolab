@@ -6,7 +6,7 @@ function Hero() {
         {/* Robot */}
         <div className="hero-robot">
           <img 
-            src={`${import.meta.env.BASE_URL}images/krubot-robot.png`} 
+            src="/images/krubot-robot.png" 
             alt="Krubot - Friendly Robot" 
             className="robot-image"
           />

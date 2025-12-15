@@ -6,10 +6,10 @@ function FeaturedWorks() {
 
   // Featured products configuration with product IDs
   const featuredProducts = [
-    { id: '1755811194068-dxxyw2y8f', name: 'Pyramid Head', image: `${import.meta.env.BASE_URL}images/pyramid-head.png`, description: 'Figura coleccionable', price: '$ 50.000' },
-    { id: '1755810988886-0v6ghicff', name: 'Head-1', image: `${import.meta.env.BASE_URL}images/head-1.png`, description: 'Porta audífonos', price: '$ 70.000' },
-    { id: '1755811124030-jjs47ubk2', name: 'Okus', image: `${import.meta.env.BASE_URL}images/okus.png`, description: 'Mesa de noche', price: '$ 200.000' },
-    { name: 'Repuestos Singer', image: `${import.meta.env.BASE_URL}images/repuestos-cosedora-singer.png`, description: 'Piezas mecánicas', price: '$ 30.000' }
+    { id: '1755811194068-dxxyw2y8f', name: 'Pyramid Head', image: '/images/pyramid-head.png', description: 'Figura coleccionable', price: '$ 50.000' },
+    { id: '1755810988886-0v6ghicff', name: 'Head-1', image: '/images/head-1.png', description: 'Porta audífonos', price: '$ 70.000' },
+    { id: '1755811124030-jjs47ubk2', name: 'Okus', image: '/images/okus.png', description: 'Mesa de noche', price: '$ 200.000' },
+    { name: 'Repuestos Singer', image: '/images/repuestos-cosedora-singer.png', description: 'Piezas mecánicas', price: '$ 30.000' }
   ];
 
   const handleProductClick = (productId) => {

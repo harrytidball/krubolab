@@ -8,7 +8,7 @@ function ServicesSection() {
         <div className="service-card">
           <div className="service-image">
             <img 
-              src={`${import.meta.env.BASE_URL}images/impresion-3d.png`} 
+              src="/images/impresion-3d.png" 
               alt="Impresión 3D" 
               className="service-img"
             />
@@ -19,7 +19,7 @@ function ServicesSection() {
         <div className="service-card">
           <div className="service-image">
             <img 
-              src={`${import.meta.env.BASE_URL}images/corte-laser.png`} 
+              src="/images/corte-laser.png" 
               alt="Corte láser" 
               className="service-img"
             />
@@ -30,7 +30,7 @@ function ServicesSection() {
         <div className="service-card">
           <div className="service-image">
             <img 
-              src={`${import.meta.env.BASE_URL}images/madera.png`} 
+              src="/images/madera.png" 
               alt="Madera" 
               className="service-img"
             />
@@ -41,7 +41,7 @@ function ServicesSection() {
         <div className="service-card">
           <div className="service-image">
             <img 
-              src={`${import.meta.env.BASE_URL}images/piezas-mecanicas.png`} 
+              src="/images/piezas-mecanicas.png" 
               alt="Piezas mecánicas" 
               className="service-img"
             />
