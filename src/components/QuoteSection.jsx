@@ -4,7 +4,7 @@ function QuoteSection() {
       <div className="quote-container">
         <div className="quote-robot">
           <img 
-            src="/images/krubot-robot-2.png" 
+            src={`${import.meta.env.BASE_URL}images/krubot-robot-2.png`} 
             alt="Krubot - Robot for quotes" 
             className="quote-robot-image"
           />

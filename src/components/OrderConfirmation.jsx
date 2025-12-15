@@ -26,7 +26,7 @@ function OrderConfirmation() {
       <div className="confirmation-card">
         <div className="confirmation-logo">
           <img 
-            src="/images/krubo-logo.png" 
+            src={`${import.meta.env.BASE_URL}images/krubo-logo.png`} 
             alt="KRUBO Logo" 
             className="confirmation-logo-image"
           />

@@ -253,7 +253,7 @@ function Favourites() {
                           onClick={() => removeFromFavourites(product.id)}
                         >
                           <img 
-                            src="/images/favorito-filled.svg" 
+                            src={`${import.meta.env.BASE_URL}images/favorito-filled.svg`} 
                             alt="Remove from favourites" 
                             width="20" 
                             height="20"
@@ -281,7 +281,7 @@ function Favourites() {
                           onClick={() => addToCart(product)}
                         >
                           <img 
-                            src="/images/cart.svg" 
+                            src={`${import.meta.env.BASE_URL}images/cart.svg`} 
                             alt="Add to cart" 
                             width="20" 
                             height="20"
@@ -309,7 +309,7 @@ function Favourites() {
                   onClick={addAllToCart}
                 >
                   <img 
-                    src="/images/cart.svg" 
+                    src={`${import.meta.env.BASE_URL}images/cart.svg`} 
                     alt="Shopping cart" 
                     width="20" 
                     height="20"

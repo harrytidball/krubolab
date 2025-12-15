@@ -10,7 +10,7 @@ function WhyChooseUs() {
           <div className="why-choose-us-item">
             <div className="why-choose-us-icon">
               <img 
-                src="/images/hammer-screwdriver-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/hammer-screwdriver-icon.svg`} 
                 alt="Martillo y destornillador - Precisión y calidad profesional" 
                 className="feature-icon"
               />
@@ -21,7 +21,7 @@ function WhyChooseUs() {
           <div className="why-choose-us-item">
             <div className="why-choose-us-icon">
               <img 
-                src="/images/pencil-ruler-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/pencil-ruler-icon.svg`} 
                 alt="Lápiz y regla - Diseños personalizados" 
                 className="feature-icon"
               />
@@ -32,7 +32,7 @@ function WhyChooseUs() {
           <div className="why-choose-us-item">
             <div className="why-choose-us-icon">
               <img 
-                src="/images/box-stars-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/box-stars-icon.svg`} 
                 alt="Caja con estrellas - Entrega garantizada" 
                 className="feature-icon"
               />
@@ -43,7 +43,7 @@ function WhyChooseUs() {
           <div className="why-choose-us-item">
             <div className="why-choose-us-icon">
               <img 
-                src="/images/lightbulb-gears-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/lightbulb-gears-icon.svg`} 
                 alt="Foco con engranajes - Acompañamiento creativo" 
                 className="feature-icon"
               />

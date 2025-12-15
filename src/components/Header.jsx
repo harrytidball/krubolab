@@ -141,7 +141,7 @@ function Header() {
           <div className={`logo-section ${isSearchActive ? 'hidden' : ''}`}>
             <a href="/" className="logo-link">
               <img 
-                src="/images/krubo-logo.png" 
+                src={`${import.meta.env.BASE_URL}images/krubo-logo.png`} 
                 alt="KRUBO Logo" 
                 className="logo-image"
               />
@@ -201,7 +201,7 @@ function Header() {
           <div className={`icons-section ${isSearchActive ? 'hidden' : ''}`}>
             <button className="icon-btn heart-btn" onClick={() => navigate('/favoritos')}>
               <img 
-                src="/images/favorito.svg" 
+                src={`${import.meta.env.BASE_URL}images/favorito.svg`} 
                 alt="Favorito" 
                 width="24" 
                 height="24"
@@ -212,7 +212,7 @@ function Header() {
             </button>
             <button className="icon-btn cart-btn" onClick={handleCartClick}>
               <img 
-                src="/images/cart.svg" 
+                src={`${import.meta.env.BASE_URL}images/cart.svg`} 
                 alt="Shopping Cart" 
                 width="24" 
                 height="24"
@@ -241,7 +241,7 @@ function Header() {
                 aria-label="Clear search"
               >
                 <img 
-                  src="/images/x.svg" 
+                  src={`${import.meta.env.BASE_URL}images/x.svg`} 
                   alt="Clear search" 
                   width="18" 
                   height="18"
@@ -276,7 +276,7 @@ function Header() {
                   aria-label="Clear search"
                 >
                   <img 
-                    src="/images/x.svg" 
+                    src={`${import.meta.env.BASE_URL}images/x.svg`} 
                     alt="Clear search" 
                     width="18" 
                     height="18"

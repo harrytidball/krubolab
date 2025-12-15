@@ -195,7 +195,7 @@ function OurProjects() {
               </div>
               <div className="our-projects-hero-image-wrapper">
                 <img 
-                  src="/images/our-projects.png" 
+                  src={`${import.meta.env.BASE_URL}images/our-projects.png`} 
                   alt="Nuestros Proyectos" 
                   className="our-projects-hero-image"
                 />
@@ -243,7 +243,7 @@ function OurProjects() {
             </div>
             <div className="our-projects-hero-image-wrapper">
               <img 
-                src="/images/our-projects.png" 
+                src={`${import.meta.env.BASE_URL}images/our-projects.png`} 
                 alt="Nuestros Proyectos" 
                 className="our-projects-hero-image"
               />
@@ -296,7 +296,7 @@ function OurProjects() {
                       }}
                     >
                       <img 
-                        src={isInCart(product.id) ? "/images/cart-filled.svg" : "/images/cart.svg"} 
+                        src={isInCart(product.id) ? `${import.meta.env.BASE_URL}images/cart-filled.svg` : `${import.meta.env.BASE_URL}images/cart.svg`} 
                         alt={isInCart(product.id) ? "Carrito lleno" : "Carrito"} 
                       />
                     </button>
@@ -309,7 +309,7 @@ function OurProjects() {
                       }}
                     >
                       <img 
-                        src={isFavorite(product.id) ? "/images/favorito-filled.svg" : "/images/favorito.svg"} 
+                        src={isFavorite(product.id) ? `${import.meta.env.BASE_URL}images/favorito-filled.svg` : `${import.meta.env.BASE_URL}images/favorito.svg`} 
                         alt={isFavorite(product.id) ? "Favorito lleno" : "Favorito"} 
                       />
                     </button>

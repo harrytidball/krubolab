@@ -7,7 +7,7 @@ function Materials() {
         <div className="materials-content">
           <div className="materials-image">
             <img 
-              src="/images/materiales.jpg" 
+              src={`${import.meta.env.BASE_URL}images/materiales.jpg`} 
               alt="Materiales artísticos y figurinas geométricas" 
               className="materials-photo"
             />

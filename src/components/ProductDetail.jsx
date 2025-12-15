@@ -628,14 +628,14 @@ function ProductDetail() {
                     onClick={prevSlide}
                     aria-label="Producto anterior"
                   >
-                    <img src="/images/next-arrow.svg" alt="Anterior" className="recommended-nav-icon recommended-prev-icon" />
+                    <img src={`${import.meta.env.BASE_URL}images/next-arrow.svg`} alt="Anterior" className="recommended-nav-icon recommended-prev-icon" />
                   </button>
                   <button 
                     className="recommended-carousel-nav recommended-next-btn" 
                     onClick={nextSlide}
                     aria-label="Siguiente producto"
                   >
-                    <img src="/images/next-arrow.svg" alt="Siguiente" className="recommended-nav-icon recommended-next-icon" />
+                    <img src={`${import.meta.env.BASE_URL}images/next-arrow.svg`} alt="Siguiente" className="recommended-nav-icon recommended-next-icon" />
                   </button>
                 </>
               )}

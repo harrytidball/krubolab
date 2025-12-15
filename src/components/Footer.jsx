@@ -8,7 +8,7 @@ function Footer() {
           <div className="footer-content">
             <div className="footer-item">
               <img 
-                src="/images/location-pin.svg" 
+                src={`${import.meta.env.BASE_URL}images/location-pin.svg`} 
                 alt="Location" 
                 className="footer-icon"
               />
@@ -16,7 +16,7 @@ function Footer() {
             </div>
             <div className="footer-item">
               <img 
-                src="/images/instagram-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/instagram-icon.svg`} 
                 alt="Instagram" 
                 className="footer-icon"
               />
@@ -24,7 +24,7 @@ function Footer() {
             </div>
             <div className="footer-item">
               <img 
-                src="/images/whatsapp-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/whatsapp-icon.svg`} 
                 alt="WhatsApp" 
                 className="footer-icon"
               />
@@ -32,7 +32,7 @@ function Footer() {
             </div>
             <div className="footer-item">
               <img 
-                src="/images/email-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/email-icon.svg`} 
                 alt="Email" 
                 className="footer-icon"
               />
@@ -71,7 +71,7 @@ function Footer() {
               className="footer-item"
             >
               <img 
-                src="/images/instagram-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/instagram-icon.svg`} 
                 alt="Instagram" 
                 className="footer-social-icon"
               />
@@ -83,7 +83,7 @@ function Footer() {
               className="footer-item"
             >
               <img 
-                src="/images/facebook-icon.svg" 
+                src={`${import.meta.env.BASE_URL}images/facebook-icon.svg`} 
                 alt="Facebook" 
                 className="footer-social-icon"
               />

@@ -343,14 +343,14 @@ function WorkshopProducts() {
                   onClick={prevSlide}
                   aria-label="Producto anterior"
                 >
-                  <img src="/images/next-arrow.svg" alt="Anterior" className="nav-icon prev-icon" />
+                  <img src={`${import.meta.env.BASE_URL}images/next-arrow.svg`} alt="Anterior" className="nav-icon prev-icon" />
                 </button>
                 <button 
                   className="carousel-nav next-btn" 
                   onClick={nextSlide}
                   aria-label="Siguiente producto"
                 >
-                  <img src="/images/next-arrow.svg" alt="Siguiente" className="nav-icon next-icon" />
+                  <img src={`${import.meta.env.BASE_URL}images/next-arrow.svg`} alt="Siguiente" className="nav-icon next-icon" />
                 </button>
               </>
             )}
