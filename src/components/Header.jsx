@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SearchResults from './SearchResults';
 
 function Header() {
   const navigate = useNavigate();
@@ -95,7 +96,11 @@ function Header() {
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchValue(value);
-    setIsSearchActive(value.length > 0);
+    // Keep search active once it's been activated, don't deactivate when clearing
+    // Only activate if not already active and there's text
+    if (!isSearchActive && value.length > 0) {
+      setIsSearchActive(true);
+    }
   };
 
   const clearSearch = () => {
@@ -148,22 +153,18 @@ function Header() {
             </a>
           </div>
 
-          {/* Search Bar 
+          {/* Search Bar */}
           <div className="search-section">
             <div className="search-container">
-              <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="m21 21-4.35-4.35"/>
-              </svg>
               <input 
                 type="text" 
-                placeholder="¿Qué estás buscando?" 
+                placeholder="🔍 ¿Qué estás buscando?" 
                 className="search-input"
                 value={searchValue}
                 onChange={handleSearchChange}
               />
             </div>
-          </div>*/}
+          </div>
 
           {/* Navigation */}
           <nav className={`nav-section ${isSearchActive ? 'hidden' : ''}`}>
@@ -252,40 +253,36 @@ function Header() {
         </div>
       </header>
 
+      {/* Mobile Search Bar - Below Header */}
+      <div className="mobile-search-bar">
+        <div className="search-container">
+          <input 
+            type="text" 
+            placeholder="🔍 ¿Qué estás buscando?" 
+            className="search-input"
+            value={searchValue}
+            onChange={handleSearchChange}
+          />
+          {isSearchActive && (
+            <button 
+              className="mobile-search-clear-btn" 
+              onClick={clearSearch}
+              aria-label="Clear search"
+            >
+              <img 
+                src="/images/x.svg" 
+                alt="Clear search" 
+                width="18" 
+                height="18"
+              />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-menu-content">
-          {/* Mobile Search 
-          <div className="mobile-search">
-            <div className="search-container">
-              <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"/>
-                <path d="m21 21-4.35-4.35"/>
-              </svg>
-              <input 
-                type="text" 
-                placeholder="¿Qué estás buscando?" 
-                className="search-input"
-                value={searchValue}
-                onChange={handleSearchChange}
-              />
-              {isSearchActive && (
-                <button 
-                  className="mobile-clear-search-btn" 
-                  onClick={clearSearch}
-                  aria-label="Clear search"
-                >
-                  <img 
-                    src="/images/x.svg" 
-                    alt="Clear search" 
-                    width="18" 
-                    height="18"
-                  />
-                </button>
-              )}
-            </div>
-          </div>
-          */}
 
           {/* Mobile Navigation */}
           <nav className="mobile-nav">
@@ -332,6 +329,15 @@ function Header() {
           </button>
         </div>
       </div>
+
+      {/* Search Results */}
+      <SearchResults 
+        searchQuery={searchValue}
+        isActive={isSearchActive}
+        onClose={clearSearch}
+        searchValue={searchValue}
+        onSearchChange={handleSearchChange}
+      />
     </>
   );
 }

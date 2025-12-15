@@ -391,7 +391,7 @@ function ProductDetail() {
   return (
     <>
       <Header />
-      <div className="product-detail-container">
+      <div className="product-detail-container" style={{ marginTop: '30px' }}>
         <div className="product-detail-content">
         {/* Left Column - Product Info */}
         <div className="product-detail-info">
