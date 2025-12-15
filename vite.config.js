@@ -42,20 +42,10 @@ export default defineConfig({
         // Handle /supabase-config endpoint
         server.middlewares.use('/supabase-config', (req, res, next) => {
           if (req.method === 'GET') {
-            let dbUrl = devVars.DB_URL || ''
+            const supabaseUrl = devVars.SUPABASE_URL || ''
             const dbPassword = devVars.DB_PASSWORD || ''
             
-            // If DB_URL is a PostgreSQL connection string, extract the Supabase API URL
-            // Format: postgresql://postgres:password@db.xxx.supabase.co:5432/postgres
-            // Convert to: https://xxx.supabase.co
-            if (dbUrl.startsWith('postgresql://')) {
-              const match = dbUrl.match(/@db\.([^.]+)\.supabase\.co/)
-              if (match) {
-                dbUrl = `https://${match[1]}.supabase.co`
-              }
-            }
-            
-            if (!dbUrl || !dbPassword) {
+            if (!supabaseUrl || !dbPassword) {
               res.writeHead(500, { 'Content-Type': 'application/json' })
               res.end(JSON.stringify({ error: 'Server configuration error' }))
               return
@@ -63,7 +53,7 @@ export default defineConfig({
             
             res.writeHead(200, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({
-              url: dbUrl,
+              url: supabaseUrl,
               anonKey: dbPassword
             }))
           } else {

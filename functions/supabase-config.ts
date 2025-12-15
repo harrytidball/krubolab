@@ -1,14 +1,14 @@
 export const onRequestGet = async (context: {
   request: Request;
   env: { 
-    DB_URL: string;
+    SUPABASE_URL: string;
     DB_PASSWORD: string;
   };
 }) => {
   const { env } = context;
 
   try {
-    const supabaseUrl = env.DB_URL as string;
+    const supabaseUrl = env.SUPABASE_URL as string;
     const supabaseAnonKey = env.DB_PASSWORD as string;
 
     if (!supabaseUrl || !supabaseAnonKey) {
