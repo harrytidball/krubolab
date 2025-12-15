@@ -6,9 +6,9 @@ function FeaturedWorks() {
 
   // Featured products configuration with product IDs
   const featuredProducts = [
-    { id: '1755811194068-dxxyw2y8f', name: 'Pyramid Head', image: '/images/pyramid-head.png', description: 'Figura coleccionable', price: '$ 50.000' },
-    { id: '1755810988886-0v6ghicff', name: 'Head-1', image: '/images/head-1.png', description: 'Porta audífonos', price: '$ 70.000' },
-    { id: '1755811124030-jjs47ubk2', name: 'Okus', image: '/images/okus.png', description: 'Mesa de noche', price: '$ 200.000' },
+    { id: '1765824528699-bjw809szq', name: 'Pyramid Head', image: '/images/pyramid-head.png', description: 'Figura coleccionable', price: '$ 50.000' },
+    { id: '1765824278927-jknw590ny', name: 'Head-1', image: '/images/head-1.png', description: 'Porta audífonos', price: '$ 70.000' },
+    { id: '1765824432993-p0yec3uof', name: 'Okus', image: '/images/okus.png', description: 'Mesa de noche', price: '$ 200.000' },
     { name: 'Repuestos Singer', image: '/images/repuestos-cosedora-singer.png', description: 'Piezas mecánicas', price: '$ 30.000' }
   ];
 

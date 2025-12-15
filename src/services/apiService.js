@@ -1,171 +1,134 @@
-import axios from 'axios';
+import { getSupabaseClient } from '../config/supabase';
 
-import { ENV_CONFIG } from '../config/env';
+// Data transformation helpers
+const transformProductFromDB = (product) => {
+  if (!product) return null;
+  return {
+    ...product,
+    additionalInformation: product.additional_information || ''
+  };
+};
 
-// Use environment configuration
-const API_BASE_URL = ENV_CONFIG.API_URL;
+const transformOrderFromDB = (order) => {
+  if (!order) return null;
+  return {
+    ...order,
+    orderNumber: order.order_number
+  };
+};
 
-// Create axios instance with default config
-const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// API Service for JSON file operations
+// Legacy JSON file service (kept for backward compatibility if needed)
 export const jsonFileService = {
-  // Write data to JSON file (appends to existing content)
   async writeToFile(filename, data) {
-    try {
-      const response = await apiClient.put('/json', {
-        filename: filename,
-        content: data
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error writing to file:', error);
-      throw error;
-    }
+    throw new Error('JSON file service is deprecated. Please use Supabase Postgres.');
   },
 
-  // Remove data from JSON file
   async removeFromFile(filename, dataToRemove) {
-    try {
-      const response = await apiClient.delete('/json', {
-        data: {
-          filename: filename,
-          content: dataToRemove
-        }
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error removing from file:', error);
-      throw error;
-    }
+    throw new Error('JSON file service is deprecated. Please use Supabase Postgres.');
   }
 };
 
-// Dashboard API Service
+// Dashboard API Service using Supabase Postgres
 export const dashboardService = {
   // Products Management
   async getProducts() {
     try {
-      const response = await apiClient.get('/json/products.json');
-      return response.data.content || response.data || [];
+      const supabase = await getSupabaseClient();
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return (data || []).map(transformProductFromDB);
     } catch (error) {
-      console.error('Error fetching products:', error);
-      return [];
+      throw error;
     }
   },
 
   async createProduct(product) {
     try {
-      const response = await apiClient.put('/json', {
-        filename: 'products.json',
-        content: product
-      });
-      return response.data;
+      const supabase = await getSupabaseClient();
+      const { data, error } = await supabase
+        .from('products')
+        .insert([{
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          images: product.images || [],
+          colours: product.colours || [],
+          measurements: product.measurements || [],
+          materials: product.materials || [],
+          additional_information: product.additionalInformation || ''
+        }])
+        .select()
+        .single();
+      
+      if (error) throw error;
+      return transformProductFromDB(data);
     } catch (error) {
-      console.error('Error creating product:', error);
       throw error;
     }
   },
 
   async updateProduct(productId, updatedProduct) {
     try {
-      // Get current products
-      const currentProducts = await this.getProducts();
+      const supabase = await getSupabaseClient();
+      const { data, error } = await supabase
+        .from('products')
+        .update({
+          name: updatedProduct.name,
+          price: updatedProduct.price,
+          description: updatedProduct.description,
+          images: updatedProduct.images || [],
+          colours: updatedProduct.colours || [],
+          measurements: updatedProduct.measurements || [],
+          materials: updatedProduct.materials || [],
+          additional_information: updatedProduct.additionalInformation || ''
+        })
+        .eq('id', productId)
+        .select()
+        .single();
       
-      // Remove the old product and add the updated one
-      const updatedProducts = currentProducts.map(p => 
-        p.id === productId ? updatedProduct : p
-      );
-      
-      // Send with replace mode to prevent duplication
-      const response = await apiClient.put('/json', {
-        filename: 'products.json',
-        content: updatedProducts,
-        mode: 'replace'
-      });
-      
-      return response.data;
+      if (error) throw error;
+      return transformProductFromDB(data);
     } catch (error) {
-      console.error('Error updating product:', error);
       throw error;
     }
   },
 
   async saveProduct(product) {
     try {
-      // This method is kept for backward compatibility
-      // It will determine if it's a create or update operation
-      const currentProducts = await this.getProducts();
-      const existingProduct = currentProducts.find(p => p.id === product.id);
+      const supabase = await getSupabaseClient();
+      // Check if product exists
+      const { data: existingProduct } = await supabase
+        .from('products')
+        .select('id')
+        .eq('id', product.id)
+        .maybeSingle();
       
       if (existingProduct) {
-        // Update existing product
         return await this.updateProduct(product.id, product);
       } else {
-        // Create new product
         return await this.createProduct(product);
       }
     } catch (error) {
-      console.error('Error saving product:', error);
       throw error;
     }
   },
 
   async deleteProduct(productId) {
     try {
-      // First, try to get the current products to find the one to delete
-      const currentProducts = await this.getProducts();
-      const productToDelete = currentProducts.find(p => p.id === productId);
+      const supabase = await getSupabaseClient();
+      const { error } = await supabase
+        .from('products')
+        .delete()
+        .eq('id', productId);
       
-      if (!productToDelete) {
-        throw new Error(`Product with ID ${productId} not found`);
-      }
-      
-      // Try method 1: Remove the specific product from the file
-      try {
-        const response = await apiClient.delete('/json', {
-          data: {
-            filename: 'products.json',
-            content: productToDelete  // Send the full product object instead of just ID
-          }
-        });
-        
-        return response.data;
-      } catch (method1Error) {
-        // Try method 2: Send just the ID
-        try {
-          const response = await apiClient.delete('/json', {
-            data: {
-              filename: 'products.json',
-              content: { id: productId }
-            }
-          });
-          
-          return response.data;
-        } catch (method2Error) {
-          // Try method 3: Update the file by removing the product
-          const updatedProducts = currentProducts.filter(p => p.id !== productId);
-          const response = await apiClient.put('/json', {
-            filename: 'products.json',
-            content: updatedProducts
-          });
-          
-          return response.data;
-        }
-      }
-      
+      if (error) throw error;
+      return { success: true };
     } catch (error) {
-      console.error('Error deleting product:', error);
-      console.error('Error details:', {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status
-      });
       throw error;
     }
   },
@@ -173,38 +136,78 @@ export const dashboardService = {
   // Services Management
   async getServices() {
     try {
-      const response = await apiClient.get('/json/services.json');
-      return response.data.content || [];
+      const supabase = await getSupabaseClient();
+      const { data, error } = await supabase
+        .from('services')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data || [];
     } catch (error) {
-      console.error('Error fetching services:', error);
-      return [];
+      throw error;
     }
   },
 
   async saveService(service) {
     try {
-      const response = await apiClient.put('/json', {
-        filename: 'services.json',
-        content: service
-      });
-      return response.data;
+      const supabase = await getSupabaseClient();
+      // Check if service exists
+      const { data: existingService } = await supabase
+        .from('services')
+        .select('id')
+        .eq('id', service.id)
+        .maybeSingle();
+      
+      if (existingService) {
+        // Update existing service
+        const { data, error } = await supabase
+          .from('services')
+          .update({
+            name: service.name,
+            price: service.price,
+            duration: service.duration,
+            category: service.category
+          })
+          .eq('id', service.id)
+          .select()
+          .single();
+        
+        if (error) throw error;
+        return data;
+      } else {
+        // Create new service
+        const { data, error } = await supabase
+          .from('services')
+          .insert([{
+            id: service.id,
+            name: service.name,
+            price: service.price,
+            duration: service.duration,
+            category: service.category
+          }])
+          .select()
+          .single();
+        
+        if (error) throw error;
+        return data;
+      }
     } catch (error) {
-      console.error('Error saving service:', error);
       throw error;
     }
   },
 
   async deleteService(serviceId) {
     try {
-      const response = await apiClient.delete('/json', {
-        data: {
-          filename: 'services.json',
-          content: { id: serviceId }
-        }
-      });
-      return response.data;
+      const supabase = await getSupabaseClient();
+      const { error } = await supabase
+        .from('services')
+        .delete()
+        .eq('id', serviceId);
+      
+      if (error) throw error;
+      return { success: true };
     } catch (error) {
-      console.error('Error deleting service:', error);
       throw error;
     }
   },
@@ -212,38 +215,80 @@ export const dashboardService = {
   // Contacts Management
   async getContacts() {
     try {
-      const response = await apiClient.get('/json/contacts.json');
-      return response.data.content || [];
+      const supabase = await getSupabaseClient();
+      const { data, error } = await supabase
+        .from('contacts')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data || [];
     } catch (error) {
-      console.error('Error fetching contacts:', error);
-      return [];
+      throw error;
     }
   },
 
   async saveContact(contact) {
     try {
-      const response = await apiClient.put('/json', {
-        filename: 'contacts.json',
-        content: contact
-      });
-      return response.data;
+      const supabase = await getSupabaseClient();
+      // Check if contact exists
+      const { data: existingContact } = await supabase
+        .from('contacts')
+        .select('id')
+        .eq('id', contact.id)
+        .maybeSingle();
+      
+      if (existingContact) {
+        // Update existing contact
+        const { data, error } = await supabase
+          .from('contacts')
+          .update({
+            name: contact.name,
+            email: contact.email,
+            phone: contact.phone,
+            company: contact.company,
+            status: contact.status
+          })
+          .eq('id', contact.id)
+          .select()
+          .single();
+        
+        if (error) throw error;
+        return data;
+      } else {
+        // Create new contact
+        const { data, error } = await supabase
+          .from('contacts')
+          .insert([{
+            id: contact.id,
+            name: contact.name,
+            email: contact.email,
+            phone: contact.phone,
+            company: contact.company,
+            status: contact.status
+          }])
+          .select()
+          .single();
+        
+        if (error) throw error;
+        return data;
+      }
     } catch (error) {
-      console.error('Error saving contact:', error);
       throw error;
     }
   },
 
   async deleteContact(contactId) {
     try {
-      const response = await apiClient.delete('/json', {
-        data: {
-          filename: 'contacts.json',
-          content: { id: contactId }
-        }
-      });
-      return response.data;
+      const supabase = await getSupabaseClient();
+      const { error } = await supabase
+        .from('contacts')
+        .delete()
+        .eq('id', contactId);
+      
+      if (error) throw error;
+      return { success: true };
     } catch (error) {
-      console.error('Error deleting contact:', error);
       throw error;
     }
   },
@@ -251,8 +296,14 @@ export const dashboardService = {
   // Orders Management
   async getOrders() {
     try {
-      const response = await apiClient.get('/json/orders.json');
-      return response.data.content || response.data || [];
+      const supabase = await getSupabaseClient();
+      const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return (data || []).map(transformOrderFromDB);
     } catch (error) {
       return [];
     }
@@ -260,56 +311,93 @@ export const dashboardService = {
 
   async saveOrder(order) {
     try {
-      const response = await apiClient.put('/json', {
-        filename: 'orders.json',
-        content: order
-      });
-      return response.data;
+      const supabase = await getSupabaseClient();
+      // Check if order exists
+      const { data: existingOrder } = await supabase
+        .from('orders')
+        .select('id')
+        .eq('id', order.id)
+        .maybeSingle();
+      
+      if (existingOrder) {
+        // Update existing order
+        const { data, error } = await supabase
+          .from('orders')
+          .update({
+            order_number: order.orderNumber,
+            date: order.date,
+            customer: order.customer || {},
+            items: order.items || [],
+            total: order.total,
+            status: order.status || 'pending'
+          })
+          .eq('id', order.id)
+          .select()
+          .single();
+        
+        if (error) throw error;
+        return transformOrderFromDB(data);
+      } else {
+        // Create new order
+        const { data, error } = await supabase
+          .from('orders')
+          .insert([{
+            id: order.id,
+            order_number: order.orderNumber,
+            date: order.date,
+            customer: order.customer || {},
+            items: order.items || [],
+            total: order.total,
+            status: order.status || 'pending'
+          }])
+          .select()
+          .single();
+        
+        if (error) throw error;
+        return transformOrderFromDB(data);
+      }
     } catch (error) {
-      console.error('Error saving order:', error);
       throw error;
     }
   },
 
   async deleteOrder(orderId) {
     try {
-      // Get current orders first
-      const currentOrders = await this.getOrders();
+      const supabase = await getSupabaseClient();
+      const { error } = await supabase
+        .from('orders')
+        .delete()
+        .eq('id', orderId);
       
-      // Filter out the order to delete
-      const updatedOrders = currentOrders.filter(order => order.id !== orderId);
-      
-      // Update the orders.json file with the filtered list
-      const response = await apiClient.put('/json', {
-        filename: 'orders.json',
-        content: updatedOrders,
-        mode: 'replace'
-      });
-      
-      return response.data;
+      if (error) throw error;
+      return { success: true };
     } catch (error) {
-      console.error('Error deleting order:', error);
       throw error;
     }
   },
 
   async updateOrderStatus(orderId, newStatus) {
     try {
-      const response = await apiClient.put('/json', {
-        filename: 'orders.json',
-        content: { id: orderId, status: newStatus }
-      });
-      return response.data;
+      const supabase = await getSupabaseClient();
+      const { data, error } = await supabase
+        .from('orders')
+        .update({ status: newStatus })
+        .eq('id', orderId)
+        .select()
+        .single();
+      
+      if (error) throw error;
+      return transformOrderFromDB(data);
     } catch (error) {
-      console.error('Error updating order status:', error);
       throw error;
     }
   }
 };
 
-// Helper function to get full API URL
+// Helper function to get full API URL (kept for backward compatibility)
 export const getApiUrl = (endpoint) => {
-  return `${API_BASE_URL}${endpoint}`;
+  return endpoint;
 };
 
-export default apiClient; 
+// Legacy default export (kept for backward compatibility)
+export default null;

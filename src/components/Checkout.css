@@ -464,7 +464,7 @@
 .quantity-label {
   font-size: 14px;
   font-weight: 600;
-  color: #333;
+  color: #333 !important;
   margin-bottom: 4px;
 }
 
@@ -478,8 +478,8 @@
   width: 32px;
   height: 32px;
   border: 2px solid #e0e0e0;
-  background: white;
-  color: #333;
+  background: white !important;
+  color: #333 !important;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
@@ -492,7 +492,7 @@
 
 .quantity-btn:hover:not(:disabled) {
   border-color: #007bff;
-  color: #007bff;
+  color: #007bff !important;
 }
 
 .quantity-btn:disabled {
@@ -505,7 +505,7 @@
   text-align: center;
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #333 !important;
 }
 
 .remove-item-btn {

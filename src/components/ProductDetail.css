@@ -193,8 +193,7 @@ body.product-detail-page {
 }
 
 .quantity-selector {
-  background: #d76365;
-  color: white;
+  color: black;
   border: none;
   padding: 0.5rem;
   border-radius: 8px;

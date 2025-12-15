@@ -35,23 +35,36 @@ cd krubolab
 npm install
 ```
 
-3. Configure API endpoint in `src/config/env.js`:
-```javascript
-export const ENV_CONFIG = {
-  API_URL: 'https://your-api-gateway-url.com/prod',
-  AWS_REGION: 'your-aws-region',
-  ENDPOINTS: {
-    JSON: '/json'
-  }
-};
-```
+3. Set up Supabase:
+   - Create a new Supabase project at https://supabase.com
+   - Run the SQL schema from `supabase-schema.sql` in your Supabase SQL Editor
+   - Get your Supabase URL and anon key from Project Settings > API
 
-4. Start the development server:
+4. Configure environment variables:
+   
+   **For Local Development:**
+   Create a `.dev.vars` file in the root directory:
+   ```bash
+   ADMIN_PASSWORD=your-admin-password-here
+   DB_URL=https://your-project.supabase.co
+   DB_PASSWORD=your-supabase-anon-key-here
+   ```
+   This file is automatically loaded by Wrangler for local development and is gitignored.
+   
+   **For Production (Cloudflare Workers):**
+   In your Cloudflare Workers dashboard, add these environment variables:
+   - `ADMIN_PASSWORD`: Password for admin dashboard login
+   - `DB_URL`: Your Supabase project URL (e.g., `https://your-project.supabase.co`)
+   - `DB_PASSWORD`: Your Supabase anonymous key (database password)
+   
+   The credentials are fetched via the `/supabase-config` endpoint at runtime, keeping them secure and out of the frontend code.
+
+5. Start the development server:
 ```bash
 npm run dev
 ```
 
-5. Open your browser and navigate to `http://localhost:5173`
+6. Open your browser and navigate to `http://localhost:5173`
 
 ## Usage
 
@@ -92,30 +105,32 @@ The dashboard is organized into four main sections:
 - **Status Updates**: Orders can have their status updated directly from the table
 - **Real-time Sync**: All changes are immediately persisted to the backend API
 
-## API Integration
+## Database Setup
 
-### Data Storage
+### Supabase Postgres
 
-The dashboard uses the existing `apiService.js` to interact with the backend API:
+The application now uses Supabase Postgres for data persistence. To set up:
 
-- **GET Operations**: Fetch data from JSON files on the server
-- **PUT Operations**: Create/update records in JSON files
-- **DELETE Operations**: Remove records from JSON files
+1. **Create Supabase Project**: Sign up at https://supabase.com and create a new project
+2. **Run Schema**: Execute the SQL in `supabase-schema.sql` in your Supabase SQL Editor
+3. **Configure Cloudflare Workers**: Add `DB_URL` and `DB_KEY` as environment variables in your Cloudflare Workers dashboard (same place where `DB_PASSWORD` is stored)
 
-### File Structure
+### Database Tables
 
-Data is organized into separate JSON files:
-- `products.json` - Product catalog and inventory
-- `services.json` - Service offerings and pricing
-- `contacts.json` - Customer and lead database
-- `orders.json` - Order tracking and management
+The following tables are created:
+- `products` - Product catalog and inventory (with JSONB arrays for images, colours, measurements, materials)
+- `services` - Service offerings and pricing
+- `contacts` - Customer and lead database
+- `orders` - Order tracking and management (with JSONB for customer and items)
 
-### API Endpoints
+### API Service
 
-All operations go through the `/json` endpoint with appropriate HTTP methods:
-- `GET /json?filename=products.json` - Retrieve data
-- `PUT /json` - Create/update data
-- `DELETE /json` - Remove data
+The `apiService.js` uses Supabase client to interact with Postgres:
+- **GET Operations**: Fetch data from Supabase tables
+- **INSERT/UPDATE Operations**: Create/update records in Supabase
+- **DELETE Operations**: Remove records from Supabase
+
+All data transformations between camelCase (frontend) and snake_case (database) are handled automatically.
 
 ## Security Considerations
 
