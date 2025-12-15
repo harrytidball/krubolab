@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ENV_CONFIG } from '../config/env';
 
 function Login({ onLogin }) {
   const [password, setPassword] = useState('');
@@ -13,8 +14,8 @@ function Login({ onLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simple password check - in production, this should be more secure
-    if (password === 'admin123') {
+    // Password check using Cloudflare environment variable
+    if (password === ENV_CONFIG.ADMIN_PASSWORD) {
       onLogin(true);
       navigate('/panel');
     } else {

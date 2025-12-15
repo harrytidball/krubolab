@@ -55,11 +55,6 @@ npm run dev
 
 ## Usage
 
-### Login
-
-- **Default Password**: `admin123`
-- **Note**: In production, implement proper authentication with secure password hashing and database storage
-
 ### Dashboard Navigation
 
 The dashboard is organized into four main sections:

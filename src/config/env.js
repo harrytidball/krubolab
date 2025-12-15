@@ -8,6 +8,9 @@ export const ENV_CONFIG = {
   // AWS Region
   AWS_REGION: 'sa-east-1',
   
+  // Admin password from Cloudflare environment variable
+  ADMIN_PASSWORD: import.meta.env.ADMIN_PASSWORD || '',
+  
   // API Endpoints
   ENDPOINTS: {
     JSON: '/json'
