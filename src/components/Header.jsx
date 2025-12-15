@@ -155,7 +155,7 @@ function Header() {
 
           {/* Search Bar */}
           <div className="search-section">
-            <div className="search-container">
+            <div className="search-container" style={{ background: '#F4F3EF' }}>
               <input 
                 type="text" 
                 placeholder="🔍 ¿Qué estás buscando?" 
