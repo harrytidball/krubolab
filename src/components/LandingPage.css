@@ -925,7 +925,7 @@ body.search-active::before {
 
 /* ===== HERO SECTION STYLES ===== */
 .hero {
-  background: #C62124; /* Salmon-pink background */
+  background: #D76365; /* Salmon-pink background */
   height: 465px; /* Fixed height as requested */
   display: flex;
   align-items: center;
