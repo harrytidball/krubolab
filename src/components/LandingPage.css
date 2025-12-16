@@ -2160,6 +2160,22 @@ body.search-active::before {
   align-items: center;
 }
 
+/* Larger screens - tighten info to the right, allow bigger image */
+@media (min-width: 1025px) {
+  .materials-content {
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: 2rem;
+  }
+  
+  .materials-description {
+    max-width: 400px;
+  }
+  
+  .materials-photo {
+    max-width: 800px;
+  }
+}
+
 .materials-image {
   display: flex;
   justify-content: center;
