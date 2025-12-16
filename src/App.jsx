@@ -15,6 +15,7 @@ import ThreeDPrinting from './components/ThreeDPrinting';
 import OurProjects from './components/OurProjects';
 import MaterialsPage from './components/MaterialsPage';
 import ProductDetail from './components/ProductDetail';
+import Repairs from './components/Repairs';
 import NotFound from './components/NotFound';
 
 function App() {
@@ -78,6 +79,10 @@ function App() {
           <Route 
             path="/nuestros-materiales" 
             element={<MaterialsPage />}
+          />
+          <Route 
+            path="/reparaciones" 
+            element={<Repairs />}
           />
           <Route 
             path="/producto/:id" 

@@ -178,14 +178,12 @@ function Header() {
               </div>
             </div>
             
-            {/* <div className="nav-link dropdown-trigger">
+            <div className="nav-link dropdown-trigger">
               Servicios
               <div className="dropdown-menu">
-                <div className="dropdown-item">Diseño CAD 2D</div>
-                <div className="dropdown-item">Diseño CAD 3D</div>
-                <div className="dropdown-item">Reparaciones</div>
+                <div className="dropdown-item" onClick={() => navigate('/reparaciones')}>Reparaciones</div>
               </div>
-            </div> */}
+            </div>
             
             <div className="nav-link dropdown-trigger">
               Acerca de
@@ -296,14 +294,12 @@ function Header() {
               </div>
             </div>
 
-            {/* <div className="mobile-nav-section">
+            <div className="mobile-nav-section">
               <h3 className="mobile-nav-title">Servicios</h3>
               <div className="mobile-nav-items">
-                <a href="#" className="mobile-nav-item">Diseño CAD 2D</a>
-                <a href="#" className="mobile-nav-item">Diseño CAD 3D</a>
-                <a href="#" className="mobile-nav-item">Reparaciones</a>
+                <a href="/reparaciones" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/reparaciones'); closeMobileMenu(); }}>Reparaciones</a>
               </div>
-            </div> */}
+            </div>
 
             <div className="mobile-nav-section">
               <h3 className="mobile-nav-title">Acerca de</h3>
