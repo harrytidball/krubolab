@@ -2376,7 +2376,8 @@ body.search-active::before {
 
 .why-choose-us-container {
   max-width: 1400px;
-  margin: 0 6rem;
+  margin: 0 auto;
+  padding: 0 6rem;
 }
 
 .why-choose-us-title {
@@ -2425,7 +2426,7 @@ body.search-active::before {
 /* Responsive Design for Why Choose Us Section */
 @media (max-width: 1024px) {
   .why-choose-us-container {
-    margin: 0 4rem;
+    padding: 0 4rem;
   }
   
   .why-choose-us-title {
@@ -2449,7 +2450,7 @@ body.search-active::before {
   }
   
   .why-choose-us-container {
-    margin: 0 3rem;
+    padding: 0 3rem;
   }
   
   .why-choose-us-title {
@@ -2474,7 +2475,7 @@ body.search-active::before {
   }
   
   .why-choose-us-container {
-    margin: 0 2rem;
+    padding: 0 2rem;
   }
   
   .why-choose-us-title {
