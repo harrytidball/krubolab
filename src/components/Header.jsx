@@ -182,6 +182,7 @@ function Header() {
               Servicios
               <div className="dropdown-menu">
                 <div className="dropdown-item" onClick={() => navigate('/reparaciones')}>Reparaciones</div>
+                <div className="dropdown-item" onClick={() => navigate('/diseños-personalizados')}>Diseños personalizados</div>
               </div>
             </div>
             
@@ -298,6 +299,7 @@ function Header() {
               <h3 className="mobile-nav-title">Servicios</h3>
               <div className="mobile-nav-items">
                 <a href="/reparaciones" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/reparaciones'); closeMobileMenu(); }}>Reparaciones</a>
+                <a href="/diseños-personalizados" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/diseños-personalizados'); closeMobileMenu(); }}>Diseños personalizados</a>
               </div>
             </div>
 

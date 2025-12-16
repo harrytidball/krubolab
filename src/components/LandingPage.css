@@ -1626,6 +1626,20 @@ body.search-active::before {
   line-height: 1.4;
 }
 
+.footer-item a,
+a.footer-item {
+  color: #cccccc;
+  text-decoration: none;
+}
+
+a.footer-item:hover {
+  text-decoration: none;
+}
+
+a.footer-item span {
+  color: #cccccc;
+}
+
 .footer-item:first-child {
   margin-top: 0.5rem;
 }

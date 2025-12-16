@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function Footer() {
   return (
     <footer className="footer">
@@ -42,23 +44,17 @@ function Footer() {
         </div>
 
         {/* INFORMACIÓN Column */}
-        {/* <div className="footer-column">
+        <div className="footer-column">
           <h3 className="footer-title">INFORMACIÓN</h3>
           <div className="footer-content">
-            <div className="footer-item">
-              <span>Quiénes somos</span>
-            </div>
-            <div className="footer-item">
-              <span>Preguntas frecuentes</span>
-            </div>
-            <div className="footer-item">
+            <Link to="/diseños-personalizados" className="footer-item">
               <span>Diseños personalizados</span>
-            </div>
-            <div className="footer-item">
+            </Link>
+            <Link to="/nuestros-materiales" className="footer-item">
               <span>Nuestros materiales</span>
-            </div>
+            </Link>
           </div>
-        </div> */}
+        </div>
 
         {/* SÍGUENOS EN Column */}
         <div className="footer-column">

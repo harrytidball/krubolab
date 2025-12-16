@@ -9,7 +9,9 @@ import './AdminDashboard.css';
 function Dashboard({ onLogout }) {
   const [activeTab, setActiveTab] = useState(() => {
     // Get the active tab from localStorage, default to 'products'
-    return localStorage.getItem('dashboardActiveTab') || 'products';
+    const savedTab = localStorage.getItem('dashboardActiveTab');
+    // Temporarily hide services - reset to products if services was saved
+    return savedTab === 'services' ? 'products' : (savedTab || 'products');
   });
   const navigate = useNavigate();
 
@@ -34,8 +36,9 @@ function Dashboard({ onLogout }) {
     switch (activeTab) {
       case 'products':
         return <Products />;
-      case 'services':
-        return <Services />;
+      // Temporarily hidden
+      // case 'services':
+      //   return <Services />;
       case 'contacts':
         return <Contacts />;
       case 'orders':
@@ -61,12 +64,13 @@ function Dashboard({ onLogout }) {
         >
           Productos
         </button>
-        <button
+        {/* Temporarily hidden */}
+        {/* <button
           className={`nav-btn ${activeTab === 'services' ? 'active' : ''}`}
           onClick={() => setActiveTab('services')}
         >
           Servicios
-        </button>
+        </button> */}
         <button
           className={`nav-btn ${activeTab === 'contacts' ? 'active' : ''}`}
           onClick={() => setActiveTab('contacts')}

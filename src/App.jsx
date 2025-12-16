@@ -16,6 +16,7 @@ import OurProjects from './components/OurProjects';
 import MaterialsPage from './components/MaterialsPage';
 import ProductDetail from './components/ProductDetail';
 import Repairs from './components/Repairs';
+import Personalized from './components/Personalized';
 import NotFound from './components/NotFound';
 
 function App() {
@@ -83,6 +84,10 @@ function App() {
           <Route 
             path="/reparaciones" 
             element={<Repairs />}
+          />
+          <Route 
+            path="/diseños-personalizados" 
+            element={<Personalized />}
           />
           <Route 
             path="/producto/:id" 
