@@ -22,7 +22,7 @@ function Personalized() {
     '/images/personalised/personalised-1.jpg',
     '/images/personalised/personalised-2.jpg',
     '/images/personalised/personalised-3.jpg',
-    '/images/personalised/personalised-4.png',
+    '/images/personalised/personalised-4.jpg',
     '/images/personalised/personalised-5.jpg',
     '/images/personalised/personalised-6.jpg',
     '/images/personalised/personalised-7.jpg',
@@ -31,7 +31,6 @@ function Personalized() {
     '/images/personalised/personalised-10.jpg',
     '/images/personalised/personalised-11.jpg',
     '/images/personalised/personalised-12.jpg',
-    '/images/personalised/personalised-13.jpg',
   ];
 
   useEffect(() => {
