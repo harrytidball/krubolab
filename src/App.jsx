@@ -17,6 +17,7 @@ import MaterialsPage from './components/MaterialsPage';
 import ProductDetail from './components/ProductDetail';
 import Repairs from './components/Repairs';
 import Personalized from './components/Personalized';
+import TwoDDesign from './components/TwoDDesign';
 import NotFound from './components/NotFound';
 
 function App() {
@@ -88,6 +89,10 @@ function App() {
           <Route 
             path="/diseños-personalizados" 
             element={<Personalized />}
+          />
+          <Route 
+            path="/diseño-2d" 
+            element={<TwoDDesign />}
           />
           <Route 
             path="/producto/:id" 

@@ -1,0 +1,306 @@
+/* Two D Design Page Styles */
+
+.two-d-design-page {
+  min-height: 100vh;
+  background: #e1e1e1;
+  font-family: 'Rubik', sans-serif;
+}
+
+/* Hero Section */
+.two-d-design-hero {
+  width: 100%;
+  margin: 0;
+  padding: 4rem 3rem;
+  background: #F4F3EF;
+}
+
+.two-d-design-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.two-d-design-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.two-d-design-hero-text-content {
+  text-align: center;
+  width: 100%;
+}
+
+.hero-headlines {
+  display: flex;
+  flex-direction: row;
+  gap: 10rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2rem;
+}
+
+.hero-title-left {
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: #c72124;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.hero-title-right {
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  flex: 1;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  color: var(--color-text-dark);
+  line-height: 1.8;
+  margin: 0;
+  max-width: 100%;
+  font-weight: 400;
+}
+
+/* Technical Drawings Section */
+.technical-drawings-section {
+  padding: 4rem 2rem;
+  background: #e1e1e1;
+}
+
+.technical-drawings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.drawings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  row-gap: 1rem;
+  width: 100%;
+}
+
+.drawing-panel {
+  background: transparent;
+  border-radius: 0;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.drawing-panel:hover {
+  transform: translateY(-4px);
+}
+
+.drawing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0;
+}
+
+/* Call to Action Section */
+.two-d-design-cta-section {
+  padding: 4rem 2rem;
+  background: #e1e1e1;
+}
+
+.two-d-design-cta-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #F9F9F9;
+  border-radius: 80px;
+  padding: 6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6rem;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.two-d-design-cta-title {
+  font-size: 3.25rem;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  margin: 0;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.two-d-design-cta-button {
+  width: auto;
+  padding: 1.25rem 5rem;
+  border-radius: 50px;
+  font-size: 1.25rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Rubik', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.two-d-design-cta-button.whatsapp-btn {
+  background: #ce5a5c;
+  color: var(--color-white);
+  border: 2px solid #d2d2d2;
+  box-shadow: 0 2px 8px rgba(206, 90, 92, 0.3);
+}
+
+.two-d-design-cta-button.whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(206, 90, 92, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .two-d-design-hero {
+    padding: 3rem 2rem;
+  }
+
+  .hero-title-left {
+    font-size: 3.5rem;
+  }
+
+  .hero-title-right {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .two-d-design-cta-title {
+    font-size: 2.5rem;
+  }
+
+  .two-d-design-cta-container {
+    flex-direction: row;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .two-d-design-hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .hero-headlines {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 0;
+  }
+
+  .hero-title-left,
+  .hero-title-right {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .technical-drawings-section {
+    padding: 2rem 1rem;
+  }
+
+  .drawings-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    row-gap: 1rem;
+  }
+
+  .two-d-design-cta-section {
+    padding: 3rem 1rem;
+  }
+
+  .two-d-design-cta-container {
+    padding: 3rem 2rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    border-radius: 40px;
+  }
+
+  .two-d-design-cta-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .two-d-design-cta-button {
+    width: 100%;
+    min-width: auto;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .two-d-design-hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero-title-left,
+  .hero-title-right {
+    font-size: 1.75rem;
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
+  }
+
+  .technical-drawings-section {
+    padding: 2rem 0.5rem;
+  }
+
+  .drawings-grid {
+    gap: 1rem;
+    row-gap: 0.75rem;
+  }
+
+  .two-d-design-cta-section {
+    padding: 2rem 1rem;
+  }
+
+  .two-d-design-cta-container {
+    padding: 2.5rem 1.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    border-radius: 30px;
+  }
+
+  .two-d-design-cta-title {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  .two-d-design-cta-button {
+    width: 100%;
+    min-width: auto;
+    padding: 0.875rem 2rem;
+    font-size: 0.875rem;
+  }
+}
+
