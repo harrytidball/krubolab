@@ -25,8 +25,8 @@ function Repairs() {
     {
       id: 4,
       image: '/images/repairs-4.png',
-      title: 'Pieza motor limpia parabrisas Ford Escape 2014',
-      description: 'Reconstrucción de engranaje de dientes helicoidales no disponible individualmente. Material: ABS. Medidas: 15 x 15 x 2 cm.'
+      title: 'Brazo de control vertical trípode para cámara fotogáfica',
+      description: 'Reconstrucción completa por rotura en sección, fortalecimiento de la pared anteriormente rota. Material: PLA. Medidas: 6 x 5,5 x 2 cm.'
     }
   ];
 
@@ -84,7 +84,7 @@ function Repairs() {
             {repairs.map((repair) => {
               const parsed = parseDescription(repair.description);
               return (
-                <div key={repair.id} className="repair-card">
+                <div key={repair.id} className={`repair-card ${repair.id === 4 ? 'repair-card-large' : ''}`}>
                   <div className="repair-image">
                     <img 
                       src={repair.image} 

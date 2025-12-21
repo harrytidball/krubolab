@@ -152,7 +152,7 @@
 
 .repair-title {
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 450;
   color: var(--color-text-dark);
   margin: 0;
   line-height: 1.4;
@@ -180,6 +180,10 @@
   line-height: 1.6;
   margin: 0;
   font-weight: 400;
+}
+
+.repair-card-large .repair-title {
+  font-size: 1rem;
 }
 
 /* Call to Action Section */
