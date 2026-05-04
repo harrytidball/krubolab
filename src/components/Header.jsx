@@ -174,16 +174,16 @@ function Header() {
                 <div className="dropdown-item" onClick={() => navigate('/impresion-3d')}>Impresión 3D</div>
                 <div className="dropdown-item" onClick={() => navigate('/corte-laser')}>Corte láser</div>
                 <div className="dropdown-item" onClick={() => navigate('/nuestros-proyectos')}>Nuestros proyectos</div>
-                {/* <div className="dropdown-item">Personalizados</div> */}
+                <div className="dropdown-item" onClick={() => navigate('/diseños-personalizados')}>Personalizados</div>
               </div>
             </div>
             
             <div className="nav-link dropdown-trigger">
               Servicios
               <div className="dropdown-menu">
-                <div className="dropdown-item" onClick={() => navigate('/reparaciones')}>Reparaciones</div>
-                <div className="dropdown-item" onClick={() => navigate('/diseños-personalizados')}>Diseños personalizados</div>
                 <div className="dropdown-item" onClick={() => navigate('/diseño-2d')}>Diseño 2D</div>
+                <div className="dropdown-item" onClick={() => navigate('/diseño-3d')}>Diseño 3D</div>
+                <div className="dropdown-item" onClick={() => navigate('/reparaciones')}>Reparaciones</div>
               </div>
             </div>
             
@@ -302,6 +302,7 @@ function Header() {
                 <a href="/reparaciones" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/reparaciones'); closeMobileMenu(); }}>Reparaciones</a>
                 <a href="/diseños-personalizados" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/diseños-personalizados'); closeMobileMenu(); }}>Diseños personalizados</a>
                 <a href="/diseño-2d" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/diseño-2d'); closeMobileMenu(); }}>Diseño 2D</a>
+                <a href="/diseño-3d" className="mobile-nav-item" onClick={(e) => { e.preventDefault(); navigate('/diseño-3d'); closeMobileMenu(); }}>Diseño 3D</a>
               </div>
             </div>
 

@@ -35,7 +35,7 @@ function ServicesSection() {
               className="service-img"
             />
           </div>
-          <h3 className="service-title">Madera</h3>
+          <h3 className="service-title">Nuestros Proyectos</h3>
         </div>
 
         <div className="service-card">
@@ -46,7 +46,7 @@ function ServicesSection() {
               className="service-img"
             />
           </div>
-          <h3 className="service-title">Piezas mecánicas</h3>
+          <h3 className="service-title">Reparaciones</h3>
         </div>
       </div>
 

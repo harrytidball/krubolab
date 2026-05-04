@@ -26,7 +26,7 @@ function WhyChooseUs() {
                 className="feature-icon"
               />
             </div>
-            <p className="why-choose-us-text">Diseños personalizados</p>
+            <p className="why-choose-us-text">Diseños <br /> personalizados</p>
           </div>
           
           <div className="why-choose-us-item">
@@ -37,7 +37,7 @@ function WhyChooseUs() {
                 className="feature-icon"
               />
             </div>
-            <p className="why-choose-us-text">Entrega garantizada</p>
+            <p className="why-choose-us-text">Entrega <br /> garantizada</p>
           </div>
           
           <div className="why-choose-us-item">

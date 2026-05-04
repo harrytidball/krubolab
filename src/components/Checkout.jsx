@@ -334,6 +334,14 @@ function Checkout() {
     navigate('/');
   };
 
+  const handleEmptyCartGoBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+    navigate('/');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -404,9 +412,17 @@ function Checkout() {
           </div>
           <h2 className="checkout-empty-title">Tu carrito está vacío</h2>
           <p className="checkout-empty-description">Agrega algunos productos antes de proceder al checkout</p>
-          <button onClick={() => navigate('/')} className="checkout-empty-btn">
-            Continuar comprando
-          </button>
+          <div className="checkout-empty-actions">
+            <button type="button" onClick={() => navigate('/')} className="checkout-empty-btn">
+              Continuar comprando
+            </button>
+            <button type="button" onClick={handleEmptyCartGoBack} className="checkout-empty-btn-secondary">
+              <span className="checkout-empty-back-icon" aria-hidden="true">
+                ‹
+              </span>
+              Volver atrás
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -649,110 +665,117 @@ function Checkout() {
               {itemsToDisplay.length > 0 && (
                 <div className="products-section">
                   <h3 className="products-title">Productos</h3>
-                  <div className="products-list">
-                    {itemsToDisplay.map((item, index) => (
-                    <div key={index} className="product-item">
-                      <div 
-                        className="product-image-issue"
-                        onClick={() => navigate(`/producto/${item.id}`)}
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <img src={item.image} alt={item.name} className="checkout-product-image" />
-                      </div>
-                      <div className="product-details">
-                        <h4 className="product-name-checkout">{item.name}</h4>
-                        <div className="product-info">
-                          {isEditingCart ? (
-                            <>
-                              {/* Quantity Controls */}
-                              <div className="product-quantity-controls">
-                                <label className="quantity-label">Cantidad:</label>
-                                <div className="quantity-buttons">
-                                  <button 
-                                    type="button"
-                                    onClick={() => handleQuantityChange(index, (item.tempQuantity || 1) - 1)}
-                                    className="quantity-btn quantity-btn-minus"
-                                  >
-                                    -
-                                  </button>
-                                  <span className="quantity-display">{item.tempQuantity || 1}</span>
-                                  <button 
-                                    type="button"
-                                    onClick={() => handleQuantityChange(index, (item.tempQuantity || 1) + 1)}
-                                    className="quantity-btn quantity-btn-plus"
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              </div>
+                  <div className="checkout-products-list">
+                    {itemsToDisplay.map((item, index) => {
+                      return (
+                        <div key={index} className="checkout-product-row">
+                          <div
+                            className="checkout-product-image-wrap"
+                            onClick={() => navigate(`/producto/${item.id}`)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <img src={item.image} alt={item.name} className="checkout-product-image" />
+                          </div>
+                          <div className="checkout-product-details">
+                            <h4 className="checkout-product-name">{item.name}</h4>
+                            <div className="checkout-product-meta">
+                              {isEditingCart ? (
+                                <>
+                                  {/* Quantity Controls */}
+                                  <div className="product-quantity-controls">
+                                    <label className="quantity-label">Cantidad:</label>
+                                    <div className="quantity-buttons">
+                                      <button
+                                        type="button"
+                                        onClick={() => handleQuantityChange(index, (item.tempQuantity || 1) - 1)}
+                                        className="quantity-btn quantity-btn-minus"
+                                      >
+                                        -
+                                      </button>
+                                      <span className="quantity-display">{item.tempQuantity || 1}</span>
+                                      <button
+                                        type="button"
+                                        onClick={() => handleQuantityChange(index, (item.tempQuantity || 1) + 1)}
+                                        className="quantity-btn quantity-btn-plus"
+                                      >
+                                        +
+                                      </button>
+                                    </div>
+                                  </div>
 
-                              {/* Color Selector */}
-                              {item.colours && item.colours.length > 0 && (
-                                <div className="product-color-selector">
-                                  <label className="color-label">Color:</label>
-                                  <select 
-                                    value={item.tempColor || item.color || ''} 
-                                    onChange={(e) => handleColorChange(index, e.target.value)}
-                                    className="color-select"
-                                  >
-                                    {item.colours.map((color, colorIndex) => (
-                                      <option key={colorIndex} value={color}>
-                                        {color}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
-                              )}
+                                  {/* Color Selector */}
+                                  {item.colours && item.colours.length > 0 && (
+                                    <div className="product-color-selector">
+                                      <label className="color-label">Color:</label>
+                                      <select
+                                        value={item.tempColor || item.color || ''}
+                                        onChange={(e) => handleColorChange(index, e.target.value)}
+                                        className="color-select"
+                                      >
+                                        {item.colours.map((color, colorIndex) => (
+                                          <option key={colorIndex} value={color}>
+                                            {color}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  )}
 
-                              {/* Size Selector */}
-                              {item.measurements && item.measurements.length > 0 && (
-                                <div className="product-size-selector">
-                                  <label className="size-label">Tamaño:</label>
-                                  <select 
-                                    value={item.tempSize || item.size || ''} 
-                                    onChange={(e) => handleSizeChange(index, e.target.value)}
-                                    className="size-select"
-                                  >
-                                    {item.measurements.map((measurement, measurementIndex) => (
-                                      <option key={measurementIndex} value={measurement}>
-                                        {measurement}
-                                      </option>
-                                    ))}
-                                  </select>
-                                </div>
+                                  {/* Size Selector */}
+                                  {item.measurements && item.measurements.length > 0 && (
+                                    <div className="product-size-selector">
+                                      <label className="size-label">Tamaño:</label>
+                                      <select
+                                        value={item.tempSize || item.size || ''}
+                                        onChange={(e) => handleSizeChange(index, e.target.value)}
+                                        className="size-select"
+                                      >
+                                        {item.measurements.map((measurement, measurementIndex) => (
+                                          <option key={measurementIndex} value={measurement}>
+                                            {measurement}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  )}
+                                </>
+                              ) : (
+                                <>
+                                  {item.quantity > 1 && (
+                                    <span className="product-price-checkout">
+                                      Precio por unidad: {formatPrice(item.price)}
+                                    </span>
+                                  )}
+                                  {item.size && item.size.length > 0 && (
+                                    <span className="product-size">
+                                      Medidas: {item.size}
+                                    </span>
+                                  )}
+                                  {item.color && item.color.length > 0 && (
+                                    <span className="product-color">
+                                      Color: {item.color}
+                                    </span>
+                                  )}
+                                  <span className="product-quantity">
+                                    Cantidad: <b>{item.quantity}</b>
+                                  </span>
+                                </>
                               )}
-                            </>
-                          ) : (
-                            <>
-                              {item.quantity > 1 && (
-                                <span className="product-price-checkout">
-                                  Precio por unidad: {formatPrice(item.price)}
-                                </span>
+                            </div>
+                            <div className="checkout-product-line-total">
+                              {formatPrice(
+                                (typeof item.price === 'string'
+                                  ? parseFloat(item.price.replace(/\./g, ''))
+                                  : item.price) *
+                                  (isEditingCart ? item.tempQuantity || 1 : item.quantity || 1)
                               )}
-                              {item.size && item.size.length > 0 && (
-                                <span className="product-size">
-                                  Medidas: {item.size}
-                                </span>
-                              )}
-                              {item.color && item.color.length > 0 && (
-                                <span className="product-color">
-                                  Color: {item.color}
-                                </span>
-                              )}
-                              <span className="product-quantity">
-                                Cantidad: <b>{item.quantity}</b>
-                              </span>
-                            </>
-                          )}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="product-total">
-                        {formatPrice((typeof item.price === 'string' ? parseFloat(item.price.replace(/\./g, '')) : item.price) * (isEditingCart ? (item.tempQuantity || 1) : (item.quantity || 1)))}
-                      </div>
-                    </div>
-                  ))}
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
               )}
             </div>
           </div>

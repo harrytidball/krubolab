@@ -209,12 +209,53 @@
 
   .our-projects-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 0 1rem;
+    gap: 0.75rem;
+    padding: 0;
   }
 
   .our-projects-grid .product-card {
-    margin: 0.5rem;
+    margin: 0;
+    min-height: auto;
+  }
+
+  .our-projects-grid .product-image {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .our-projects-grid .workshop-product-info {
+    padding: 0;
+  }
+
+  .our-projects-grid .workshop-product-title {
+    display: -webkit-box;
+    margin: 0 0 0.25rem;
+    overflow: hidden;
+    font-size: 0.9rem;
+    line-height: 1.25;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .our-projects-grid .workshop-product-price {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .our-projects-grid .workshop-product-actions {
+    margin-top: 0.15rem;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .our-projects-grid .action-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .our-projects-grid .action-btn img {
+    width: 16px;
+    height: 16px;
   }
 
   .our-projects-cta {
@@ -258,13 +299,31 @@
   }
 
   .our-projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 0 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+    padding: 0;
   }
 
   .our-projects-grid .product-card {
-    margin: 0.5rem;
+    margin: 0;
+  }
+
+  .our-projects-grid .workshop-product-title {
+    font-size: 0.8rem;
+  }
+
+  .our-projects-grid .workshop-product-price {
+    font-size: 0.85rem;
+  }
+
+  .our-projects-grid .action-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .our-projects-grid .action-btn img {
+    width: 15px;
+    height: 15px;
   }
 
   .our-projects-cta {
