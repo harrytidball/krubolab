@@ -1,0 +1,185 @@
+.sticker-page {
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: 'Rubik', sans-serif;
+  overflow-x: hidden;
+}
+
+.sticker-main {
+  width: 100%;
+  background: #ffffff;
+}
+
+.sticker-image-wrap-top {
+  background: #000000;
+}
+
+.sticker-image-wrap-bottom {
+  background: #ffffff;
+}
+
+.sticker-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.sticker-top-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+.sticker-cta {
+  width: 100%;
+  background: #ffffff;
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.sticker-cta-text {
+  margin: 0;
+  max-width: 1100px;
+  text-align: center;
+  font-size: clamp(0.7rem, 1.55vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.sticker-cta-amount {
+  color: #c72124;
+}
+
+.sticker-cta-buttons {
+  width: 100%;
+  max-width: 920px;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.sticker-cta-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c72124;
+  color: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 1.1rem 1.5rem;
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sticker-cta-button:hover {
+  background: #a81b1e;
+  transform: translateY(-1px);
+}
+
+.sticker-prize-banner {
+  background: #111111;
+  color: #ffffff;
+  padding: 2rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.sticker-prize-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sticker-prize-kicker,
+.sticker-prize-highlight,
+.sticker-prize-amount {
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sticker-prize-kicker {
+  font-size: 1.15rem;
+  color: #ffffff;
+}
+
+.sticker-prize-highlight {
+  font-size: 1.35rem;
+  color: #c72124;
+  line-height: 1.2;
+}
+
+.sticker-prize-amount {
+  font-size: 2.75rem;
+  color: #c72124;
+  line-height: 1;
+}
+
+.sticker-prize-divider {
+  width: 48px;
+  height: 2px;
+  background: #ffffff;
+}
+
+.sticker-prize-legal {
+  background: #ffffff;
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sticker-prize-disclaimer {
+  margin: 0;
+  max-width: 36rem;
+  text-align: center;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: #111111;
+}
+
+.sticker-prize-logo {
+  width: 140px;
+  height: auto;
+}
+
+@media (max-width: 1024px) {
+  .sticker-cta {
+    padding: 1.25rem 1rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .sticker-cta-text {
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  .sticker-cta-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .sticker-cta-button {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1.125rem;
+    border-radius: 12px;
+  }
+}

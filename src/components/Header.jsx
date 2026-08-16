@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchResults from './SearchResults';
+import { STICKERS } from '../data/stickers';
 
 function Header() {
   const navigate = useNavigate();
@@ -169,6 +170,21 @@ function Header() {
           {/* Navigation */}
           <nav className={`nav-section ${isSearchActive ? 'hidden' : ''}`}>
             <div className="nav-link dropdown-trigger">
+              Stickers
+              <div className="dropdown-menu">
+                {STICKERS.map((sticker) => (
+                  <div
+                    key={sticker.slug}
+                    className="dropdown-item"
+                    onClick={() => navigate(sticker.path)}
+                  >
+                    {sticker.label}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="nav-link dropdown-trigger">
               Productos
               <div className="dropdown-menu">
                 <div className="dropdown-item" onClick={() => navigate('/impresion-3d')}>Impresión 3D</div>
@@ -286,6 +302,26 @@ function Header() {
 
           {/* Mobile Navigation */}
           <nav className="mobile-nav">
+            <div className="mobile-nav-section">
+              <h3 className="mobile-nav-title">Stickers</h3>
+              <div className="mobile-nav-items">
+                {STICKERS.map((sticker) => (
+                  <a
+                    key={sticker.slug}
+                    href={sticker.path}
+                    className="mobile-nav-item"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(sticker.path);
+                      closeMobileMenu();
+                    }}
+                  >
+                    {sticker.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
             <div className="mobile-nav-section">
               <h3 className="mobile-nav-title">Productos</h3>
               <div className="mobile-nav-items">

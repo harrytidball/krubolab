@@ -19,6 +19,7 @@ import Repairs from './components/Repairs';
 import Personalized from './components/Personalized';
 import TwoDDesign from './components/TwoDDesign';
 import ThreeDDesign from './components/ThreeDDesign';
+import StickerPage from './components/StickerPage';
 import NotFound from './components/NotFound';
 
 function App() {
@@ -98,6 +99,14 @@ function App() {
           <Route 
             path="/diseño-3d" 
             element={<ThreeDDesign />}
+          />
+          <Route 
+            path="/stickers" 
+            element={<Navigate to="/stickers/stickercrea" replace />}
+          />
+          <Route 
+            path="/stickers/:slug" 
+            element={<StickerPage />}
           />
           <Route 
             path="/producto/:id" 
