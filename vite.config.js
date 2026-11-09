@@ -25,7 +25,7 @@ function loadDevVars() {
     })
     
     return vars
-  } catch (error) {
+  } catch {
     return {}
   }
 }
@@ -90,7 +90,7 @@ export default defineConfig({
                   res.writeHead(401, { 'Content-Type': 'application/json' })
                   res.end(JSON.stringify({ error: 'Invalid password' }))
                 }
-              } catch (error) {
+              } catch {
                 res.writeHead(400, { 'Content-Type': 'application/json' })
                 res.end(JSON.stringify({ error: 'Invalid request body' }))
               }

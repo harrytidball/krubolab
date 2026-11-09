@@ -36,7 +36,7 @@ function FeaturedWorks() {
               <div className="featured-product-image">
                 <img 
                   src={product.image} 
-                  alt={`${product.name} ${product.description}`}
+                  alt={product.name}
                   className="featured-product-img"
                 />
               </div>

@@ -22,6 +22,7 @@ import ThreeDDesign from './components/ThreeDDesign';
 import StickerPage from './components/StickerPage';
 import NotFound from './components/NotFound';
 import RouteTracker from './components/RouteTracker';
+import PageMeta from './components/PageMeta';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -46,6 +47,7 @@ function App() {
 
   return (
     <Router>
+      <PageMeta />
       <RouteTracker />
       <div className="App">
         <Routes>

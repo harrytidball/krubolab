@@ -11,7 +11,7 @@ function Footer() {
             <div className="footer-item">
               <img 
                 src="/images/location-pin.svg" 
-                alt="Location" 
+                alt="" 
                 className="footer-icon"
               />
               <span>Cra. 18 #6-19 Sogamoso, Boyacá</span>
@@ -19,7 +19,7 @@ function Footer() {
             <div className="footer-item">
               <img 
                 src="/images/instagram-icon.svg" 
-                alt="Instagram" 
+                alt="" 
                 className="footer-icon"
               />
               <span>Krubolab</span>
@@ -27,7 +27,7 @@ function Footer() {
             <div className="footer-item">
               <img 
                 src="/images/whatsapp-icon.svg" 
-                alt="WhatsApp" 
+                alt="" 
                 className="footer-icon"
               />
               <span>304 245 0295</span>
@@ -35,7 +35,7 @@ function Footer() {
             <div className="footer-item">
               <img 
                 src="/images/email-icon.svg" 
-                alt="Email" 
+                alt="" 
                 className="footer-icon"
               />
               <span>krubolab@gmail.com</span>
@@ -68,7 +68,7 @@ function Footer() {
             >
               <img 
                 src="/images/instagram-icon.svg" 
-                alt="Instagram" 
+                alt="Instagram de Krubo" 
                 className="footer-social-icon"
               />
             </a>
@@ -80,7 +80,7 @@ function Footer() {
             >
               <img 
                 src="/images/facebook-icon.svg" 
-                alt="Facebook" 
+                alt="Facebook de Krubo" 
                 className="footer-social-icon"
               />
             </a>

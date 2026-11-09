@@ -21,7 +21,7 @@ function Orders() {
       setLoading(true);
       const data = await dashboardService.getOrders();
       setOrders(data);
-    } catch (err) {
+    } catch {
       setError('Error al cargar pedidos');
     } finally {
       setLoading(false);
@@ -127,28 +127,11 @@ function Orders() {
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const currentOrders = sortedOrders.slice(indexOfFirstOrder, indexOfLastOrder);
-  const totalPages = Math.ceil(sortedOrders.length / ordersPerPage);
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Reset to first page when search changes
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
-
-  const updateOrderStatus = async (id, newStatus) => {
-    try {
-      await dashboardService.updateOrderStatus(id, newStatus);
-      setOrders(orders.map(o => 
-        o.id === id ? { ...o, status: newStatus } : o
-      ));
-      setError('');
-    } catch (err) {
-      setError('Error al actualizar el estado del pedido');
-      console.error('Error updating order status:', err);
-    }
-  };
 
   if (loading) {
     return (

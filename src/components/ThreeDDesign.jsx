@@ -3,18 +3,18 @@ import Header from './Header';
 import Footer from './Footer';
 import './ThreeDDesign.css';
 
+// Carousel slides based on orden-de-aparición.jpg
+const carouselSlides = [
+  ['/images/design-3d/8.1.png', '/images/design-3d/8.2.png', '/images/design-3d/8.3.png'],
+  ['/images/design-3d/9.1.png', '/images/design-3d/9.2.png', '/images/design-3d/9.3.png'],
+  ['/images/design-3d/10.1.png', '/images/design-3d/10.2.png'],
+  ['/images/design-3d/11.1.png', '/images/design-3d/11.2.png', '/images/design-3d/11.3.png']
+];
+
 function ThreeDDesign() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-
-  // Carousel slides based on orden-de-aparición.jpg
-  const carouselSlides = [
-    ['/images/design-3d/8.1.png', '/images/design-3d/8.2.png', '/images/design-3d/8.3.png'],
-    ['/images/design-3d/9.1.png', '/images/design-3d/9.2.png', '/images/design-3d/9.3.png'],
-    ['/images/design-3d/10.1.png', '/images/design-3d/10.2.png'],
-    ['/images/design-3d/11.1.png', '/images/design-3d/11.2.png', '/images/design-3d/11.3.png']
-  ];
 
   // Flatten all images for mobile carousel
   const allImages = carouselSlides.flat();
@@ -161,7 +161,7 @@ function ThreeDDesign() {
               <div key={index} className="three-d-design-connector-card">
                 <img 
                   src={image} 
-                  alt={`Conector ${index + 1}`}
+                  alt={`Modelo 3D de conector de cables de subestación de alta tensión, vista ${index + 1}`}
                   className="three-d-design-connector-image"
                 />
               </div>
@@ -189,7 +189,7 @@ function ThreeDDesign() {
                 <div className="three-d-design-model-example-image-wrapper">
                   <img 
                     src={item.image} 
-                    alt={item.title || `Modelo 3D ${index + 4}`}
+                    alt={item.title ? `${item.title}${item.subtitle ? ` - ${item.subtitle}` : ''}` : `Modelo 3D ${index + 4}`}
                     className={`three-d-design-model-example-image ${index >= 2 ? 'three-d-design-model-example-image-small' : ''}`}
                   />
                 </div>
@@ -227,7 +227,7 @@ function ThreeDDesign() {
                     <div className="three-d-design-carousel-image-wrapper">
                       <img 
                         src={allImages[currentImageIndex]} 
-                        alt={`Carousel imagen ${currentImageIndex + 1}`}
+                        alt={`Proyecto de diseño y modelado 3D, imagen ${currentImageIndex + 1}`}
                         className="three-d-design-carousel-image"
                       />
                     </div>
@@ -246,7 +246,7 @@ function ThreeDDesign() {
                       <div className="three-d-design-carousel-image-wrapper">
                         <img 
                           src={image} 
-                          alt={`Carousel slide ${currentSlide + 1} imagen ${index + 1}`}
+                          alt={`Proyecto de diseño y modelado 3D, grupo ${currentSlide + 1} imagen ${index + 1}`}
                           className="three-d-design-carousel-image"
                         />
                       </div>
@@ -305,7 +305,7 @@ function ThreeDDesign() {
               <div key={index} className="first-aid-kit-card">
                 <img 
                   src={image} 
-                  alt={`Botiquín modulable ${index + 1}`}
+                  alt={`Botiquín de primeros auxilios modulable para vehículos de transporte, vista ${index + 1}`}
                   className="first-aid-kit-image"
                 />
               </div>
@@ -325,7 +325,7 @@ function ThreeDDesign() {
               <div key={index} className="context-render-card">
                 <img 
                   src={image} 
-                  alt={`Render en contexto ${index + 1}`}
+                  alt={`Render en contexto de un producto diseñado por Krubo, imagen ${index + 1}`}
                   className="context-render-image"
                 />
               </div>

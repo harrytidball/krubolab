@@ -26,12 +26,6 @@ function StickerPage() {
     if (!sticker) return;
 
     window.scrollTo(0, 0);
-    const previousTitle = document.title;
-    document.title = `${sticker.label} | Stickers | Krubo`;
-
-    return () => {
-      document.title = previousTitle;
-    };
   }, [sticker]);
 
   if (!sticker) {

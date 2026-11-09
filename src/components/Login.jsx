@@ -32,7 +32,7 @@ function Login({ onLogin }) {
       } else {
         setError('Contraseña inválida');
       }
-    } catch (err) {
+    } catch {
       setError('Error de conexión. Por favor intenta de nuevo.');
     } finally {
       setIsLoading(false);

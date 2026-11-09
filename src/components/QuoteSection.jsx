@@ -5,7 +5,7 @@ function QuoteSection() {
         <div className="quote-robot">
           <img 
             src="/images/krubot-robot-2.png" 
-            alt="Krubot - Robot for quotes" 
+            alt="Krubot, el robot de Krubo, listo para cotizar tu proyecto" 
             className="quote-robot-image"
           />
         </div>

@@ -10,6 +10,7 @@ function Favourites() {
 
   useEffect(() => {
     loadFavourites();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadFavourites = () => {
@@ -41,7 +42,7 @@ function Favourites() {
         setFavourites([]);
         setSubtotal(0);
       }
-    } catch (error) {
+    } catch {
       // On error, set empty array
       setFavourites([]);
       setSubtotal(0);
@@ -135,7 +136,7 @@ function Favourites() {
       if (favourites.length === 1) {
         navigate('/carrito');
       }
-    } catch (error) {
+    } catch {
       // Error handling for cart operations
       showToast('Error al añadir al carrito', 'error');
     }
@@ -172,7 +173,7 @@ function Favourites() {
       
       // Navigate to checkout after adding all items
       navigate('/carrito');
-    } catch (error) {
+    } catch {
       // Error handling for cart operations
     }
   };
@@ -254,7 +255,7 @@ function Favourites() {
                         >
                           <img 
                             src="/images/favorito-filled.svg" 
-                            alt="Remove from favourites" 
+                            alt="Quitar de favoritos" 
                             width="20" 
                             height="20"
                           />
@@ -282,7 +283,7 @@ function Favourites() {
                         >
                           <img 
                             src="/images/cart.svg" 
-                            alt="Add to cart" 
+                            alt="Añadir al carrito" 
                             width="20" 
                             height="20"
                           />
@@ -310,7 +311,7 @@ function Favourites() {
                 >
                   <img 
                     src="/images/cart.svg" 
-                    alt="Shopping cart" 
+                    alt="Carrito" 
                     width="20" 
                     height="20"
                   />

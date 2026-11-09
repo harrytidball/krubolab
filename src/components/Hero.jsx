@@ -7,7 +7,7 @@ function Hero() {
         <div className="hero-robot">
           <img 
             src="/images/krubot-robot.png" 
-            alt="Krubot - Friendly Robot" 
+            alt="Krubot, el robot de Krubo" 
             className="robot-image"
           />
         </div>

@@ -148,7 +148,7 @@ function Header() {
             <a href="/" className="logo-link">
               <img 
                 src="/images/krubo-logo.png" 
-                alt="KRUBO Logo" 
+                alt="Krubo, laboratorio de diseño" 
                 className="logo-image"
               />
             </a>
@@ -219,7 +219,7 @@ function Header() {
             <button className="icon-btn heart-btn" onClick={() => navigate('/favoritos')}>
               <img 
                 src="/images/favorito.svg" 
-                alt="Favorito" 
+                alt="Favoritos" 
                 width="24" 
                 height="24"
               />
@@ -230,7 +230,7 @@ function Header() {
             <button className="icon-btn cart-btn" onClick={handleCartClick}>
               <img 
                 src="/images/cart.svg" 
-                alt="Shopping Cart" 
+                alt="Carrito" 
                 width="24" 
                 height="24"
               />
@@ -255,11 +255,11 @@ function Header() {
               <button 
                 className="header-x-btn" 
                 onClick={clearSearch}
-                aria-label="Clear search"
+                aria-label="Borrar búsqueda"
               >
                 <img 
                   src="/images/x.svg" 
-                  alt="Clear search" 
+                  alt="" 
                   width="18" 
                   height="18"
                 />
@@ -283,11 +283,11 @@ function Header() {
             <button 
               className="mobile-search-clear-btn" 
               onClick={clearSearch}
-              aria-label="Clear search"
+              aria-label="Borrar búsqueda"
             >
               <img 
                 src="/images/x.svg" 
-                alt="Clear search" 
+                alt="" 
                 width="18" 
                 height="18"
               />

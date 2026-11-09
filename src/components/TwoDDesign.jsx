@@ -1,11 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import './TwoDDesign.css';
 
 function TwoDDesign() {
-  const navigate = useNavigate();
-
   const designImages = [
     '/images/design-2d/1.png',
     '/images/design-2d/2.jpg',
@@ -17,10 +14,6 @@ function TwoDDesign() {
 
   const handleWhatsApp = () => {
     window.open('https://wa.me/573042450295?text=Hola, me gustaría hablar sobre diseño 2D y planos técnicos', '_blank');
-  };
-
-  const handleGoBack = () => {
-    navigate(-1);
   };
 
   return (
@@ -52,7 +45,7 @@ function TwoDDesign() {
               <div key={index} className="drawing-panel">
                 <img 
                   src={image} 
-                  alt={`Diseño técnico ${index + 1}`}
+                  alt={`Plano técnico de diseño 2D, ejemplo ${index + 1}`}
                   className="drawing-image"
                 />
               </div>

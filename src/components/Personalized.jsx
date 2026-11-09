@@ -127,7 +127,7 @@ function Personalized() {
                       <div className="project-image-wrapper">
                         <img 
                           src={image} 
-                          alt={`Proyecto personalizado ${currentSlide * imagesPerSlide + index + 1}`}
+                          alt={`Producto personalizado hecho por Krubo, ejemplo ${currentSlide * imagesPerSlide + index + 1}`}
                           className="project-image"
                         />
                       </div>

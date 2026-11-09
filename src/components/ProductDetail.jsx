@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { dashboardService } from '../services/apiService';
 import Header from './Header';
+import { applyMeta } from '../utils/seoMeta';
 import Footer from './Footer';
 import './ProductDetail.css';
 
@@ -76,7 +77,7 @@ const getFavoritesFromStorage = () => {
       return [];
     }
     return favorites;
-  } catch (error) {
+  } catch {
     return [];
   }
 };
@@ -85,7 +86,7 @@ const getCartFromStorage = () => {
   try {
     const stored = localStorage.getItem('krubolab-cart');
     return stored ? JSON.parse(stored) : [];
-  } catch (error) {
+  } catch {
     return [];
   }
 };
@@ -94,7 +95,7 @@ const saveCartToStorage = (cart) => {
   try {
     localStorage.setItem('krubolab-cart', JSON.stringify(cart));
     window.dispatchEvent(new CustomEvent('cartChanged'));
-  } catch (error) {
+  } catch {
     // Silent fail
   }
 };
@@ -153,6 +154,13 @@ function ProductDetail() {
         }
         
         setProduct(foundProduct);
+        applyMeta(
+          {
+            title: `${foundProduct.name} | Krubo`,
+            description: (foundProduct.description || `${foundProduct.name} en Krubo, laboratorio de diseño.`).slice(0, 160),
+          },
+          `/producto/${id}`
+        );
         
         // Set default selections
         if (foundProduct.colours && foundProduct.colours.length > 0) {
@@ -161,7 +169,7 @@ function ProductDetail() {
         if (foundProduct.measurements && foundProduct.measurements.length > 0) {
           setSelectedMeasurement(foundProduct.measurements[0]);
         }
-      } catch (error) {
+      } catch {
         navigate('/404', { replace: true });
       } finally {
         setLoading(false);
@@ -231,38 +239,6 @@ function ProductDetail() {
     setToastMessage(`${product.name} agregado al carrito`);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
-  };
-
-  const toggleFavorite = () => {
-    if (!product) return;
-    
-    const isCurrentlyFavorite = favorites.some(fav => fav.id === product.id);
-    
-    if (isCurrentlyFavorite) {
-      const updatedFavorites = favorites.filter(fav => fav.id !== product.id);
-      setFavorites(updatedFavorites);
-      localStorage.setItem('krubolab-favorites', JSON.stringify(updatedFavorites));
-      window.dispatchEvent(new CustomEvent('favoritesChanged'));
-    } else {
-      const favoriteItem = {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: 1,
-        color: selectedColor || (product.colours && product.colours.length > 0 ? product.colours[0] : ''),
-        size: selectedMeasurement || (product.measurements && product.measurements.length > 0 ? product.measurements[0] : ''),
-        image: product.images && product.images.length > 0 ? product.images[0] : '',
-        description: product.description
-      };
-      const updatedFavorites = [...favorites, favoriteItem];
-      setFavorites(updatedFavorites);
-      localStorage.setItem('krubolab-favorites', JSON.stringify(updatedFavorites));
-      window.dispatchEvent(new CustomEvent('favoritesChanged'));
-    }
-  };
-
-  const isFavorite = () => {
-    return favorites.some(fav => fav.id === product?.id);
   };
 
   const getRecommendedProducts = () => {
@@ -386,7 +362,6 @@ function ProductDetail() {
   }
 
   const recommendedProducts = getRecommendedProducts();
-  const isProductFavorite = isFavorite();
 
   return (
     <>

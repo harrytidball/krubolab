@@ -4,8 +4,8 @@ import { dashboardService } from '../services/apiService';
 
 function SearchResults({ searchQuery, isActive, onClose, searchValue, onSearchChange }) {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
-  const [services, setServices] = useState([]);
+  const [, setProducts] = useState([]);
+  const [, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
@@ -71,7 +71,7 @@ function SearchResults({ searchQuery, isActive, onClose, searchValue, onSearchCh
       } else {
         setShowNoResults(false);
       }
-    } catch (error) {
+    } catch {
       setFilteredProducts([]);
       setFilteredServices([]);
       setShowNoResults(false);
@@ -113,7 +113,7 @@ function SearchResults({ searchQuery, isActive, onClose, searchValue, onSearchCh
             >
               <img 
                 src="/images/x.svg" 
-                alt="Clear search" 
+                alt="Borrar búsqueda" 
                 width="18" 
                 height="18"
               />

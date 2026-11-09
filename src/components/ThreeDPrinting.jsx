@@ -29,7 +29,7 @@ const getFavoritesFromStorage = () => {
     }
     
     return favorites;
-  } catch (error) {
+  } catch {
     return [];
   }
 };
@@ -38,7 +38,7 @@ const getFavoritesFromStorage = () => {
 const saveFavoritesToStorage = (favorites) => {
   try {
     localStorage.setItem('krubolab-favorites', JSON.stringify(favorites));
-  } catch (error) {
+  } catch {
     // Handle error silently
   }
 };
@@ -48,7 +48,7 @@ const getCartFromStorage = () => {
   try {
     const stored = localStorage.getItem('krubolab-cart');
     return stored ? JSON.parse(stored) : [];
-  } catch (error) {
+  } catch {
     return [];
   }
 };
@@ -57,7 +57,7 @@ const getCartFromStorage = () => {
 const saveCartToStorage = (cart) => {
   try {
     localStorage.setItem('krubolab-cart', JSON.stringify(cart));
-  } catch (error) {
+  } catch {
     // Handle error silently
   }
 };
@@ -120,7 +120,7 @@ function ThreeDPrinting() {
         });
         setImageLoading(initialImageLoading);
         setLoading(false);
-      } catch (error) {
+      } catch {
         setLoading(false);
       }
     };

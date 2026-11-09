@@ -4,7 +4,7 @@ import { dashboardService } from '../services/apiService';
 import './Checkout.css';
 
 function Checkout() {
-  const [cartItems, setCartItems] = useState([]);
+  const [, setCartItems] = useState([]);
   const [enrichedCartItems, setEnrichedCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditingCart, setIsEditingCart] = useState(false);
@@ -387,7 +387,7 @@ function Checkout() {
         state: { orderData: order } 
       });
       
-    } catch (error) {
+    } catch {
       alert('Error al procesar el pedido. Por favor, inténtalo de nuevo.');
     }
   };
