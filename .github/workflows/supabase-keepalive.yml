@@ -1,10 +1,10 @@
 name: Supabase keepalive
 
-# Supabase pauses free-tier projects after 7 days of inactivity.
-# A cheap read twice a week keeps the project active.
+# Supabase pauses free-tier projects that don't see sufficient activity for 7 days.
+# A few cheap reads every day keeps the project active.
 on:
   schedule:
-    - cron: '0 9 * * 1,4'
+    - cron: '0 9 * * *'
   workflow_dispatch:
 
 jobs:
@@ -16,7 +16,11 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          curl --fail --silent --show-error \
-            "$SUPABASE_URL/rest/v1/products?select=id&limit=1" \
-            -H "apikey: $SUPABASE_ANON_KEY" \
-            -H "Authorization: Bearer $SUPABASE_ANON_KEY"
+          for table in products services orders; do
+            echo "Querying $table"
+            curl --fail --silent --show-error \
+              "$SUPABASE_URL/rest/v1/$table?select=id&limit=5" \
+              -H "apikey: $SUPABASE_ANON_KEY" \
+              -H "Authorization: Bearer $SUPABASE_ANON_KEY"
+            echo
+          done
