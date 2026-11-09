@@ -21,6 +21,7 @@ import TwoDDesign from './components/TwoDDesign';
 import ThreeDDesign from './components/ThreeDDesign';
 import StickerPage from './components/StickerPage';
 import NotFound from './components/NotFound';
+import RouteTracker from './components/RouteTracker';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -45,6 +46,7 @@ function App() {
 
   return (
     <Router>
+      <RouteTracker />
       <div className="App">
         <Routes>
           <Route 

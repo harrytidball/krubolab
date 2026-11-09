@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /administrador
+Disallow: /panel
+Disallow: /confirmacion
+Disallow: /carrito
+Disallow: /sitio
+
+Sitemap: https://krubolab.com/sitemap.xml
